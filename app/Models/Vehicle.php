@@ -11,14 +11,14 @@ class Vehicle extends Model
     use HasFactory, SoftDeletes;
 
     public $timestamps = true;
-    protected $fillable = ['manufacture_id', 'brand', 'slug', 'model', 'year', 'ports', 'price', 'mileage', 'release_date', 'description'];
+    protected $fillable = ['manufacture_id', 'brand', 'slug', 'model', 'year', 'ports', 'price', 'mileage', 'quantity', 'release_date', 'description'];
 
     public function colors(){
     	return $this->belongsToMany(Color::class);
     }
 
-    public function manufacture(){
-    	return $this->belongsTo(Manufacture::class);
+    public function manufacturer(){
+    	return $this->belongsTo(Manufacturer::class);
     }
 
     public function categories(){

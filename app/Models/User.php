@@ -54,6 +54,20 @@ class User extends Authenticatable
         return $this->hasMany(Request::class);
     }
 
+    // ACL
+
+    public function hasAnyRoles($roles) : bool{
+        if(is_object($roles) || is_array($roles)):
+            return (bool) $roles->intersect($this->roles)->count();
+        endif;
+
+        return $this->roles->contains('name', $roles);
+    }
+
+    public function hasPermission(Permission $permission) : bool{
+        return $this->hasAnyRoles($permission->roles);
+    }
+
     // AdminLTE
 
     public function adminlte_image()
@@ -61,5 +75,10 @@ class User extends Authenticatable
         if(!is_null($this->image)) return asset('assets/images/anonimo.png');
 
         return asset('assets/images/anonimo.png');
+    }
+
+    public function adminlte_desc()
+    {
+        return $this->email;
     }
 }

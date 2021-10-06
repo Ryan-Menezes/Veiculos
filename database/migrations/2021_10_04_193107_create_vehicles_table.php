@@ -15,7 +15,7 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('manufacture_id')->unsigned();
+            $table->integer('manufacturer_id')->unsigned();
             $table->string('brand', 100)->unique();
             $table->string('slug')->unique();
             $table->string('model', 100);
@@ -23,12 +23,13 @@ class CreateVehiclesTable extends Migration
             $table->tinyInteger('ports')->unsigned();
             $table->decimal('price', 10, 2);
             $table->smallInteger('mileage')->unsigned();
+            $table->smallInteger('quantity')->unsigned();
             $table->timestamp('release_date')->nullable();
             $table->mediumText('description');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('manufacture_id')->references('id')->on('manufactures')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
 
@@ -40,7 +41,7 @@ class CreateVehiclesTable extends Migration
     public function down()
     {
         Schema::table('vehicles', function (Blueprint $table) {
-            $table->dropForeign('vehicles_manufacture_id_foreign');
+            $table->dropForeign('vehicles_manufacturer_id_foreign');
         });
 
         Schema::dropIfExists('vehicles');

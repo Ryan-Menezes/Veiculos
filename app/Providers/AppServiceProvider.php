@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        Route::resourceVerbs([
+            'create'    => 'novo',
+            'store'     => 'salvar',
+            'edit'      => 'editar',
+            'update'    => 'atualizar',
+            'destroy'   => 'delete',
+            'show'      => 'visualizar'
+        ]);
     }
 }

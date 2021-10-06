@@ -20,6 +20,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => 'painel', 'middleware' => 'auth', 'name' => 'panel.'], function(){
-	Route::get('/', [PanelController::class, 'index'])->name('index');	
+Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
+	Route::get('/', [PanelController::class, 'index'])->name('panel.index');	
 });

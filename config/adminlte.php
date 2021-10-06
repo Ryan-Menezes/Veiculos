@@ -68,7 +68,7 @@ return [
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-danger',
     'usermenu_image' => true,
-    'usermenu_desc' => false,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -251,31 +251,43 @@ return [
             'text'        => 'Usuários',
             'url'         => 'painel/usuarios',
             'icon'        => 'fas fa-users',
+            'can'         => 'view.users',
         ],
         [
             'text'        => 'Veiculos',
             'url'         => 'painel/veiculos',
             'icon'        => 'fas fa-car',
+            'can'         => 'view.vehicles',            
+        ],
+        [
+            'text'        => 'Fabricantes',
+            'url'         => 'painel/fabricantes',
+            'icon'        => 'fas fa-industry',
+            'can'         => 'view.manufacturers',            
         ],
         [
             'text'        => 'Descontos',
             'url'         => 'painel/descontos',
             'icon'        => 'fas fa-percent',
+            'can'         => 'view.discounts',
         ],
         [
             'text'        => 'Pedidos',
             'url'         => 'painel/pedidos',
             'icon'        => 'fas fa-list-alt',
+            'can'         => 'view.requests',
         ],
         [
             'text'        => 'Funções',
             'url'         => 'painel/funcoes',
             'icon'        => 'fas fa-user-tag',
+            'can'         => 'view.roles',
         ],
         [
             'text'        => 'Permissões',
             'url'         => 'painel/permissoes',
             'icon'        => 'fas fa-lock',
+            'can'         => 'view.permissions',
         ],
     ],
 

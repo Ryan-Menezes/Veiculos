@@ -8,7 +8,7 @@ use App\Models\{
 	User,
 	Vehicle,
 	Discount,
-	Manufacture,
+	Manufacturer,
 	Request as RequestVeh,
 	Role,
 	Permission,
@@ -18,6 +18,17 @@ use App\Models\{
 class PanelController extends Controller
 {
     public function index(){
-    	return view('panel.index');
+    	$data = [
+    		'amountUsers' 			=> User::count(),
+    		'amountVehicles' 		=> Vehicle::count(),
+    		'amountManufacturers' 	=> Manufacturer::count(),
+    		'amountDiscounts' 		=> Discount::count(),
+    		'amountRequests' 		=> RequestVeh::count(),
+    		'amountRoles' 			=> Role::count(),
+    		'amountPermissions' 	=> Permission::count(),
+    		'amountCategories' 		=> Category::count()
+    	];
+
+    	return view('panel.index', $data);
     }
 }
