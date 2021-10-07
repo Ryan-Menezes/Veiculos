@@ -1,0 +1,22 @@
+.loading{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+.loading .load{
+	width: 20px;
+	height: 20px;
+	border: 2px solid #e3e3e3;
+	border-right: 2px solid #DC3545;
+	border-radius: 50%;
+	animation: loading 1s linear infinite;
+}
+
+@keyframes loading{
+	to{transform: rotate(360deg);}
+}
+
+.image-table{
+	width: 40px;
+}

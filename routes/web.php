@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Panel\PanelController;
+use App\Http\Controllers\Panel\{
+	PanelController,
+	UserController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +24,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
-	Route::get('/', [PanelController::class, 'index'])->name('panel.index');	
+	Route::get('/', [PanelController::class, 'index'])->name('panel');
+
+	// USERS
+	Route::group(['prefix' => 'usuarios'], function(){
+		Route::get('/', [UserController::class, 'index'])->name('panel.users');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [UserController::class, 'load'])->name('panel.users.load');
+	});
 });
