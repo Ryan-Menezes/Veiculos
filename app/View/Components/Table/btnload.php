@@ -17,13 +17,14 @@ class btnload extends Component
     public $append;
     public $method;
     public $datax;
+    public $loading;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $class, string $container, string $route, string $search = '', int $offset = 0, int $limit = 10, string $removeElement = null, bool $remove = true, bool $append = true, string $method = 'POST', string $data = null)
+    public function __construct(string $class, string $container, string $route, string $search = '', int $offset = 0, int $limit = 10, string $removeElement = null, bool $remove = true, bool $append = true, string $method = 'POST', string $data = null, bool $loading = true)
     {
         $this->class = $class;
         $this->container = $container;
@@ -36,6 +37,7 @@ class btnload extends Component
         $this->append = $append;
         $this->method = $method;
         $this->datax = $data;
+        $this->loading = $loading;
     }
 
     /**

@@ -1,17 +1,17 @@
 $(window.document).ready(function(){
 	// Configurações da janela de dialogo da página
-	$('.modal-ui').dialog({
+	$('.dialog-ui').dialog({
 		autoOpen: false,
 		modal: true,
 		width: 500,
 		height: 400
 	})
 
-	$('.btn-modal-open-ui').click(function(){
+	$('.btn-dialog-open-ui').click(function(){
 		$(`#${this.dataset.id}`).dialog('open');
 	})
 
-	$('.btn-modal-close-ui').click(function(){
+	$('.btn-dialog-close-ui').click(function(){
 		$(`#${this.dataset.id}`).dialog('close');
 	})
 

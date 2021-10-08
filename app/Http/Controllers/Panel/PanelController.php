@@ -19,6 +19,7 @@ class PanelController extends Controller
 {
     public function index(){
     	$data = [
+            'title'                 => 'Início',
     		'amountUsers' 			=> User::count(),
     		'amountVehicles' 		=> Vehicle::count(),
     		'amountManufacturers' 	=> Manufacturer::count(),

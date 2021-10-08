@@ -8,7 +8,16 @@
     <td>
     	@if($user->id != auth()->user()->id)
 	    	<button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
-	    	<button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
+	    	<button
+                class="btn btn-sm btn-primary load-ajax-click" 
+                data-container=".form-editcreate" 
+                data-url="{{ route('panel.users.edit', $user) }}"
+                data-token="{{ csrf_token() }}"
+                data-remove="false"
+                data-append="false"
+                data-method="GET"
+                data-loading="false"
+            ><i class="fas fa-pencil-alt"></i></button>
 	    @else
 	    	<p>-</p>
 	    @endif

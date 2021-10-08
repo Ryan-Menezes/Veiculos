@@ -30,5 +30,7 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'usuarios'], function(){
 		Route::get('/', [UserController::class, 'index'])->name('panel.users');
 		Route::any('/carrega/{offset?}/{limit?}/{search?}', [UserController::class, 'load'])->name('panel.users.load');
+		Route::get('/{user}/edit', [UserController::class, 'edit'])->name('panel.users.edit');
+		Route::put('/{user}', [UserController::class, 'update'])->name('panel.users.update');
 	});
 });

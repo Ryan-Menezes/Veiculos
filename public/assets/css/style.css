@@ -12,11 +12,16 @@
 	border-radius: 50%;
 	animation: loading 1s linear infinite;
 }
-
 @keyframes loading{
 	to{transform: rotate(360deg);}
 }
-
 .image-table{
 	width: 40px;
+}
+form.form-validate span.error{
+	color: #eb344c;
+	font-size: 12px;
+}
+form.form-validate input.error{
+	border-color: #eb344c;
 }

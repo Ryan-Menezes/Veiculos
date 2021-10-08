@@ -22,7 +22,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view($this->prefix . 'users.index');
+        $title = 'Usuários';
+        $columns = $this->user->columns;
+
+        return view($this->prefix . 'users.index', compact('title', 'columns'));
     }
 
     public function load(int $offset = 0, int $limit = 10, string $search = ''){
@@ -60,7 +63,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('panel.users.edit', compact('user'));
     }
 
     /**
@@ -72,7 +75,17 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if($user->update($request->all())):
+            return json_encode([
+                'result'    => true,
+                'message'   => 'Usuário editado com sucesso!'
+            ]);
+        endif;
+
+        return json_encode([
+            'result'    => false,
+            'message'   => 'Usuário nãop editado, Ocorreu um erro no processo de edição!'
+        ]);
     }
 
     /**

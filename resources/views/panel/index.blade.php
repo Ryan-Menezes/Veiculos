@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title_postfix', 'Início')
+@section('title_postfix', $title)
 
 @section('content_header')
 	<div class="content-header p-0">

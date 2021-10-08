@@ -13,6 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
+    public $columns = ['ID', 'Imagem', 'Nome', 'E-Mail', 'Criado em', 'Atualizado em', 'Ações'];
     public $timestamps = true;
 
     /**
