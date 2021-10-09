@@ -14,7 +14,9 @@
 @endsection
 
 @section('content')
+    {{-- MODALS --}}
     <x-modal.editcreate title="Editar Usuário"/>
+    <x-modal.delete title="Deletar" message="Deseja deletar este usuário?" id="delete"/>
 
     {{-- TABLE USERS --}}
     @component('components.table.table', ['title' => $title, 'columns' => $columns]) @endcomponent
@@ -24,7 +26,7 @@
 	  <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.css') }}">
 	  <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.structure.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/panel/style.css') }}">
 @stop
 
 @section('js')

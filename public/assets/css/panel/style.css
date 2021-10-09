@@ -25,3 +25,6 @@ form.form-validate span.error{
 form.form-validate input.error{
 	border-color: #eb344c;
 }
+.alert{
+	cursor: pointer;
+}

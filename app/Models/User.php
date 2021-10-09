@@ -57,29 +57,27 @@ class User extends Authenticatable
 
     // ACL
 
+    public function hasPermission(Permission $permission) : bool{
+        return $this->hasAnyRoles($permission->roles);
+    }
+
     public function hasAnyRoles($roles) : bool{
-        if(is_object($roles) || is_array($roles)):
+        if(is_array($roles) || is_object($roles)):
             return (bool) $roles->intersect($this->roles)->count();
         endif;
 
         return $this->roles->contains('name', $roles);
     }
 
-    public function hasPermission(Permission $permission) : bool{
-        return $this->hasAnyRoles($permission->roles);
-    }
-
     // AdminLTE
 
-    public function adminlte_image()
-    {
+    public function adminlte_image(){
         if(!is_null($this->image)) return asset('assets/images/anonimo.png');
 
         return asset('assets/images/anonimo.png');
     }
 
-    public function adminlte_desc()
-    {
+    public function adminlte_desc(){
         return $this->email;
     }
 }

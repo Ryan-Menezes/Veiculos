@@ -32,7 +32,7 @@
         </div>
         @endcan
 
-          {{-- VEHICLES --}}
+        {{-- VEHICLES --}}
       	@can('view.vehicles')
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -50,7 +50,7 @@
         </div>
         @endcan
 
-          {{-- DISCOUNTS --}}
+        {{-- DISCOUNTS --}}
       	@can('view.discounts')
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -68,7 +68,7 @@
         </div>
         @endcan
 
-          {{-- REQUESTS --}}
+        {{-- REQUESTS --}}
       	@can('view.requests')
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -86,7 +86,7 @@
         </div>
         @endcan
 
-          {{-- ROLES --}}
+        {{-- ROLES --}}
       	@can('view.roles')
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -104,7 +104,7 @@
         </div>
         @endcan
 
-          {{-- USERS --}}
+        {{-- PERMISSIONS --}}
       	@can('view.permissions')
         <div class="col-lg-3 col-6">
             <!-- small box -->
@@ -133,6 +133,5 @@
 @section('js')
    	<script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.min.js') }}"></script>
    	<script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
-
    	<script type="text/javascript" src="{{ asset('assets/js/config-jquery-ui.js') }}"></script>
 @stop

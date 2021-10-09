@@ -5,6 +5,9 @@ use App\Http\Controllers\Panel\{
 	PanelController,
 	UserController
 };
+use App\Http\Controllers\Site\{
+	SiteController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +20,16 @@ use App\Http\Controllers\Panel\{
 |
 */
 
-Route::get('/', function () {
-    return view('site.index');
+// SITE
+Route::group(['prefix' => '/'], function(){
+	Route::get('/', [SiteController::class, 'index'])->name('site');
+	Route::get('/contato', [SiteController::class, 'contact'])->name('site.contact');
 });
 
+// AUTHENTICATE
 Auth::routes();
 
+// PANEL
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 	Route::get('/', [PanelController::class, 'index'])->name('panel');
 
@@ -32,5 +39,6 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 		Route::any('/carrega/{offset?}/{limit?}/{search?}', [UserController::class, 'load'])->name('panel.users.load');
 		Route::get('/{user}/edit', [UserController::class, 'edit'])->name('panel.users.edit');
 		Route::put('/{user}', [UserController::class, 'update'])->name('panel.users.update');
+		Route::delete('/{user}', [UserController::class, 'destroy'])->name('panel.users.destroy');
 	});
 });

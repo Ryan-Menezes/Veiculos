@@ -7,7 +7,14 @@
     <td>{{ $user->updated_at }}</td>
     <td>
     	@if($user->id != auth()->user()->id)
-	    	<button class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
+	    	<button 
+                class="btn btn-sm btn-danger load-ajax-confirm",
+                data-container="#delete" 
+                data-url="{{ route('panel.users.destroy', $user) }}"
+                data-token="{{ csrf_token() }}"
+                data-method="POST"
+                data-_method="DELETE"
+            ><i class="fas fa-trash-alt"></i></button>
 	    	<button
                 class="btn btn-sm btn-primary load-ajax-click" 
                 data-container=".form-editcreate" 

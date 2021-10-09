@@ -1,9 +1,14 @@
 let ajaxLoad = null
 let ajaxLoadForm = null
+let ajaxLoadConfirm = null
 
 $(window.document).ready(function(){
 	$('*').delegate('.load-ajax-click', 'click', load)
 	$('*').delegate('.load-ajax-form-submit', 'submit', loadForm)
+	$('*').delegate('.load-ajax-form-submit .alert', 'click', function(){
+		$(this).remove()
+	})
+	$('*').delegate('.load-ajax-confirm', 'click', loadConfirm)
 	$('.autoclick').trigger('click')
 })
 
@@ -80,26 +85,86 @@ function loadForm(){
 	let url = this.action
 	let method = this.method
 	let data = new FormData(this)
+	let element = this
 
 	if(ajaxLoadForm === null){
 		ajaxLoadForm = $.ajax({
 			url: url,
 			method: method,
 			data: data,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			beforeSend: function(){
+				$(element).children('.alert').remove()
+				$(element).children(':submit').hide()
+				$(element).append($('<div/>').addClass('load'))
+			},
 			complete: function(){
 				ajaxLoadForm = null
+				$(element).children(':submit').show()
+				$(element).children('.load').remove()
 			}
 		})
 		.done(function(result){
-			result = JSON.parse(result)
-
-			if(result.result)
-				$(this).prepend($('<div/>').addClass('alert alert-success').text(result.message))
+			if(result.success)
+				$(element).prepend($('<div/>').addClass('alert alert-success').text(result.message))
 			else
-				$(this).prepend($('<div/>').addClass('alert alert-danger').text(result.message))
+				$(element).prepend($('<div/>').addClass('alert alert-danger').text(result.message))
 		})
 		.fail(function(){
-			$(this).prepend($('<div/>').addClass('alert alert-danger').text('FALHA AO EXECUTAR O FORMULÁRIO!'))
+			$(element).prepend($('<div/>').addClass('alert alert-danger').text('FALHA AO EXECUTAR O FORMULÁRIO!'))
 		})
 	}
+}
+
+function loadConfirm(){
+	let url 			= this.dataset.url
+	let token 			= this.dataset.token
+	let container 		= this.dataset.container
+	let method 			= (this.dataset.method 	!== undefined && this.dataset.method.length 	> 0) 	? this.dataset.method 			: 'POST'
+	let _method 		= (this.dataset._method !== undefined && this.dataset._method.length 	> 0) 	? this.dataset._method 			: method
+	let data 			= (this.dataset.data 	!== undefined && this.dataset.data.length 		> 0) 	? JSON.parse(this.dataset.data) : Object.create({})	
+
+	$(container).dialog({
+		autoOpen: true,
+		height: 'auto',
+		buttons: {
+			Cancelar: function(){
+				$(this).dialog('close')
+			},
+			Sim: function(){
+				if(url !== undefined && method !== undefined && container !== null && token !== null){
+					let element = this
+					data._token = token
+					data._method = _method
+
+					if(ajaxLoadConfirm === null){
+						ajaxLoadConfirm = $.ajax({
+							url: url,
+							method: method,
+							data: data,
+							dataType: 'json',
+							beforeSend: function(){
+								$(container).html($('<div/>').addClass('load'))
+							},
+							complete: function(){
+								$(container).children('.load').remove()
+								ajaxLoadConfirm = null
+							}
+						})
+						.done(function(result){
+							if(result.success)
+								$(container).html($('<div/>').addClass('alert alert-success').text(result.message))
+							else
+								$(container).html($('<div/>').addClass('alert alert-danger').text(result.message))
+						})
+						.fail(function(){
+							$(container).html($('<div/>').addClass('alert alert-danger').text('FALHA AO ENVIAR RESPOSTA!'))
+						})
+					}
+				}
+			}
+		}
+	})
 }

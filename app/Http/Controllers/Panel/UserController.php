@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Gate;
 
 class UserController extends Controller
 {
@@ -22,6 +23,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        // Verifica permissão        
+        if(Gate::denies('view.users')) abort(404);
+
+        // carregando view
         $title = 'Usuários';
         $columns = $this->user->columns;
 
@@ -29,6 +34,10 @@ class UserController extends Controller
     }
 
     public function load(int $offset = 0, int $limit = 10, string $search = ''){
+        // Verifica permissão
+        if(Gate::denies('view.users')) abort(404);
+
+        // Carregando view
         $users = $this->user
                         ->where('name', 'LIKE', "%{$search}%")
                         ->offset($offset)
@@ -75,16 +84,25 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        // Verifica permissão
+        if(Gate::denies('edit.users')):
+            return json_encode([
+                'success'   => false,
+                'message'   => 'Você não tem permissão para editar um usuário!'
+            ]);
+        endif;
+
+        // Atualiza usuário
         if($user->update($request->all())):
             return json_encode([
-                'result'    => true,
+                'success'   => true,
                 'message'   => 'Usuário editado com sucesso!'
             ]);
         endif;
 
         return json_encode([
-            'result'    => false,
-            'message'   => 'Usuário nãop editado, Ocorreu um erro no processo de edição!'
+            'success'   => false,
+            'message'   => 'Usuário não editado, Ocorreu um erro no processo de edição!'
         ]);
     }
 
@@ -96,6 +114,25 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        // Verifica permissão
+        if(Gate::denies('delete.users')):
+            return json_encode([
+                'success'   => false,
+                'message'   => 'Você não tem permissão para deletar um usuário!'
+            ]);
+        endif;
+
+        // Deletando um usuário
+        if($user->delete()):
+            return json_encode([
+                'success'   => true,
+                'message'   => 'Usuário deletado com sucesso!'
+            ]);
+        endif;
+
+        return json_encode([
+            'success'   => false,
+            'message'   => 'Usuário não deletado, Ocorreu um erro no processo de exclusão!'
+        ]);
     }
 }
