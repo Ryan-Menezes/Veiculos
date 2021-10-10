@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{
+    User,
+    Role
+};
 use Gate;
 
 class UserController extends Controller
@@ -72,7 +75,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('panel.users.edit', compact('user'));
+        $roles = Role::all();
+
+        return view('panel.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -94,6 +99,8 @@ class UserController extends Controller
 
         // Atualiza usuário
         if($user->update($request->all())):
+            $user->roles()->sync($request->role);
+
             return json_encode([
                 'success'   => true,
                 'message'   => 'Usuário editado com sucesso!'
