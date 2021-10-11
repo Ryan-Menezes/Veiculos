@@ -8,6 +8,7 @@ $(window.document).ready(function(){
 	$('*').delegate('.load-ajax-form-submit .alert', 'click', function(){
 		$(this).remove()
 	})
+	$('*').delegate('.load-ajax-enter', 'change', load)
 	$('*').delegate('.load-ajax-confirm', 'click', loadConfirm)
 	$('.autoclick').trigger('click')
 })
@@ -30,6 +31,8 @@ function load(){
 		data._token = token
 
 		if(ajaxLoad === null){
+			if($(this).hasClass('load-ajax-enter')) url += `/${$(this).val()}`
+
 			ajaxLoad = $.ajax({
 				url: url,
 				method: method,
@@ -43,7 +46,23 @@ function load(){
 						$(element).addClass('load')
 						$(element).empty()
 					}else if(!append){
-						$(container).html($('<div/>').addClass('load'))
+						if($(container).prop("tagName") != 'TBODY'){
+							$(container).html($('<div/>').addClass('load'))
+						}else{
+							$(container)
+								.html($('<tr/>')
+								.append(
+									$('<td>')
+										.attr('colspan', '500')
+										.append($('<div/>')
+													.addClass('loading')
+													.append($('<div/>')
+														.addClass('load')
+													)
+												)
+										)
+								)
+						}
 					}
 
 					if($(container).hasClass('dialog-ui')) $(container).dialog('open');

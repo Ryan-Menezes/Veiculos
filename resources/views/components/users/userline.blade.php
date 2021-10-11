@@ -3,8 +3,8 @@
     <td><img class="image rounded border image-table" src="{{ asset('assets/images/anonimo.png') }}"></td>
     <td>{{ $user->name }}</td>
     <td>{{ $user->email }}</td>
-    <td>{{ $user->created_at }}</td>
-    <td>{{ $user->updated_at }}</td>
+    <td>{{ $user->createdAtFormat }}</td>
+    <td>{{ $user->updatedAtFormat }}</td>
     <td>
     	@if($user->id != auth()->user()->id)
 	    	<button 

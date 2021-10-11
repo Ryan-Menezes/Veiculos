@@ -19,7 +19,13 @@
     <x-modal.delete title="Deletar" message="Deseja deletar este usuário?" id="delete"/>
 
     {{-- TABLE USERS --}}
-    @component('components.table.table', ['title' => $title, 'columns' => $columns]) @endcomponent
+    @component('components.table.table', [
+      'title' => $title, 
+      'columns' => $columns, 
+      'btnnew' => false, 
+      'container' => 'table-users-body',
+      'route' => 'panel.users.load'
+    ]) @endcomponent
 @stop
 
 @section('css')

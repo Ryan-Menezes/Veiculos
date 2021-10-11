@@ -47,6 +47,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // SCOPES
+
+    public function scopeSearch($query, $search, $offset, $limit){
+        return $query
+                    ->where('id', 'LIKE', "%{$search}%")
+                    ->orWhere('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhere('created_at', 'LIKE', "%{$search}%")
+                    ->orWhere('updated_at', 'LIKE', "%{$search}%")
+                    ->offset($offset)
+                    ->limit($limit)
+                    ->get();
+    }
+
+    // ATTRIBUTES
+
+    public function getCreatedAtFormatAttribute(){
+        return date('d/m/Y H:i:s', strtotime($this->created_at));
+    }
+
+    public function getUpdatedAtFormatAttribute(){
+        return date('d/m/Y H:i:s', strtotime($this->updated_at));
+    }
+
     // RELATIONS
 
     public function roles(){

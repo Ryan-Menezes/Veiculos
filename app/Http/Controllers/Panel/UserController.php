@@ -41,11 +41,7 @@ class UserController extends Controller
         if(Gate::denies('view.users')) abort(404);
 
         // Carregando view
-        $users = $this->user
-                        ->where('name', 'LIKE', "%{$search}%")
-                        ->offset($offset)
-                        ->limit($limit)
-                        ->get();
+        $users = $this->user->search($search, $offset, $limit);
 
         $html = '';
 
@@ -53,7 +49,7 @@ class UserController extends Controller
            $html .= view('components.users.userline', compact('user'));
         endforeach;
 
-        if($users->count() >= 10):
+        if($users->count() >= 10 && !empty($html)):
             $html .= view('components.table.btnload', [
                 'container'     => '.table-users-body',
                 'route'         => 'panel.users.load',
@@ -63,6 +59,18 @@ class UserController extends Controller
                 'search'        => $search
             ]);
         endif;
+
+        // Verificando se foi encontrado algum usuário
+        if(empty($html)){
+            if(empty($search))
+                $html = view('components.table.messageline', [
+                    'message' => 'Sem usuários no sistema!'
+                ]);
+            else
+                $html = view('components.table.messageline', [
+                    'message' => 'Não foi possível localizar usuários com os dados relacionados há: ' . $search
+                ]);
+        }   
 
         return $html;
     }

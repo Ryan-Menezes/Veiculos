@@ -28,3 +28,6 @@ form.form-validate input.error{
 .alert{
 	cursor: pointer;
 }
+.table tr td{
+	vertical-align: middle;
+}
