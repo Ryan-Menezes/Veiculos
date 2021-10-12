@@ -3,8 +3,8 @@ $(window.document).ready(function(){
 	$('.dialog-ui').dialog({
 		autoOpen: false,
 		modal: true,
-		width: 500,
-		height: 400
+		width: 700,
+		height: 500
 	})
 
 	$('.btn-dialog-open-ui').click(function(){
@@ -16,7 +16,28 @@ $(window.document).ready(function(){
 	})
 
 	// Configurações do datepicker
-	$('.datepicker-ui').datepicker()
+	$('*').delegate('.datepicker-ui', 'focus', function(){
+		$(this).attr('readonly', 'readonly')
+		$(this).datepicker({
+			closeText: 'Fechar',
+            prevText: '&#x3C;Anterior',
+            nextText: 'Próximo&#x3E;',
+            currentText: 'Hoje',
+            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+            'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun',
+            'Jul','Ago','Set','Out','Nov','Dez'],
+            dayNames: ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+            dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+		})
+	})
 
 	// Configurações do accordion
 	$('.accordion-ui').accordion({

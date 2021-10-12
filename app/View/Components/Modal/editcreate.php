@@ -7,15 +7,17 @@ use Illuminate\View\Component;
 class editcreate extends Component
 {
     public $title;
+    public $class;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $title = null)
+    public function __construct(string $title = null, string $class = null)
     {
         $this->title = $title;
+        $this->class = $class;
     }
 
     /**

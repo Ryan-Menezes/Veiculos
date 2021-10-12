@@ -10,7 +10,7 @@ class Request extends Model
     use HasFactory;
 
     public $timestamps = true;
-    protected $fillable = ['color_id', 'vehicle_id', 'user_id', 'price', 'discount', 'status'];
+    protected $fillable = ['vehicle_id', 'user_id', 'price', 'discount', 'status'];
 
     public function user(){
     	return $this->hasOne(User::class);
@@ -18,9 +18,5 @@ class Request extends Model
 
     public function vehicle(){
     	return $this->hasOne(Vehicle::class);
-    }
-
-    public function color(){
-    	return $this->belongsToMany(Color::class);
     }
 }

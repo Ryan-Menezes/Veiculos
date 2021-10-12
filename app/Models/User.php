@@ -71,6 +71,12 @@ class User extends Authenticatable
         return date('d/m/Y H:i:s', strtotime($this->updated_at));
     }
 
+    public function getImageFormatAttribute(){
+        if(!is_null($this->image)) return asset('storage/' . $this->image);
+
+        return asset('assets/images/anonimo.png');
+    }
+
     // RELATIONS
 
     public function roles(){
@@ -98,9 +104,7 @@ class User extends Authenticatable
     // AdminLTE
 
     public function adminlte_image(){
-        if(!is_null($this->image)) return asset('assets/images/anonimo.png');
-
-        return asset('assets/images/anonimo.png');
+       return $this->imageFormat;
     }
 
     public function adminlte_desc(){

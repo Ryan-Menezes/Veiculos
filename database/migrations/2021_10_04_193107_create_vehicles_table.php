@@ -22,9 +22,12 @@ class CreateVehiclesTable extends Migration
             $table->year('year');
             $table->tinyInteger('ports')->unsigned();
             $table->decimal('price', 10, 2);
+            $table->decimal('promotion', 10, 2)->nullable();
             $table->smallInteger('mileage')->unsigned();
             $table->smallInteger('quantity')->unsigned();
             $table->timestamp('release_date')->nullable();
+            $table->timestamp('promotion_date')->nullable();
+            $table->enum('status', ['D', 'I'])->default('D'); // D - Disponpível | I - Indisponível
             $table->mediumText('description');
             $table->timestamps();
             $table->softDeletes();

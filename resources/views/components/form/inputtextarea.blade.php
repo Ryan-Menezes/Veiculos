@@ -1,9 +1,9 @@
 <div class="form-group">
 	{!! Form::label($name, $title . ':', ['class' => 'form-label']) !!}
 
-	{!! Form::file($name, [
+	{!! Form::textarea($name, $value, [
+		'placeholder' 	=> $placeholder,
 		'class' 		=> 'form-control ' . $class,
-		'id' 			=> $id,
-		'accept' 		=> $accept
+		'id' 			=> $id
 	]) !!}
 </div>

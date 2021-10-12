@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Models\{
     User,
     Role
@@ -83,8 +84,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
-
+        $roles = Role::all()->pluck('name', 'id');
         return view('panel.users.edit', compact('user', 'roles'));
     }
 
@@ -97,6 +97,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $data = $request->all();
+
         // Verifica permissão
         if(Gate::denies('edit.users')):
             return json_encode([
@@ -105,9 +107,22 @@ class UserController extends Controller
             ]);
         endif;
 
+        // Faz upload da imagem de perfil
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            $imageName = md5(uniqid() . rand(0, 999999) . $user->id) . '.' . $request->image->extension();
+
+            // DELETA IMAGEM ANTIGA
+            if(!empty($user->image) && Storage::exists($user->image))
+                Storage::delete($user->image);
+
+            // UPLOAD
+            $request->image->storeAs('users', $imageName);
+            $data['image'] = 'users/' . $imageName;
+        }
+
         // Atualiza usuário
-        if($user->update($request->all())):
-            $user->roles()->sync($request->role);
+        if($user->update($data)):
+            $user->roles()->sync($data['role']);
 
             return json_encode([
                 'success'   => true,

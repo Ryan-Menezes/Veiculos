@@ -5,7 +5,16 @@
             <div class="card-tools row">
                 @if($btnnew)
                 <div class="col d-flex align-items-center">
-                    <button class="btn btn-sm btn-danger">Novo</button>
+                    <button
+                        class="btn btn-sm btn-danger load-ajax-click" 
+                        data-container=".form-create" 
+                        data-url="{{ route('panel.vehicles.create') }}"
+                        data-token="{{ csrf_token() }}"
+                        data-remove="false"
+                        data-append="false"
+                        data-method="GET"
+                        data-loading="false"
+                    >Novo</button>
                 </div>
                 @endif
                 

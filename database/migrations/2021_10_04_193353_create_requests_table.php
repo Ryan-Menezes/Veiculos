@@ -16,7 +16,6 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('vehicle_id')->unsigned();
-            $table->integer('color_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 10, 2);
@@ -24,7 +23,6 @@ class CreateRequestsTable extends Migration
             $table->timestamps();
 
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('CASCADE')->onUpdate('CASCADE');
-            $table->foreign('color_id')->references('id')->on('colors')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }
@@ -37,7 +35,7 @@ class CreateRequestsTable extends Migration
     public function down()
     {
         Schema::table('requests', function (Blueprint $table) {
-            $table->dropForeign(['requests_vehicle_id_foreign', 'requests_color_id_foreign', 'requests_user_id_foreign']);
+            $table->dropForeign(['requests_vehicle_id_foreign', 'requests_user_id_foreign']);
         });
 
         Schema::dropIfExists('requests');

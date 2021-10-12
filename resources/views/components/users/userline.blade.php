@@ -1,6 +1,6 @@
 <tr>
     <td>{{ $user->id }}</td>
-    <td><img class="image rounded border image-table" src="{{ asset('assets/images/anonimo.png') }}"></td>
+    <td><img class="image rounded border image-table" src="{{ asset($user->imageFormat) }}"></td>
     <td>{{ $user->name }}</td>
     <td>{{ $user->email }}</td>
     <td>{{ $user->createdAtFormat }}</td>
@@ -17,7 +17,7 @@
             ><i class="fas fa-trash-alt"></i></button>
 	    	<button
                 class="btn btn-sm btn-primary load-ajax-click" 
-                data-container=".form-editcreate" 
+                data-container=".form-edit" 
                 data-url="{{ route('panel.users.edit', $user) }}"
                 data-token="{{ csrf_token() }}"
                 data-remove="false"

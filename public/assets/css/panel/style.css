@@ -22,7 +22,9 @@ form.form-validate span.error{
 	color: #eb344c;
 	font-size: 12px;
 }
-form.form-validate input.error{
+form.form-validate input.error, 
+form.form-validate textarea.error,
+form.form-validate select.error{
 	border-color: #eb344c;
 }
 .alert{

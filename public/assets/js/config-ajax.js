@@ -147,6 +147,7 @@ function loadConfirm(){
 
 	$(container).dialog({
 		autoOpen: true,
+		width: 'auto',
 		height: 'auto',
 		buttons: {
 			Cancelar: function(){

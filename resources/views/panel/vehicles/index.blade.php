@@ -7,7 +7,7 @@
 	    <div class="container-fluid p-3 bg-white border rounded">
             <ol class="breadcrumb">
               	<li class="breadcrumb-item"><a href="{{ route('panel') }}">Painel</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('panel.users') }}">Usuários</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('panel.vehicles') }}">Veículos</a></li>
             </ol>
 	    </div><!-- /.container-fluid -->
     </div>
@@ -15,8 +15,9 @@
 
 @section('content')
     {{-- MODALS --}}
-    <x-modal.editcreate class="form-edit" title="Editar Usuário"/>
-    <x-modal.delete title="Deletar" message="Deseja deletar este usuário?" id="delete"/>
+    <x-modal.editcreate class="form-create" title="Novo Veículo"/>
+    <x-modal.editcreate class="form-edit" title="Editar Veículo"/>
+    <x-modal.delete title="Deletar" message="Deseja deletar este veículo?" id="delete"/>
 
     {{-- TABLE USERS --}}
     @component('components.table.table', [
@@ -24,7 +25,8 @@
       'columns' => $columns, 
       'btnnew' => false, 
       'container' => 'table-users-body',
-      'route' => 'panel.users.load'
+      'route' => 'panel.vehicles.load',
+      'btnnew' => true
     ]) @endcomponent
 @stop
 

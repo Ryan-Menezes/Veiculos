@@ -1,22 +1,22 @@
 <?php
 
-namespace App\View\Components\Users;
+namespace App\View\Components\Vehicles;
 
 use Illuminate\View\Component;
-use App\Models\User;
+use App\Models\Vehicle;
 
-class userline extends Component
+class vehicleline extends Component
 {
-    public $user;
+    public $vehicle;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Vehicle $vehicle)
     {
-        $this->user = $user;
+        $this->vehicle = $vehicle;
     }
 
     /**
@@ -26,6 +26,6 @@ class userline extends Component
      */
     public function render()
     {
-        return view('components.users.userline');
+        return view('components.vehicles.vehicleline');
     }
 }
