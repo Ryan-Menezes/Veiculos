@@ -234,10 +234,6 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
             'text' => 'Início',
             'url'  => 'painel/',
             'icon'  => 'fas fa-home',
@@ -264,6 +260,12 @@ return [
             'url'         => 'painel/fabricantes',
             'icon'        => 'fas fa-industry',
             'can'         => 'view.manufacturers',            
+        ],
+        [
+            'text'        => 'Categorias',
+            'url'         => 'painel/categorias',
+            'icon'        => 'fas fa-tags',
+            'can'         => 'view.categories',            
         ],
         [
             'text'        => 'Descontos',

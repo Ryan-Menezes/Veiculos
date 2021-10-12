@@ -50,20 +50,56 @@
         </div>
         @endcan
 
+        {{-- MANUFACTURERS --}}
+      	@can('view.manufacturers')
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-pink">
+                <div class="inner">
+                    <h3>{{ $amountManufacturers }}</h3>
+
+                 	  <p>Fabricantes</p>
+                </div>
+              	<div class="icon">
+                	 <i class="fas fa-industry"></i>
+              	</div>
+              	<a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        @endcan
+
+        {{-- CATEGORIES --}}
+        @can('view.categories')
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-purple">
+                <div class="inner">
+                    <h3>{{ $amountCategories }}</h3>
+
+                    <p>Categorias</p>
+                </div>
+                <div class="icon">
+                   <i class="fas fa-tags"></i>
+                </div>
+                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        @endcan
+
         {{-- DISCOUNTS --}}
-      	@can('view.discounts')
+        @can('view.discounts')
         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
                     <h3>{{ $amountDiscounts }}</h3>
 
-                 	  <p>Descontos</p>
+                    <p>Descontos</p>
                 </div>
-              	<div class="icon">
-                	 <i class="fas fa-percent"></i>
-              	</div>
-              	<a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="icon">
+                   <i class="fas fa-percent"></i>
+                </div>
+                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan

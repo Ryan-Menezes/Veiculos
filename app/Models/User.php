@@ -8,13 +8,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    public $columns = ['ID', 'Imagem', 'Nome', 'E-Mail', 'Criado em', 'Atualizado em', 'Ações'];
     public $timestamps = true;
+    public $uploadDir = 'users';
+    public $columns = ['ID', 'Imagem', 'Nome', 'E-Mail', 'Criado em', 'Atualizado em', 'Ações'];
 
     /**
      * The attributes that are mass assignable.
@@ -46,6 +49,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // VALIDATES
+
+    public function validateUpdate(array $data){
+        $roles = [
+            'name'          => ['required', 'string', 'max:191'],
+            'email'         => ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($this->id)],
+            'image'         => ['mimes:image/*']
+        ];
+
+        $validator = Validator::make($data, $roles);
+        if($validator->fails()):
+            $result = ['success' => false, 'message' => ''];
+
+            foreach($validator->errors()->all() as $error):
+                $result['message'] .= "<p class='p-0 m-0'>{$error}</p>";           
+            endforeach;
+
+            return json_encode($result);
+        endif;
+
+        return null;
+    }
 
     // SCOPES
 

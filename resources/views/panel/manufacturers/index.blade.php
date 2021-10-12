@@ -7,7 +7,7 @@
 	    <div class="container-fluid p-3 bg-white border rounded">
             <ol class="breadcrumb">
               	<li class="breadcrumb-item"><a href="{{ route('panel') }}">Painel</a></li>
-                <li class="breadcrumb-item active"><a href="{{ route('panel.vehicles') }}">Veículos</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('panel.manufacturers') }}">Fabricantes</a></li>
             </ol>
 	    </div><!-- /.container-fluid -->
     </div>
@@ -15,18 +15,18 @@
 
 @section('content')
     {{-- MODALS --}}
-    <x-modal.editcreate class="form-create" title="Novo Veículo"/>
-    <x-modal.editcreate class="form-edit" title="Editar Veículo"/>
-    <x-modal.delete title="Deletar" message="Deseja deletar este veículo?" id="delete"/>
+    <x-modal.editcreate class="form-create" title="Novo Fabricante"/>
+    <x-modal.editcreate class="form-edit" title="Editar Fabricante"/>
+    <x-modal.delete title="Deletar" message="Deseja deletar este fabricante?" id="delete"/>
 
-    {{-- TABLE USERS --}}
+    {{-- TABLE MANUFACTURERS --}}
     @component('components.table.table', [
       'title' => $title, 
       'columns' => $columns, 
       'btnnew' => true, 
-      'container' => 'table-users-body',
-      'route' => 'panel.vehicles.load',
-      'routeCreate' => 'panel.vehicles.create'
+      'container' => 'table-manufacturers-body',
+      'route' => 'panel.manufacturers.load',
+      'routeCreate' => 'panel.manufacturers.create'
     ]) @endcomponent
 @stop
 

@@ -3,6 +3,8 @@
 
 	{!! Form::select($name, $options, $value, [
 		'class' 		=> 'form-control ' . $class,
-		'id' 			=> $id
+		'id' 			=> $id,
+		'size'			=> $size,
+		'multiple'		=> $multiple
 	]) !!}
 </div>

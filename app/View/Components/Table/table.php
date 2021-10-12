@@ -11,19 +11,21 @@ class table extends Component
     public $route;
     public $title;
     public $btnnew;
+    public $routeCreate;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(array $columns, string $container, string $route, string $title = null, bool $btnnew = true)
+    public function __construct(array $columns, string $container, string $route, string $routeCreate = null, string $title = null, bool $btnnew = true)
     {
         $this->columns = $columns;
         $this->container = $container;
         $this->route = $route;
         $this->title = $title;
         $this->btnnew = $btnnew;
+        $this->routeCreate = $routeCreate;
     }
 
     /**

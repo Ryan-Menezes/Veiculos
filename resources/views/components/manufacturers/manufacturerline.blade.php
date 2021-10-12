@@ -1,28 +1,24 @@
 <tr>
-    <td>{{ $vehicle->id }}</td>
-    <td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}"></td>
-    <td>{{ $vehicle->brand }}</td>
-    <td>{{ $vehicle->model }}</td>
-    <td>{{ $vehicle->year }}</td>
-    <td>{{ $vehicle->createdAtFormat }}</td>
-    <td>{{ $vehicle->updatedAtFormat }}</td>
+    <td>{{ $manufacturer->id }}</td>
+    <td><img class="image rounded border image-table" src="{{ asset('storage/' . $manufacturer->image) }}"></td>
+    <td>{{ $manufacturer->name }}</td>
     <td>
-        @can('delete.vehicles')
+        @can('delete.manufacturers')
     	<button 
             class="btn btn-sm btn-danger load-ajax-confirm",
             data-container="#delete" 
-            data-url="{{ route('panel.vehicles.destroy', $vehicle) }}"
+            data-url="{{ route('panel.manufacturers.destroy', $manufacturer) }}"
             data-token="{{ csrf_token() }}"
             data-method="POST"
             data-_method="DELETE"
         ><i class="fas fa-trash-alt"></i></button>
         @endcan
 
-        @can('edit.vehicles')
+        @can('edit.manufacturers')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
             data-container=".form-edit" 
-            data-url="{{ route('panel.vehicles.edit', $vehicle) }}"
+            data-url="{{ route('panel.manufacturers.edit', $manufacturer) }}"
             data-token="{{ csrf_token() }}"
             data-remove="false"
             data-append="false"

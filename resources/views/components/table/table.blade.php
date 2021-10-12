@@ -8,7 +8,7 @@
                     <button
                         class="btn btn-sm btn-danger load-ajax-click" 
                         data-container=".form-create" 
-                        data-url="{{ route('panel.vehicles.create') }}"
+                        data-url="{{ route($routeCreate) }}"
                         data-token="{{ csrf_token() }}"
                         data-remove="false"
                         data-append="false"

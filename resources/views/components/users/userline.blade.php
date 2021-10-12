@@ -7,6 +7,7 @@
     <td>{{ $user->updatedAtFormat }}</td>
     <td>
     	@if($user->id != auth()->user()->id)
+            @can('delete.users')
 	    	<button 
                 class="btn btn-sm btn-danger load-ajax-confirm",
                 data-container="#delete" 
@@ -15,6 +16,9 @@
                 data-method="POST"
                 data-_method="DELETE"
             ><i class="fas fa-trash-alt"></i></button>
+            @endcan
+
+            @can('edit.users')
 	    	<button
                 class="btn btn-sm btn-primary load-ajax-click" 
                 data-container=".form-edit" 
@@ -25,6 +29,7 @@
                 data-method="GET"
                 data-loading="false"
             ><i class="fas fa-pencil-alt"></i></button>
+            @endcan
 	    @else
 	    	<p>-</p>
 	    @endif

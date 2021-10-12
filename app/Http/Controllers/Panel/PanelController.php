@@ -9,10 +9,10 @@ use App\Models\{
 	Vehicle,
 	Discount,
 	Manufacturer,
+    Category,
 	Request as RequestVeh,
 	Role,
-	Permission,
-	Category
+	Permission
 };
 
 class PanelController extends Controller
@@ -23,11 +23,11 @@ class PanelController extends Controller
     		'amountUsers' 			=> User::count(),
     		'amountVehicles' 		=> Vehicle::count(),
     		'amountManufacturers' 	=> Manufacturer::count(),
+            'amountCategories'      => Category::count(),
     		'amountDiscounts' 		=> Discount::count(),
     		'amountRequests' 		=> RequestVeh::count(),
     		'amountRoles' 			=> Role::count(),
-    		'amountPermissions' 	=> Permission::count(),
-    		'amountCategories' 		=> Category::count()
+    		'amountPermissions' 	=> Permission::count()
     	];
 
     	return view('panel.index', $data);

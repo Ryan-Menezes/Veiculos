@@ -12,13 +12,15 @@ class inputselect extends Component
     public $class;
     public $id;
     public $title;
+    public $size;
+    public $multiple;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($options, string $name = '', string $value = null, string $class = '', string $id = '', string $title = 'Select')
+    public function __construct($options, string $name = '', string $value = null, string $class = '', string $id = '', string $title = 'Select', int $size = 1, bool $multiple = false)
     {
         $this->options = $options;
         $this->name = $name;
@@ -26,6 +28,8 @@ class inputselect extends Component
         $this->class = $class;
         $this->id = $id;
         $this->title = $title;
+        $this->size = $size;
+        $this->multiple = $multiple;
     }
 
     /**

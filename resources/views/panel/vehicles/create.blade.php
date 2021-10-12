@@ -1,4 +1,4 @@
-{!! Form::open(['method' => 'POST', 'route' => 'panel.vehicles.store', 'class' => 'form col-md-12 m-0 form-validate load-ajax-form-submit', 'files' => true]) !!}
+{!! Form::open(['method' => 'POST', 'route' => 'panel.vehicles.store', 'class' => 'form col-md-12 m-0 form-validate load-ajax-form-submit clear-form', 'files' => true]) !!}
 	<div class="row">
 		<div class="col-md-6">
 			<x-form.inputtext title="Marca" name="brand" placeholder="Marca" id="brand" class="required"/>
@@ -35,6 +35,8 @@
 		</div>
 	</div>
 
+	<x-form.inputselect title="Categorias" name="categories[]" :options="$categories" id="categories" size="5" multiple="true" class="required"/>
+
 	<div class="row">
 		<div class="col-md-6">
 			<x-form.inputtext title="Preço" name="price" placeholder="Preço" id="price" class="required"/>
@@ -54,6 +56,17 @@
 	</div>
 
 	<x-form.inputtextarea title="Descrição" name="description" placeholder="Descrição" id="description" class="required"/>
+
+	@for($i = 1; $i <= 10; $i += 2)
+	<div class="row">
+		<div class="col-md-6">
+			<x-form.inputfile title="Imagem {{ $i }}" name="images[]" accept="image/*" id="image{{ $i }}"/>
+		</div>
+		<div class="col-md-6">
+			<x-form.inputfile title="Imagem {{ $i + 1 }}" name="images[]" accept="image/*" id="image{{ $i + 1 }}"/>
+		</div>
+	</div>
+	@endfor
 
 	<x-form.inputsubmit value="Salvar" class="btn-danger"/>
 {!! Form::close() !!}

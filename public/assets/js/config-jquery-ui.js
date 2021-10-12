@@ -4,7 +4,9 @@ $(window.document).ready(function(){
 		autoOpen: false,
 		modal: true,
 		width: 700,
-		height: 500
+		height: 'auto',
+        maxWidth: 700,
+        maxHeight: 500
 	})
 
 	$('.btn-dialog-open-ui').click(function(){

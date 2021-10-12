@@ -15,8 +15,8 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('manufacturer_id')->unsigned();
-            $table->string('brand', 100)->unique();
+            $table->integer('manufacturer_id')->unsigned()->nullable();
+            $table->string('brand', 100);
             $table->string('slug')->unique();
             $table->string('model', 100);
             $table->year('year');
@@ -32,7 +32,7 @@ class CreateVehiclesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('manufacturer_id')->references('id')->on('manufacturers')->onDelete('SET NULL')->onUpdate('CASCADE');
         });
     }
 

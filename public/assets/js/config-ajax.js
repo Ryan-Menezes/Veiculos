@@ -126,10 +126,14 @@ function loadForm(){
 			}
 		})
 		.done(function(result){
-			if(result.success)
-				$(element).prepend($('<div/>').addClass('alert alert-success').text(result.message))
-			else
-				$(element).prepend($('<div/>').addClass('alert alert-danger').text(result.message))
+			if(result.success){
+				$(element).prepend($('<div/>').addClass('alert alert-success').html(result.message))
+
+				if($(element).hasClass('clear-form'))
+					$(element).trigger("reset")
+			}else{
+				$(element).prepend($('<div/>').addClass('alert alert-danger').html(result.message))
+			}
 		})
 		.fail(function(){
 			$(element).prepend($('<div/>').addClass('alert alert-danger').text('FALHA AO EXECUTAR O FORMULÁRIO!'))

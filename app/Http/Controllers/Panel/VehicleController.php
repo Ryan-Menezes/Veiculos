@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\{
     Vehicle,
+    Category,
     Manufacturer
 };
 use Gate;
@@ -21,11 +22,6 @@ class VehicleController extends Controller
         $this->vehicle = $vehicle;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         // Verifica permissão        
@@ -77,44 +73,71 @@ class VehicleController extends Controller
         return $html;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        $years = [];
-        $ports = [];
-        $status = ['D' => 'Disponível', 'I' => 'Indisponível'];
-        $manufacturers = Manufacturer::all()->pluck('name', 'id');
-        for($i = 1901; $i <= date('Y'); $i++) $years[$i] = $i;
-        for($i = 1; $i <= 10; $i++) $ports[$i] = $i;
+        // Verifica permissão
+        if(Gate::denies('create.vehicles')) abort(404);
 
-        return view('panel.vehicles.create', compact('years', 'ports', 'manufacturers', 'status'));
+        $years = array_combine(range(1901, date('Y')), range(1901, date('Y')));
+        $ports = range(1, 10);
+        $status = ['D' => 'Disponível', 'I' => 'Indisponível'];
+        $categories = Category::all()->pluck('name', 'id');
+        $manufacturers = Manufacturer::all()->pluck('name', 'id');
+
+        return view('panel.vehicles.create', compact('years', 'ports', 'categories', 'manufacturers', 'status'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['slug'] = Str::of($data['brand'])->slug('-');
-
         // Verifica permissão
         if(Gate::denies('create.vehicles')):
             return json_encode([
                 'success'   => false,
-                'message'   => 'Você não tem permissão para cadastrar um veículo!'
+                'message'   => 'Você não tem permissão para editar um veículo!'
             ]);
         endif;
 
-        // Atualiza usuário
-        if($this->vehicle->create($data)):
+        // Dados do formulário
+        $data = $request->all();
+        $data['slug'] = Str::of($data['brand'] . ' ' . $data['model'])->slug('-');
+
+        // Formatando as datas
+        if(!empty($data['release_date'])):
+            $d = explode('/', $data['release_date']);
+            $data['release_date'] = $d[2] . '-' . $d[1] . '-' . $d[0];
+        endif;
+
+        if(!empty($data['promotion_date'])):
+            $d = explode('/', $data['promotion_date']);
+            $data['promotion_date'] = $d[2] . '-' . $d[1] . '-' . $d[0];
+        endif;
+
+        // Validando os dados
+        $validator = $this->vehicle->validateCreate($data);
+        if(!is_null($validator)) return $validator;
+
+        // Cadastra veículo
+        $vehicle = $this->vehicle->create($data);
+
+        if($vehicle):
+            // Cadastra imagens do veículo
+            if($request->hasFile('images')):
+                foreach($request->images as $image):
+                    if($image->isValid()):
+                        do{
+                            $imageName = md5(uniqid() . rand(0, 999999) . $vehicle->id) . '.' . $image->extension();
+                        }while(Storage::exists($vehicle->uploadDir . '/' . $imageName));
+
+                        // UPLOAD
+                        $image->storeAs($vehicle->uploadDir, $imageName);
+                        $vehicle->images()->create(['image' => $vehicle->uploadDir . '/' . $imageName]);
+                    endif;
+                endforeach;
+            endif;
+
+            // Cadastrando categorias do veículo
+            $vehicle->categories()->sync($data['categories']);
+
             return json_encode([
                 'success'   => true,
                 'message'   => 'Veículo cadastrado com sucesso!'
@@ -127,46 +150,66 @@ class VehicleController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Vehicle $vehicle)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Vehicle $vehicle)
     {
-        //
+        // Verifica permissão
+        if(Gate::denies('edit.vehicles')) abort(404);
+
+        $years = array_combine(range(1901, date('Y')), range(1901, date('Y')));
+        $ports = range(1, 10);
+        $status = ['D' => 'Disponível', 'I' => 'Indisponível'];
+        $categories = Category::all()->pluck('name', 'id');
+        $manufacturers = Manufacturer::all()->pluck('name', 'id');
+
+        return view('panel.vehicles.edit', compact('vehicle', 'years', 'ports', 'categories', 'manufacturers', 'status'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Vehicle $vehicle)
     {
-        //
+        // Verifica permissão
+        if(Gate::denies('edit.vehicles')):
+            return json_encode([
+                'success'   => false,
+                'message'   => 'Você não tem permissão para editar um veículo!'
+            ]);
+        endif;
+
+        // Dados do formulário
+        $data = $request->all();
+        $data['slug'] = Str::of($data['brand'] . ' ' . $data['model'])->slug('-');
+
+        // Formatando as datas
+        if(!empty($data['release_date'])):
+            $d = explode('/', $data['release_date']);
+            $data['release_date'] = $d[2] . '-' . $d[1] . '-' . $d[0];
+        endif;
+
+        if(!empty($data['promotion_date'])):
+            $d = explode('/', $data['promotion_date']);
+            $data['promotion_date'] = $d[2] . '-' . $d[1] . '-' . $d[0];
+        endif;
+
+        // Validando os dados
+        $validator = $vehicle->validateUpdate($data);
+        if(!is_null($validator)) return $validator;
+
+        // Editando veículo
+        if($vehicle->update($data)):
+            // Edita categorias do veículo
+            $vehicle->categories()->sync($data['categories']);
+
+            return json_encode([
+                'success'   => true,
+                'message'   => 'Veículo editado com sucesso!'
+            ]);
+        endif;
+
+        return json_encode([
+            'success'   => false,
+            'message'   => 'Veículo não editado, Ocorreu um erro no processo de edição!'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Vehicle $vehicle)
     {
         // Verifica permissão

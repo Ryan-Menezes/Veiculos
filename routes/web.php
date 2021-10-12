@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel\{
 	PanelController,
 	UserController,
-	VehicleController
+	VehicleController,
+	ManufacturerController
 };
 use App\Http\Controllers\Site\{
 	SiteController
@@ -47,10 +48,21 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 	Route::group(['prefix' => 'veiculos'], function(){
 		Route::get('/', [VehicleController::class, 'index'])->name('panel.vehicles');
 		Route::any('/carrega/{offset?}/{limit?}/{search?}', [VehicleController::class, 'load'])->name('panel.vehicles.load');
-		Route::get('/create', [VehicleController::class, 'create'])->name('panel.vehicles.create');
+		Route::get('/novo', [VehicleController::class, 'create'])->name('panel.vehicles.create');
 		Route::post('/', [VehicleController::class, 'store'])->name('panel.vehicles.store');
 		Route::get('/{vehicle}/editar', [VehicleController::class, 'edit'])->name('panel.vehicles.edit');
 		Route::put('/{vehicle}', [VehicleController::class, 'update'])->name('panel.vehicles.update');
 		Route::delete('/{vehicle}', [VehicleController::class, 'destroy'])->name('panel.vehicles.destroy');
+	});
+
+	// MANUFACTURERS
+	Route::group(['prefix' => 'fabricantes'], function(){
+		Route::get('/', [ManufacturerController::class, 'index'])->name('panel.manufacturers');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [ManufacturerController::class, 'load'])->name('panel.manufacturers.load');
+		Route::get('/novo', [ManufacturerController::class, 'create'])->name('panel.manufacturers.create');
+		Route::post('/', [ManufacturerController::class, 'store'])->name('panel.manufacturers.store');
+		Route::get('/{manufacturer}/editar', [ManufacturerController::class, 'edit'])->name('panel.manufacturers.edit');
+		Route::put('/{manufacturer}', [ManufacturerController::class, 'update'])->name('panel.manufacturers.update');
+		Route::delete('/{manufacturer}', [ManufacturerController::class, 'destroy'])->name('panel.manufacturers.destroy');
 	});
 });

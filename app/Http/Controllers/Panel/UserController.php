@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Panel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use App\Models\{
     User,
     Role
@@ -20,11 +21,6 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         // Verifica permissão        
@@ -76,29 +72,17 @@ class UserController extends Controller
         return $html;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user)
     {
+        // Verifica permissão        
+        if(Gate::denies('edit.users')) abort(404);
+
         $roles = Role::all()->pluck('name', 'id');
         return view('panel.users.edit', compact('user', 'roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, User $user)
     {
-        $data = $request->all();
-
         // Verifica permissão
         if(Gate::denies('edit.users')):
             return json_encode([
@@ -107,18 +91,27 @@ class UserController extends Controller
             ]);
         endif;
 
-        // Faz upload da imagem de perfil
-        if($request->hasFile('image') && $request->file('image')->isValid()){
-            $imageName = md5(uniqid() . rand(0, 999999) . $user->id) . '.' . $request->image->extension();
+        // Dados do formulário
+        $data = $request->all();
 
+        // Validando os dados
+        $validator = $user->validateUpdate($data);
+        if(!is_null($validator)) return $validator;
+
+        // Faz upload da imagem de perfil
+        if($request->hasFile('image') && $request->file('image')->isValid()):
+            do{
+                $imageName = md5(uniqid() . rand(0, 999999) . $user->id) . '.' . $request->image->extension();
+            }while(Storage::exists($user->uploadDir . '/' . $imageName));
+            
             // DELETA IMAGEM ANTIGA
             if(!empty($user->image) && Storage::exists($user->image))
                 Storage::delete($user->image);
 
             // UPLOAD
-            $request->image->storeAs('users', $imageName);
-            $data['image'] = 'users/' . $imageName;
-        }
+            $request->image->storeAs($user->uploadDir, $imageName);
+            $data['image'] = $user->uploadDir . '/' . $imageName;
+        endif;
 
         // Atualiza usuário
         if($user->update($data)):
@@ -136,12 +129,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user)
     {
         // Verifica permissão
