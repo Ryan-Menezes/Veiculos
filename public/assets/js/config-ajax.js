@@ -148,11 +148,17 @@ function loadConfirm(){
 	let method 			= (this.dataset.method 	!== undefined && this.dataset.method.length 	> 0) 	? this.dataset.method 			: 'POST'
 	let _method 		= (this.dataset._method !== undefined && this.dataset._method.length 	> 0) 	? this.dataset._method 			: method
 	let data 			= (this.dataset.data 	!== undefined && this.dataset.data.length 		> 0) 	? JSON.parse(this.dataset.data) : Object.create({})	
+	let html 			= $(container).html()
 
 	$(container).dialog({
 		autoOpen: true,
-		width: 'auto',
+		width: 500,
 		height: 'auto',
+		minWidth: 500,
+		close: function(){
+			$(container).html(html)
+			$('.ui-dialog-buttonpane').show()
+		},
 		buttons: {
 			Cancelar: function(){
 				$(this).dialog('close')
@@ -170,6 +176,7 @@ function loadConfirm(){
 							data: data,
 							dataType: 'json',
 							beforeSend: function(){
+								$('.ui-dialog-buttonpane').hide()
 								$(container).html($('<div/>').addClass('load'))
 							},
 							complete: function(){

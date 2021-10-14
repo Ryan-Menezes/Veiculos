@@ -4,6 +4,8 @@
 	{!! Form::number($name, $value, [
 		'placeholder' 	=> $placeholder,
 		'class' 		=> 'form-control ' . $class,
-		'id' 			=> $id
+		'id' 			=> $id,
+		'min'			=> $min,
+		'max'			=> $max
 	]) !!}
 </div>

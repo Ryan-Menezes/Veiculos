@@ -51,7 +51,7 @@ class UserController extends Controller
                 'container'     => '.table-users-body',
                 'route'         => 'panel.users.load',
                 'removeElement' => '#parentLoading',
-                'offset'        => $users->count(),
+                'offset'        => $users->count() + $offset,
                 'limit'         => $limit,
                 'search'        => $search
             ]);

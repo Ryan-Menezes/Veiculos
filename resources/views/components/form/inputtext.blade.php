@@ -4,6 +4,7 @@
 	{!! Form::text($name, $value, [
 		'placeholder' 	=> $placeholder,
 		'class' 		=> 'form-control ' . $class,
-		'id' 			=> $id
+		'id' 			=> $id,
+		'maxlength'		=> $maxlength
 	]) !!}
 </div>

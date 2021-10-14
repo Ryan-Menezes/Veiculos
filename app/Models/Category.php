@@ -13,6 +13,7 @@ class Category extends Model
 
     public $timestamps = false;
     protected $fillable = ['name', 'slug'];
+    public $columns = ['ID', 'Nome', 'Ações'];
 
     // VALIDATES
 
@@ -54,7 +55,18 @@ class Category extends Model
         return null;
     }
 
-    // RELARIONS
+    // SCOPES
+
+    public function scopeSearch($query, $search, $offset, $limit){
+        return $query
+                    ->where('id', 'LIKE', "%{$search}%")
+                    ->orWhere('name', 'LIKE', "%{$search}%")
+                    ->offset($offset)
+                    ->limit($limit)
+                    ->get();
+    }
+
+    // RELATIONS
 
     public function vehicles(){
     	return $this->belongsToMany(Vehicle::class);

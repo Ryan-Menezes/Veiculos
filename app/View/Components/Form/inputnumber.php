@@ -12,13 +12,15 @@ class inputnumber extends Component
     public $class;
     public $id;
     public $title;
+    public $min;
+    public $max;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $name = '', string $value = '', string $placeholder = '', string $class = '', string $id = '', string $title = 'Texto')
+    public function __construct(string $name = '', string $value = '', string $placeholder = '', string $class = '', string $id = '', string $title = 'Texto', int $min = 0, int $max = 999999999)
     {
         $this->name = $name;
         $this->value = $value;
@@ -26,6 +28,8 @@ class inputnumber extends Component
         $this->class = $class;
         $this->id = $id;
         $this->title = $title;
+        $this->min = $min;
+        $this->max = $max;
     }
     
     /**

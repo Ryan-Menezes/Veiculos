@@ -14,8 +14,7 @@ class CreateDiscountsTable extends Migration
     public function up()
     {
         Schema::create('discounts', function (Blueprint $table) {
-            $table->char('code', 6)->unique();
-            $table->string('name', 100)->unique();
+            $table->string('code', 20)->unique();
             $table->tinyInteger('percentage', 100);
             $table->timestamp('expiration_date')->nullable();
         });

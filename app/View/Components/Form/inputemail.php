@@ -12,13 +12,14 @@ class inputemail extends Component
     public $class;
     public $id;
     public $title;
+    public $maxlength;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(string $name = '', string $value = '', string $placeholder = '', string $class = '', string $id = '', string $title = 'E-Mail')
+    public function __construct(string $name = '', string $value = '', string $placeholder = '', string $class = '', string $id = '', string $title = 'E-Mail', int $maxlength = 191)
     {
         $this->name = $name;
         $this->value = $value;
@@ -26,6 +27,7 @@ class inputemail extends Component
         $this->class = $class;
         $this->id = $id;
         $this->title = $title;
+         $this->maxlength = $maxlength;
     }
 
     /**

@@ -24,16 +24,16 @@ class Vehicle extends Model
             'brand'             => ['required', 'string', 'max:100'],
             'model'             => ['required', 'max:100'],
             'year'              => ['required', 'numeric'],
-            'ports'             => ['required', 'numeric'],
+            'ports'             => ['required', 'numeric', 'min:1'],
             'price'             => ['required', 'numeric'],
             'promotion'         => ['nullable', 'numeric'],
-            'mileage'           => ['required', 'numeric'],
-            'quantity'          => ['required', 'numeric'],
+            'mileage'           => ['required', 'numeric', 'min:1'],
+            'quantity'          => ['required', 'numeric', 'min:1'],
             'release_date'      => ['nullable', 'date'],
             'promotion_date'    => ['nullable', 'date'],
-            'status'            => ['required', 'in:D,I'],
+            'status'            => ['required', Rule::in(['D', 'I'])],
             'description'       => ['required', 'string'],
-            'images'            => ['required', 'mime:image/*'],
+            'images'            => ['required'/*, 'mimes:jpeg,jpg,gif,bmp,png'*/],
             'categories'        => ['required']
         ];
 
@@ -56,16 +56,16 @@ class Vehicle extends Model
             'brand'             => ['required', 'string', 'max:100'],
             'model'             => ['required', 'max:100'],
             'year'              => ['required', 'numeric'],
-            'ports'             => ['required', 'numeric'],
+            'ports'             => ['required', 'numeric', 'min:1'],
             'price'             => ['required', 'numeric'],
             'promotion'         => ['nullable', 'numeric'],
-            'mileage'           => ['required', 'numeric'],
-            'quantity'          => ['required', 'numeric'],
+            'mileage'           => ['required', 'numeric', 'min:1'],
+            'quantity'          => ['required', 'numeric', 'min:1'],
             'release_date'      => ['nullable', 'date'],
             'promotion_date'    => ['nullable', 'date'],
             'status'            => ['required', Rule::in(['D', 'I'])],
             'description'       => ['required', 'string'],
-            'images'            => ['mime:image/*'],
+            // 'images'            => ['mimes:jpeg,jpg,gif,bmp,png'],
             'categories'        => ['required']
         ];
 
@@ -102,11 +102,27 @@ class Vehicle extends Model
 
     // ATTRIBUTES
 
+    public function getReleaseDateFormatAttribute(){
+        if(empty($this->release_date)) return null;
+
+        return date('d/m/Y H:i:s', strtotime($this->release_date));
+    }
+
+    public function getPromotionDateFormatAttribute(){
+        if(empty($this->promotion_date)) return null;
+
+        return date('d/m/Y H:i:s', strtotime($this->promotion_date));
+    }
+
     public function getCreatedAtFormatAttribute(){
+        if(empty($this->created_at)) return null;
+
         return date('d/m/Y H:i:s', strtotime($this->created_at));
     }
 
     public function getUpdatedAtFormatAttribute(){
+        if(empty($this->updated_at)) return null;
+
         return date('d/m/Y H:i:s', strtotime($this->updated_at));
     }
 

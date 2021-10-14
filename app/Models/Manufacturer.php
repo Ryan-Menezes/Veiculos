@@ -21,7 +21,7 @@ class Manufacturer extends Model
     public function validateCreate(array $data){
         $roles = [
             'name'          => ['required', 'string', 'max:100', 'unique:manufacturers'],
-            'image'         => ['required', 'mimes:image/*']
+            'image'         => ['required', 'mimes:jpeg,jpg,gif,bmp,png']
         ];
 
         $validator = Validator::make($data, $roles);
@@ -41,7 +41,7 @@ class Manufacturer extends Model
     public function validateUpdate(array $data){
         $roles = [
             'name'          => ['required', 'string', 'max:100', Rule::unique('manufacturers')->ignore($this->id)],
-            'image'         => ['mimes:image/*']
+            'image'         => ['mimes:jpeg,jpg,gif,bmp,png']
         ];
 
         $validator = Validator::make($data, $roles);

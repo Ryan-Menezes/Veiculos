@@ -20,7 +20,7 @@ class ManufacturerController extends Controller
     public function index()
     {
         // Verifica permissão        
-        if(Gate::denies('view.categories')) abort(404);
+        if(Gate::denies('view.manufacturers')) abort(404);
 
         // carregando view
         $title = 'Fabricantes';
@@ -47,13 +47,13 @@ class ManufacturerController extends Controller
                 'container'     => '.table-manufacturers-body',
                 'route'         => 'panel.manufacturers.load',
                 'removeElement' => '#parentLoading',
-                'offset'        => $manufacturers->count(),
+                'offset'        => $manufacturers->count() + $offset,
                 'limit'         => $limit,
                 'search'        => $search
             ]);
         endif;
 
-        // Verificando se foi encontrado algum usuário
+        // Verificando se foi encontrado algum fabricante
         if(empty($html)){
             if(empty($search))
                 $html = view('components.table.messageline', [

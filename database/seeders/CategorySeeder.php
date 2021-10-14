@@ -48,7 +48,10 @@ class CategorySeeder extends Seeder
 			'Trator de esteiras',
 			'Trator misto',
 			'Especial',
-			'De coleção'
+			'De coleção',
+			'Esportivo',
+			'Passeio',
+			'Corrida'
         ];
 
         foreach($categories as $category):

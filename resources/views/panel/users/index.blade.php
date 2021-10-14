@@ -29,16 +29,18 @@
 @stop
 
 @section('css')
-	  <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.css') }}">
-	  <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.structure.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/panel/style.css') }}">
 @stop
 
 @section('js')
-   	<script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.min.js') }}"></script>
-   	<script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-form-validate/dist/jquery.validate.min.js') }}"></script>
-   	<script type="text/javascript" src="{{ asset('assets/js/config-jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.maskedinput-master/dist/jquery.maskedinput.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/config-jquery-mask.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/config-jquery-ui.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/config-ajax.js') }}"></script>
 @stop

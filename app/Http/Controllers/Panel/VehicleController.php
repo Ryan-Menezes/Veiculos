@@ -52,13 +52,13 @@ class VehicleController extends Controller
                 'container'     => '.table-vehicles-body',
                 'route'         => 'panel.vehicles.load',
                 'removeElement' => '#parentLoading',
-                'offset'        => $vehicles->count(),
+                'offset'        => $vehicles->count() + $offset,
                 'limit'         => $limit,
                 'search'        => $search
             ]);
         endif;
 
-        // Verificando se foi encontrado algum usuário
+        // Verificando se foi encontrado algum veículo
         if(empty($html)){
             if(empty($search))
                 $html = view('components.table.messageline', [

@@ -5,7 +5,9 @@ use App\Http\Controllers\Panel\{
 	PanelController,
 	UserController,
 	VehicleController,
-	ManufacturerController
+	ManufacturerController,
+	CategoryController,
+	DiscountController
 };
 use App\Http\Controllers\Site\{
 	SiteController
@@ -64,5 +66,27 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 		Route::get('/{manufacturer}/editar', [ManufacturerController::class, 'edit'])->name('panel.manufacturers.edit');
 		Route::put('/{manufacturer}', [ManufacturerController::class, 'update'])->name('panel.manufacturers.update');
 		Route::delete('/{manufacturer}', [ManufacturerController::class, 'destroy'])->name('panel.manufacturers.destroy');
+	});
+
+	// CATEGORIES
+	Route::group(['prefix' => 'categorias'], function(){
+		Route::get('/', [CategoryController::class, 'index'])->name('panel.categories');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [CategoryController::class, 'load'])->name('panel.categories.load');
+		Route::get('/novo', [CategoryController::class, 'create'])->name('panel.categories.create');
+		Route::post('/', [CategoryController::class, 'store'])->name('panel.categories.store');
+		Route::get('/{category}/editar', [CategoryController::class, 'edit'])->name('panel.categories.edit');
+		Route::put('/{category}', [CategoryController::class, 'update'])->name('panel.categories.update');
+		Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('panel.categories.destroy');
+	});
+
+	// DISCOUNTS
+	Route::group(['prefix' => 'descontos'], function(){
+		Route::get('/', [DiscountController::class, 'index'])->name('panel.discounts');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [DiscountController::class, 'load'])->name('panel.discounts.load');
+		Route::get('/novo', [DiscountController::class, 'create'])->name('panel.discounts.create');
+		Route::post('/', [DiscountController::class, 'store'])->name('panel.discounts.store');
+		Route::get('/{discount}/editar', [DiscountController::class, 'edit'])->name('panel.discounts.edit');
+		Route::put('/{discount}', [DiscountController::class, 'update'])->name('panel.discounts.update');
+		Route::delete('/{discount}', [DiscountController::class, 'destroy'])->name('panel.discounts.destroy');
 	});
 });

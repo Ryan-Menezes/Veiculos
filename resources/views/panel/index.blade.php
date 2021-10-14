@@ -45,7 +45,7 @@
               	<div class="icon">
                 	 <i class="fas fa-car"></i>
               	</div>
-              	<a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+              	<a href="{{ route('panel.vehicles') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan
@@ -63,7 +63,7 @@
               	<div class="icon">
                 	 <i class="fas fa-industry"></i>
               	</div>
-              	<a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+              	<a href="{{ route('panel.manufacturers') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan
@@ -81,7 +81,7 @@
                 <div class="icon">
                    <i class="fas fa-tags"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('panel.categories') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan
@@ -99,7 +99,7 @@
                 <div class="icon">
                    <i class="fas fa-percent"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('panel.discounts') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan
@@ -161,13 +161,18 @@
 @stop
 
 @section('css')
-	  <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.css') }}">
-	  <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.theme.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.theme.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.structure.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/panel/style.css') }}">
 @stop
 
 @section('js')
-   	<script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.min.js') }}"></script>
-   	<script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
-   	<script type="text/javascript" src="{{ asset('assets/js/config-jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery-form-validate/dist/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/libs/jquery/jquery.maskedinput-master/dist/jquery.maskedinput.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/config-jquery-mask.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/config-jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/config-ajax.js') }}"></script>
 @stop

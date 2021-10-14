@@ -56,7 +56,7 @@ class User extends Authenticatable
         $roles = [
             'name'          => ['required', 'string', 'max:191'],
             'email'         => ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($this->id)],
-            'image'         => ['mimes:image/*']
+            'image'         => ['mimes:jpeg,jpg,gif,bmp,png']
         ];
 
         $validator = Validator::make($data, $roles);
@@ -90,10 +90,14 @@ class User extends Authenticatable
     // ATTRIBUTES
 
     public function getCreatedAtFormatAttribute(){
+        if(empty($this->created_at)) return null;
+
         return date('d/m/Y H:i:s', strtotime($this->created_at));
     }
 
     public function getUpdatedAtFormatAttribute(){
+        if(empty($this->updated_at)) return null;
+
         return date('d/m/Y H:i:s', strtotime($this->updated_at));
     }
 
