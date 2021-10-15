@@ -19,7 +19,7 @@
     <x-modal.editcreate class="form-edit" title="Editar Desconto"/>
     <x-modal.delete title="Deletar" message="Deseja deletar este desconto?" id="delete"/>
 
-    {{-- TABLE USERS --}}
+    {{-- TABLE DISCOUNTS --}}
     @component('components.table.table', [
       'title' => $title, 
       'columns' => $columns, 

@@ -78,7 +78,7 @@ class UserController extends Controller
         if(Gate::denies('edit.users')) abort(404);
 
         $roles = Role::all()->pluck('name', 'id');
-        return view('panel.users.edit', compact('user', 'roles'));
+        return view($this->prefix . 'users.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)

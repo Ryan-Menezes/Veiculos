@@ -73,7 +73,7 @@ class DiscountController extends Controller
         // Verifica permissão        
         if(Gate::denies('create.discounts')) abort(404);
 
-        return view('panel.discounts.create');
+        return view($this->prefix . 'discounts.create');
     }
 
     public function store(Request $request)
@@ -119,7 +119,7 @@ class DiscountController extends Controller
         // Verifica permissão        
         if(Gate::denies('edit.discounts')) abort(404);
 
-        return view('panel.discounts.edit', compact('discount'));
+        return view($this->prefix . 'discounts.edit', compact('discount'));
     }
 
     public function update(Request $request, Discount $discount)

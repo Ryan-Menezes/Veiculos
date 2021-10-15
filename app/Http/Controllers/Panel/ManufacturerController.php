@@ -73,7 +73,7 @@ class ManufacturerController extends Controller
         // Verifica permissão        
         if(Gate::denies('create.manufacturers')) abort(404);
 
-        return view('panel.manufacturers.create');
+        return view($this->prefix . 'manufacturers.create');
     }
 
     public function store(Request $request)
@@ -126,7 +126,7 @@ class ManufacturerController extends Controller
         // Verifica permissão        
         if(Gate::denies('edit.manufacturers')) abort(404);
 
-        return view('panel.manufacturers.edit', compact('manufacturer'));
+        return view($this->prefix . 'manufacturers.edit', compact('manufacturer'));
     }
 
     public function update(Request $request, Manufacturer $manufacturer)

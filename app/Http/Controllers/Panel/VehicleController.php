@@ -84,7 +84,7 @@ class VehicleController extends Controller
         $categories = Category::all()->pluck('name', 'id');
         $manufacturers = Manufacturer::all()->pluck('name', 'id');
 
-        return view('panel.vehicles.create', compact('years', 'ports', 'categories', 'manufacturers', 'status'));
+        return view($this->prefix . 'vehicles.create', compact('years', 'ports', 'categories', 'manufacturers', 'status'));
     }
 
     public function store(Request $request)
@@ -161,7 +161,7 @@ class VehicleController extends Controller
         $categories = Category::all()->pluck('name', 'id');
         $manufacturers = Manufacturer::all()->pluck('name', 'id');
 
-        return view('panel.vehicles.edit', compact('vehicle', 'years', 'ports', 'categories', 'manufacturers', 'status'));
+        return view($this->prefix . 'vehicles.edit', compact('vehicle', 'years', 'ports', 'categories', 'manufacturers', 'status'));
     }
 
     public function update(Request $request, Vehicle $vehicle)

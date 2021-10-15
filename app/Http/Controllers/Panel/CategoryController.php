@@ -73,7 +73,7 @@ class CategoryController extends Controller
         // Verifica permissão        
         if(Gate::denies('create.categories')) abort(404);
 
-        return view('panel.categories.create');
+        return view($this->prefix . 'categories.create');
     }
 
     public function store(Request $request)
@@ -113,7 +113,7 @@ class CategoryController extends Controller
         // Verifica permissão        
         if(Gate::denies('edit.categories')) abort(404);
 
-        return view('panel.categories.edit', compact('category'));
+        return view($this->prefix . 'categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)

@@ -39,6 +39,7 @@ class CreatePermissionsTable extends Migration
             $table->dropForeign(['role_permissions_role_id_foreign', 'role_permissions_permission_id_foreign']);
         });
 
+        Schema::dropIfExists('role_permissions');
         Schema::dropIfExists('permissions');
     }
 }

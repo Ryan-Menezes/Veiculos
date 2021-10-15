@@ -117,7 +117,7 @@
               	<div class="icon">
                 	 <i class="fas fa-list-alt"></i>
               	</div>
-                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('panel.requests') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan
@@ -135,7 +135,7 @@
                 <div class="icon">
                   	<i class="fas fa-user-tag"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('panel.roles') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan
@@ -153,7 +153,7 @@
             	<div class="icon">
               	  <i class="fas fa-lock"></i>
             	</div>
-            	<a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+            	<a href="{{ route('panel.permissions') }}" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         @endcan

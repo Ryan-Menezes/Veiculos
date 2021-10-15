@@ -7,7 +7,10 @@ use App\Http\Controllers\Panel\{
 	VehicleController,
 	ManufacturerController,
 	CategoryController,
-	DiscountController
+	DiscountController,
+	RequestController,
+	RoleController,
+	PermissionController
 };
 use App\Http\Controllers\Site\{
 	SiteController
@@ -88,5 +91,33 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 		Route::get('/{discount}/editar', [DiscountController::class, 'edit'])->name('panel.discounts.edit');
 		Route::put('/{discount}', [DiscountController::class, 'update'])->name('panel.discounts.update');
 		Route::delete('/{discount}', [DiscountController::class, 'destroy'])->name('panel.discounts.destroy');
+	});
+
+	// REQUESTS
+	Route::group(['prefix' => 'pedidos'], function(){
+		Route::get('/', [RequestController::class, 'index'])->name('panel.requests');
+		Route::get('/{requestmodel}', [RequestController::class, 'show'])->name('panel.requests.show');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [RequestController::class, 'load'])->name('panel.requests.load');
+		Route::get('/{requestmodel}/editar', [RequestController::class, 'edit'])->name('panel.requests.edit');
+		Route::put('/{requestmodel}', [RequestController::class, 'update'])->name('panel.requests.update');
+		Route::delete('/{requestmodel}', [RequestController::class, 'destroy'])->name('panel.requests.destroy');
+	});
+
+	// ROLES
+	Route::group(['prefix' => 'funcoes'], function(){
+		Route::get('/', [RoleController::class, 'index'])->name('panel.roles');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [RoleController::class, 'load'])->name('panel.roles.load');
+		Route::get('/novo', [RoleController::class, 'create'])->name('panel.roles.create');
+		Route::post('/', [RoleController::class, 'store'])->name('panel.roles.store');
+		Route::get('/{role}/editar', [RoleController::class, 'edit'])->name('panel.roles.edit');
+		Route::put('/{role}', [RoleController::class, 'update'])->name('panel.roles.update');
+		Route::delete('/{role}', [RoleController::class, 'destroy'])->name('panel.roles.destroy');
+	});
+
+	// PERMISSIONS
+	Route::group(['prefix' => 'permissoes'], function(){
+		Route::get('/', [PermissionController::class, 'index'])->name('panel.permissions');
+		Route::get('/{permission}', [PermissionController::class, 'show'])->name('panel.permissions.show');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [PermissionController::class, 'load'])->name('panel.permissions.load');
 	});
 });

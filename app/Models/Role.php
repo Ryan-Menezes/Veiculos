@@ -13,6 +13,7 @@ class Role extends Model
 
     public $timestamps = false;
     protected $fillable = ['name', 'description'];
+    public $columns = ['ID', 'Nome', 'Ações'];
 
     // VALIDATES
 
@@ -54,6 +55,18 @@ class Role extends Model
         endif;
 
         return null;
+    }
+
+    // SCOPES
+
+    public function scopeSearch($query, $search, $offset, $limit){
+        return $query
+                    ->where('id', 'LIKE', "%{$search}%")
+                    ->orWhere('name', 'LIKE', "%{$search}%")
+                    ->orWhere('description', 'LIKE', "%{$search}%")
+                    ->offset($offset)
+                    ->limit($limit)
+                    ->get();
     }
 
     // RELATIONS

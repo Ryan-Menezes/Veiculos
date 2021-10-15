@@ -10,7 +10,7 @@ use App\Models\{
 	Discount,
 	Manufacturer,
     Category,
-	Request as RequestVeh,
+	Request as RequestModel,
 	Role,
 	Permission
 };
@@ -25,7 +25,7 @@ class PanelController extends Controller
     		'amountManufacturers' 	=> Manufacturer::count(),
             'amountCategories'      => Category::count(),
     		'amountDiscounts' 		=> Discount::count(),
-    		'amountRequests' 		=> RequestVeh::count(),
+    		'amountRequests' 		=> RequestModel::count(),
     		'amountRoles' 			=> Role::count(),
     		'amountPermissions' 	=> Permission::count()
     	];

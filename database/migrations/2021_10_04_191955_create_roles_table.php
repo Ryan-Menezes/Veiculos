@@ -39,6 +39,7 @@ class CreateRolesTable extends Migration
             $table->dropForeign(['user_roles_user_id_foreign', 'user_roles_role_id_foreign']);
         });
 
+        Schema::dropIfExists('user_roles');
         Schema::dropIfExists('roles');
     }
 }

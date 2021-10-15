@@ -15,15 +15,22 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('vehicle_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 10, 2);
-            $table->enum('status', ['PA', 'PE', 'A', 'R', 'C']);
+            $table->enum('status', ['PA', 'PE', 'AC', 'RE', 'CO', 'CA']);  // PAGAMENTO, PENDENTE, ACEITO, CONCLUIDO, CANCELADO
             $table->timestamps();
 
-            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+        });
+
+        Schema::create('request_vehicles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('request_id')->unsigned();
+            $table->integer('vehicle_id')->unsigned()->nullable();
+
+            $table->foreign('request_id')->references('id')->on('requests')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('SET NULL')->onUpdate('CASCADE');
         });
     }
 
@@ -35,9 +42,14 @@ class CreateRequestsTable extends Migration
     public function down()
     {
         Schema::table('requests', function (Blueprint $table) {
-            $table->dropForeign(['requests_vehicle_id_foreign', 'requests_user_id_foreign']);
+            $table->dropForeign(['requests_vehicle_id_foreign']);
         });
 
+        Schema::table('request_vehicles', function (Blueprint $table) {
+            $table->dropForeign(['request_vehicles_request_id_foreign', 'request_vehicles_vehicle_id_foreign']);
+        });
+
+        Schema::dropIfExists('request_vehicles');
         Schema::dropIfExists('requests');
     }
 }

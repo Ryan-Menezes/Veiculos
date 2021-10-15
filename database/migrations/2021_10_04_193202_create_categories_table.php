@@ -40,6 +40,7 @@ class CreateCategoriesTable extends Migration
             $table->dropForeign(['vehicle_categories_vehicle_id_foreign', 'vehicle_categories_category_id_foreign']);
         });
 
+        Schema::dropIfExists('vehicle_categories');
         Schema::dropIfExists('categories');
     }
 }

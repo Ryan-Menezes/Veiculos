@@ -19,7 +19,7 @@
     <x-modal.editcreate class="form-edit" title="Editar Categoria"/>
     <x-modal.delete title="Deletar" message="Deseja deletar esta categoria?" id="delete"/>
 
-    {{-- TABLE USERS --}}
+    {{-- TABLE CATEGORIES --}}
     @component('components.table.table', [
       'title' => $title, 
       'columns' => $columns, 
