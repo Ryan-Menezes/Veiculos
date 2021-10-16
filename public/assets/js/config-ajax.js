@@ -14,15 +14,16 @@ $(window.document).ready(function(){
 })
 
 function load(){
-	let url 			= this.dataset.url
-	let token 			= this.dataset.token
-	let container 		= this.dataset.container
-	let removeElement 	= this.dataset.removeelement
-	let method 			= (this.dataset.method 	!== undefined && this.dataset.method.length 	> 0) 	? this.dataset.method 			: 'POST'
-	let data 			= (this.dataset.data 	!== undefined && this.dataset.data.length 		> 0) 	? JSON.parse(this.dataset.data) : Object.create({})
-	let append 			= (this.dataset.append 	!== undefined && this.dataset.append == 'false') 		? false							: true
-	let remove 			= (this.dataset.remove 	!== undefined && this.dataset.remove == 'false') 		? false 						: true
-	let loading 		= (this.dataset.loading !== undefined && this.dataset.loading == 'false') 		? false							: true
+	let url 				= this.dataset.url
+	let token 				= this.dataset.token
+	let container 			= this.dataset.container
+	let removeElement 		= this.dataset.removeelement
+	let method 				= (this.dataset.method 	!== undefined && this.dataset.method.length 	> 0) 	? this.dataset.method 			: 'POST'
+	let data 				= (this.dataset.data 	!== undefined && this.dataset.data.length 		> 0) 	? JSON.parse(this.dataset.data) : Object.create({})
+	let append 				= (this.dataset.append 	!== undefined && this.dataset.append == 'false') 		? false							: true
+	let remove 				= (this.dataset.remove 	!== undefined && this.dataset.remove == 'false') 		? false 						: true
+	let loading 			= (this.dataset.loading !== undefined && this.dataset.loading == 'false') 		? false							: true
+
 
 	if(url !== undefined && method !== undefined && container !== null && token !== null){
 		let classC = null;
@@ -101,10 +102,10 @@ function load(){
 function loadForm(){
 	event.preventDefault()
 
-	let url = this.action
-	let method = this.method
-	let data = new FormData(this)
-	let element = this
+	let url 				= this.action
+	let method 				= this.method
+	let data 				= new FormData(this)
+	let element 			= this
 
 	if(ajaxLoadForm === null){
 		ajaxLoadForm = $.ajax({
@@ -123,6 +124,7 @@ function loadForm(){
 				ajaxLoadForm = null
 				$(element).children(':submit').show()
 				$(element).children('.load').remove()
+				$('#search').trigger('change')
 			}
 		})
 		.done(function(result){
@@ -142,13 +144,13 @@ function loadForm(){
 }
 
 function loadConfirm(){
-	let url 			= this.dataset.url
-	let token 			= this.dataset.token
-	let container 		= this.dataset.container
-	let method 			= (this.dataset.method 	!== undefined && this.dataset.method.length 	> 0) 	? this.dataset.method 			: 'POST'
-	let _method 		= (this.dataset._method !== undefined && this.dataset._method.length 	> 0) 	? this.dataset._method 			: method
-	let data 			= (this.dataset.data 	!== undefined && this.dataset.data.length 		> 0) 	? JSON.parse(this.dataset.data) : Object.create({})	
-	let html 			= $(container).html()
+	let url 				= this.dataset.url
+	let token 				= this.dataset.token
+	let container 			= this.dataset.container
+	let method 				= (this.dataset.method 	!== undefined && this.dataset.method.length 	> 0) 	? this.dataset.method 			: 'POST'
+	let _method 			= (this.dataset._method !== undefined && this.dataset._method.length 	> 0) 	? this.dataset._method 			: method
+	let data 				= (this.dataset.data 	!== undefined && this.dataset.data.length 		> 0) 	? JSON.parse(this.dataset.data) : Object.create({})	
+	let html 				= $(container).html()
 
 	$(container).dialog({
 		autoOpen: true,
@@ -182,11 +184,11 @@ function loadConfirm(){
 							complete: function(){
 								$(container).children('.load').remove()
 								ajaxLoadConfirm = null
+								$('#search').trigger('change')
 							}
 						})
 						.done(function(result){
 							if(result.success){
-								// $('.table-permissions-body').html(createLoading('.table-permissions-body', 'http://www.veiculos.com/painel/permissoes/carrega/0/10', '', 'GET'))
 								$(container).html($('<div/>').addClass('alert alert-success').text(result.message))
 							}else{
 								$(container).html($('<div/>').addClass('alert alert-danger').text(result.message))
@@ -200,23 +202,4 @@ function loadConfirm(){
 			}
 		}
 	})
-}
-
-function createLoading(container, url, token, method){
-	let tr = $('<tr/>').attr('id', 'parentLoading')
-	let td = $('<td/>').attr('colspan', '500')
-	let div = $('<div/>').addClass('loading')
-	let button = $('<button/>')
-						.addClass('load-ajax-click autoclick')
-						.attr({
-							'data-container': container,
-							'data-url': url,
-							'data-token': token,
-							'data-removeelement': '#parentLoading',
-							'data-remove': true,
-							'data-append': true,
-							'data-method': method
-						})
-
-	return tr.append(td.append(div.append(button)))
 }

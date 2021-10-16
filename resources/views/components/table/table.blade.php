@@ -21,6 +21,7 @@
                 <div class="col d-flex align-items-center">
                     <div class="input-group input-group-sm" style="width: 300px;">
                     <input type="text" name="search" placeholder="Buscar"
+                        id="search"
                         class="form-control float-right load-ajax-enter" 
                         data-container=".{{ $container }}" 
                         data-url="{{ route($route, ['offset' => 0, 'limit' => 10]) }}"

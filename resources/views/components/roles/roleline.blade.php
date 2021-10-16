@@ -4,7 +4,7 @@
     <td>
         @can('delete.roles')
     	<button 
-            class="btn btn-sm btn-danger load-ajax-confirm",
+            class="btn btn-sm btn-danger load-ajax-confirm"
             data-container="#delete" 
             data-url="{{ route('panel.roles.destroy', $role) }}"
             data-token="{{ csrf_token() }}"
