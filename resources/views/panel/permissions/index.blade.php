@@ -15,6 +15,7 @@
 
 @section('content')
     {{-- MODALS --}}
+    <x-modal.editcreate class="form-edit" title="Editar Permissão"/>
     <x-modal.editcreate class="cont-show" title="Informações da Permissão"/>
 
     {{-- TABLE PERMISSIONS --}}

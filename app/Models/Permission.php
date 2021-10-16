@@ -39,7 +39,6 @@ class Permission extends Model
 
     public function validateUpdate(array $data){
         $roles = [
-            'name'          => ['required', 'string', Rule::unique('permissions')->ignore($this->id)],
             'description'   => ['required', 'string']
         ];
 

@@ -66,4 +66,15 @@ $(window.document).ready(function(){
 
 	// Configurações do buttonset
     $('.buttonset-ui').buttonset();    
+
+    // Configurações do form validade
+    $('*').delegate('.form-validate', 'focus', function(){
+        $(this).validate({
+            errorElement: 'span',
+            messages: {
+                required: 'Este campo é obrigatório',
+                email: 'Por favor entre com um email válido'
+            }
+        })
+    })
 })

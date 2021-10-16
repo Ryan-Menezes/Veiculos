@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel\{
 	PanelController,
+	PerfilController,
 	UserController,
 	VehicleController,
 	ManufacturerController,
@@ -39,6 +40,13 @@ Auth::routes();
 // PANEL
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 	Route::get('/', [PanelController::class, 'index'])->name('panel');
+
+	// PERFIL
+	Route::group(['prefix' => 'perfil'], function(){
+		Route::get('/', [PerfilController::class, 'index'])->name('panel.perfil');
+		Route::put('/dados/eitar', [PerfilController::class, 'updateUser'])->name('panel.perfil.user.update');
+		Route::put('/password/editar', [PerfilController::class, 'updateUserPassword'])->name('panel.perfil.user.update.password');
+	});
 
 	// USERS
 	Route::group(['prefix' => 'usuarios'], function(){
@@ -119,5 +127,7 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 		Route::get('/', [PermissionController::class, 'index'])->name('panel.permissions');
 		Route::get('/{permission}', [PermissionController::class, 'show'])->name('panel.permissions.show');
 		Route::any('/carrega/{offset?}/{limit?}/{search?}', [PermissionController::class, 'load'])->name('panel.permissions.load');
+		Route::get('/{permission}/editar', [PermissionController::class, 'edit'])->name('panel.permissions.edit');
+		Route::put('/{permission}', [PermissionController::class, 'update'])->name('panel.permissions.update');
 	});
 });

@@ -73,6 +73,25 @@ class User extends Authenticatable
         return null;
     }
 
+    public function validateUpdatePassword(array $data){
+        $roles = [
+            'newpassword'      => ['required', 'min:8']
+        ];
+
+        $validator = Validator::make($data, $roles);
+        if($validator->fails()):
+            $result = ['success' => false, 'message' => ''];
+
+            foreach($validator->errors()->all() as $error):
+                $result['message'] .= "<p class='p-0 m-0'>{$error}</p>";           
+            endforeach;
+
+            return json_encode($result);
+        endif;
+
+        return null;
+    }
+
     // SCOPES
 
     public function scopeSearch($query, $search, $offset, $limit){

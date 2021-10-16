@@ -185,10 +185,12 @@ function loadConfirm(){
 							}
 						})
 						.done(function(result){
-							if(result.success)
+							if(result.success){
+								// $('.table-permissions-body').html(createLoading('.table-permissions-body', 'http://www.veiculos.com/painel/permissoes/carrega/0/10', '', 'GET'))
 								$(container).html($('<div/>').addClass('alert alert-success').text(result.message))
-							else
+							}else{
 								$(container).html($('<div/>').addClass('alert alert-danger').text(result.message))
+							}
 						})
 						.fail(function(){
 							$(container).html($('<div/>').addClass('alert alert-danger').text('FALHA AO ENVIAR RESPOSTA!'))
@@ -198,4 +200,23 @@ function loadConfirm(){
 			}
 		}
 	})
+}
+
+function createLoading(container, url, token, method){
+	let tr = $('<tr/>').attr('id', 'parentLoading')
+	let td = $('<td/>').attr('colspan', '500')
+	let div = $('<div/>').addClass('loading')
+	let button = $('<button/>')
+						.addClass('load-ajax-click autoclick')
+						.attr({
+							'data-container': container,
+							'data-url': url,
+							'data-token': token,
+							'data-removeelement': '#parentLoading',
+							'data-remove': true,
+							'data-append': true,
+							'data-method': method
+						})
+
+	return tr.append(td.append(div.append(button)))
 }

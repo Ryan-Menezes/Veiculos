@@ -5,12 +5,3 @@
 
 	<x-form.inputsubmit value="Salvar" class="btn-danger"/>
 {!! Form::close() !!}
-
-<script type="text/javascript">
-	$('.form-validate').validate({
-		errorElement: 'span',
-		messages: {
-			required: 'Este campo é obrigatório'
-		}
-	})
-</script>

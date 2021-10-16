@@ -67,6 +67,45 @@ class PermissionController extends Controller
         return $html;
     }
 
+    public function edit(Permission $permission)
+    {
+        // Verifica permissão        
+        if(Gate::denies('edit.permissions')) abort(404);
+
+        return view($this->prefix . 'permissions.edit', compact('permission'));
+    }
+
+    public function update(Request $request, Permission $permission)
+    {
+        // Verifica permissão
+        if(Gate::denies('edit.permissions')):
+            return json_encode([
+                'success'   => false,
+                'message'   => 'Você não tem permissão para editar uma permissão!'
+            ]);
+        endif;
+
+        // Dados do formulário
+        $data = $request->all();
+
+        // Validando os dados
+        $validator = $permission->validateUpdate($data);
+        if(!is_null($validator)) return $validator;
+
+        // Edita função
+        if($permission->update($data)):
+            return json_encode([
+                'success'   => true,
+                'message'   => 'Permissão editada com sucesso!'
+            ]);
+        endif;
+
+        return json_encode([
+            'success'   => false,
+            'message'   => 'Permissão não editada, Ocorreu um erro no processo de edição!'
+        ]);
+    }
+
     public function show(Permission $permission){
         // Verifica permissão        
         if(Gate::denies('view.permissions')) abort(404);

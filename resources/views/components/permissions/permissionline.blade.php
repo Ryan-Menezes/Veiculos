@@ -14,5 +14,18 @@
             data-loading="false"
         ><i class="fas fa-info"></i></button>
         @endcan
+
+        @can('edit.permissions')
+        <button
+            class="btn btn-sm btn-primary load-ajax-click" 
+            data-container=".form-edit" 
+            data-url="{{ route('panel.permissions.edit', $permission) }}"
+            data-token="{{ csrf_token() }}"
+            data-remove="false"
+            data-append="false"
+            data-method="GET"
+            data-loading="false"
+        ><i class="fas fa-pencil-alt"></i></button>
+        @endcan
     </td>
 </tr>
