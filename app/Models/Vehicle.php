@@ -102,6 +102,10 @@ class Vehicle extends Model
 
     // ATTRIBUTES
 
+    public function getDescriptionFormatAttribute(){
+        return str_ireplace("\n", '<br>', $this->description);
+    }
+
     public function getPriceFormatAttribute(){
         if(empty($this->price)) return number_format(0, 2, ',', '.');
 

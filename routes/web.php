@@ -14,7 +14,9 @@ use App\Http\Controllers\Panel\{
 	PermissionController
 };
 use App\Http\Controllers\Site\{
-	SiteController
+	SiteController,
+	DetailsController,
+	ContactController
 };
 
 /*
@@ -31,7 +33,16 @@ use App\Http\Controllers\Site\{
 // SITE
 Route::group(['prefix' => '/'], function(){
 	Route::get('/', [SiteController::class, 'index'])->name('site');
-	Route::get('/contato', [SiteController::class, 'contact'])->name('site.contact');
+
+	// DETAILS
+	Route::group(['prefix' => '/{slug}'], function(){
+		Route::get('/', [DetailsController::class, 'index'])->name('site.details');
+	});
+
+	// CONTACT
+	Route::group(['prefix' => 'contato'], function(){
+		Route::get('/', [ContactController::class, 'index'])->name('site.contact');
+	});
 });
 
 // AUTHENTICATE

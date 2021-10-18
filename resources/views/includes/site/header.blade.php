@@ -7,21 +7,23 @@
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__widget">
-        <a href="#"><i class="fa fa-cart-plus"></i></a>
+        <a href="#"><i class="fa fa-shopping-cart"></i></a>
         <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-        <a href="#" class="primary-btn">Add Car</a>
+        @auth
+        <a href="{{ route('panel') }}" class="primary-btn">Painel</a>
+        @endauth
     </div>
     <div class="offcanvas__logo">
-        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+        <a href="{{ route('site') }}"><img src="{{ asset(config('app.logo')) }}" alt=""></a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <ul class="offcanvas__widget__add">
-        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-        <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+        <li><i class="fa fa-clock-o"></i> {{ date('d/m/Y H:i:s') }}</li>
+        <li><i class="fa fa-envelope-o"></i> hvac@gmail.com</li>
     </ul>
     <div class="offcanvas__phone__num">
         <i class="fa fa-phone"></i>
-        <span>(+12) 345 678 910</span>
+        <span>(11) 99999-9999</span>
     </div>
     <div class="offcanvas__social">
         <a href="#"><i class="fa fa-facebook"></i></a>
@@ -39,15 +41,15 @@
             <div class="row">
                 <div class="col-lg-7">
                     <ul class="header__top__widget">
-                        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-                        <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+                         <li><i class="fa fa-clock-o"></i> {{ date('d/m/Y H:i:s') }}</li>
+                        <li><i class="fa fa-envelope-o"></i> hvac@gmail.com</li>
                     </ul>
                 </div>
                 <div class="col-lg-5">
                     <div class="header__top__right">
                         <div class="header__top__phone">
                             <i class="fa fa-phone"></i>
-                            <span>(+12) 345 678 910</span>
+                            <span>(11) 99999-9999</span>
                         </div>
                         <div class="header__top__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -64,7 +66,7 @@
         <div class="row">
             <div class="col-lg-2">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="{{ asset(config('app.logo')) }}" alt=""></a>
+                    <a href="{{ route('site') }}"><img src="{{ asset(config('app.logo')) }}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-10">
@@ -73,17 +75,23 @@
                         <ul>
                             <li><a href="{{ route('site') }}">Início</a></li>
                             <li class="active"><a href="./car.html">Veículos</a></li>
+                            <li><a href="./car.html">Quem Somos</a></li>
+                            <li><a href="{{ route('site.contact') }}">Contato</a></li>
+                            @auth
+                            @else
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Cadastro</a></li>
-                            <li><a href="{{ route('site.contact') }}">Contato</a></li>
+                            @endauth
                         </ul>
                     </nav>
                     <div class="header__nav__widget">
                         <div class="header__nav__widget__btn">
-                            <a href="#"><i class="fa fa-cart-plus"></i></a>
+                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
                             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                         </div>
+                        @auth
                         <a href="{{ route('panel') }}" class="primary-btn">Painel</a>
+                        @endauth
                     </div>
                 </div>
             </div>
