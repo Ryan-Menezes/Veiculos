@@ -14,6 +14,7 @@
                     <h2>{{ $vehicle->brand }}</h2>
                     <div class="breadcrumb__links">
                         <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
+                        <a href="{{ route('site.vehicles') }}">Veículos</a>
                         <span>{{ $vehicle->brand }}</span>
                     </div>
                 </div>

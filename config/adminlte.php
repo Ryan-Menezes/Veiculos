@@ -225,13 +225,6 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
-        [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
-
         // Sidebar items:
         [
             'text' => 'Início',
@@ -290,6 +283,11 @@ return [
             'url'         => 'painel/permissoes',
             'icon'        => 'fas fa-lock',
             'can'         => 'view.permissions',
+        ],
+        [
+            'text'        => 'Retornar ao site',
+            'url'         => '/',
+            'icon'        => 'fas fa-arrow-circle-left',
         ],
     ],
 

@@ -23,12 +23,13 @@
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="hero__tab__form">
                                 <h2>ENCONTRE O CARRO DOS SEUS SONHOS</h2>
-                                <form>
+                                <form action="{{ route('site.vehicles.search') }}" method="POST" id="form-filter">
+                                    @csrf
                                     <div class="select-list">
                                         <div class="select-list-item">
                                             <p>Ano</p>
-                                            <select>
-                                                <option value="" data-display="Selecione o Ano">Selecione o Ano</option>
+                                            <select name="year">
+                                                <option value="" data-display="Ano">Todos</option>
                                                 @foreach($years as $year)
                                                 <option value="{{ $year }}">{{ $year }}</option>
                                                 @endforeach
@@ -36,8 +37,8 @@
                                         </div>
                                         <div class="select-list-item">
                                             <p>Marca</p>
-                                            <select>
-                                                <option value="" data-display="Selecione a Marca">Selecione a Marca</option>
+                                            <select name="brand">
+                                                <option value="" data-display="Marca">Todos</option>
                                                 @foreach($brands as $brand)
                                                 <option value="{{ $brand }}">{{ $brand }}</option>
                                                 @endforeach
@@ -45,8 +46,8 @@
                                         </div>
                                         <div class="select-list-item">
                                             <p>Modelo</p>
-                                            <select>
-                                                <option value="" data-display="Selecione o Modelo">Selecione o Modelo</option>
+                                            <select name="model">
+                                                <option value="" data-display="Modelo">Todos</option>
                                                 @foreach($models as $model)
                                                 <option value="{{ $model }}">{{ $model }}</option>
                                                 @endforeach
@@ -54,8 +55,8 @@
                                         </div>
                                         <div class="select-list-item">
                                             <p>Quilometragem:</p>
-                                            <select>
-                                                <option value="" data-display="Selecione a Quilometragem">Selecione a Quilometragem</option>
+                                            <select name="mileage">
+                                                <option value="" data-display="Quilometragem">Todos</option>
                                                 @foreach($mileages as $mileage)
                                                 <option value="{{ $mileage }}">{{ $mileage }}</option>
                                                 @endforeach
@@ -68,7 +69,7 @@
                                             <div class="price-range"></div>
                                             <div class="range-slider">
                                                 <div class="price-input">
-                                                    <input type="text" id="amount">
+                                                    <input type="text" id="amount" name="price">
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +154,7 @@
                     <div class="car__item__text">
                         <div class="car__item__text__inner">
                             <div class="label-date">{{ $vehicle->year }}</div>
-                            <h5><a href="{{ route('site.details', $vehicle->slug) }}">{{ $vehicle->brand }}</a></h5>
+                            <h5><a href="{{ route('site.vehicles.show', $vehicle->slug) }}">{{ $vehicle->brand }}</a></h5>
                             <ul>
                                 <li><span>{{ $vehicle->ports }}</span> porta(s)</li>
                                 <li>{{ $vehicle->model }}</li>

@@ -660,9 +660,12 @@ ol {
 }
 
 .hero__tab__form form .select-list .select-list-item .nice-select .list {
-	width: 100%;
-	border-radius: 0;
-	margin-top: 0;
+	width: auto;
+	min-width: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .hero__tab__form form .select-list .select-list-item .nice-select.open span {
@@ -1020,9 +1023,12 @@ ol {
 }
 
 .car__filter__option .car__filter__option__item .nice-select .list {
-	width: 100%;
-	margin-top: 0;
-	border-radius: 0;
+	width: auto;
+	min-width: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .car__filter__option .car__filter__option__item .nice-select:after {
@@ -1285,9 +1291,12 @@ ol {
 }
 
 .car__filter form .nice-select .list {
-	width: 100%;
-	margin-top: 0;
-	border-radius: 0;
+	width: auto;
+	min-width: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .car__filter form .nice-select:after {
@@ -1715,9 +1724,12 @@ ol {
 }
 
 .call__form .nice-select .list {
-	width: 100%;
-	margin-top: 0;
-	border-radius: 0;
+	width: auto;
+	min-width: 100%;
+    margin-top: 0;
+    border-radius: 0;
+    max-height: 150px;
+    overflow: auto;
 }
 
 .call__form .nice-select:after {

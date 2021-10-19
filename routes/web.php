@@ -15,7 +15,7 @@ use App\Http\Controllers\Panel\{
 };
 use App\Http\Controllers\Site\{
 	SiteController,
-	DetailsController,
+	VehicleController as VCS,
 	ContactController
 };
 
@@ -30,23 +30,25 @@ use App\Http\Controllers\Site\{
 |
 */
 
+// AUTHENTICATE
+Auth::routes();
+
 // SITE
 Route::group(['prefix' => '/'], function(){
 	Route::get('/', [SiteController::class, 'index'])->name('site');
-
-	// DETAILS
-	Route::group(['prefix' => '/{slug}'], function(){
-		Route::get('/', [DetailsController::class, 'index'])->name('site.details');
-	});
 
 	// CONTACT
 	Route::group(['prefix' => 'contato'], function(){
 		Route::get('/', [ContactController::class, 'index'])->name('site.contact');
 	});
-});
 
-// AUTHENTICATE
-Auth::routes();
+	// VEHICLES
+	Route::group(['prefix' => '/veiculos'], function(){
+		Route::get('/', [VCS::class, 'index'])->name('site.vehicles');
+		Route::any('/buscar', [VCS::class, 'search'])->name('site.vehicles.search');
+		Route::get('/{slug}', [VCS::class, 'show'])->name('site.vehicles.show');		
+	});
+});
 
 // PANEL
 Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
@@ -136,7 +138,6 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 	// PERMISSIONS
 	Route::group(['prefix' => 'permissoes'], function(){
 		Route::get('/', [PermissionController::class, 'index'])->name('panel.permissions');
-		Route::get('/{permission}', [PermissionController::class, 'show'])->name('panel.permissions.show');
 		Route::any('/carrega/{offset?}/{limit?}/{search?}', [PermissionController::class, 'load'])->name('panel.permissions.load');
 		Route::get('/{permission}/editar', [PermissionController::class, 'edit'])->name('panel.permissions.edit');
 		Route::put('/{permission}', [PermissionController::class, 'update'])->name('panel.permissions.update');

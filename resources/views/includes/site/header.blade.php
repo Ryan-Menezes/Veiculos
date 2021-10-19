@@ -74,14 +74,9 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="{{ route('site') }}">Início</a></li>
-                            <li class="active"><a href="./car.html">Veículos</a></li>
+                            <li class="active"><a href="{{ route('site.vehicles') }}">Veículos</a></li>
                             <li><a href="./car.html">Quem Somos</a></li>
                             <li><a href="{{ route('site.contact') }}">Contato</a></li>
-                            @auth
-                            @else
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Cadastro</a></li>
-                            @endauth
                         </ul>
                     </nav>
                     <div class="header__nav__widget">
@@ -90,7 +85,10 @@
                             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                         </div>
                         @auth
-                        <a href="{{ route('panel') }}" class="primary-btn">Painel</a>
+                        <a href="{{ route('panel') }}" class="primary-btn"><i class="fa fa-cog"></i> Painel</a>
+                        @else
+                        <a href="{{ route('login') }}" class="primary-btn"><i class="fa fa-sign-in"></i> Login</a>
+                        <a href="{{ route('register') }}" class="primary-btn"><i class="fa fa-user"></i> Cadastre-se</a>
                         @endauth
                     </div>
                 </div>

@@ -105,11 +105,4 @@ class PermissionController extends Controller
             'message'   => 'Permissão não editada, Ocorreu um erro no processo de edição!'
         ]);
     }
-
-    public function show(Permission $permission){
-        // Verifica permissão        
-        if(Gate::denies('view.permissions')) abort(404);
-
-        return view($this->prefix . 'permissions.show', compact('permission'));
-    }
 }

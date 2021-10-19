@@ -12,6 +12,7 @@ class Vehicle extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'vehicles';
     public $uploadDir = 'vehicles';
     public $timestamps = true;
     public $columns = ['ID', 'Imagem', 'Marca', 'Modelo', 'Ano', 'Criado em', 'Atualizado em', 'Ações'];
@@ -98,6 +99,92 @@ class Vehicle extends Model
                     ->offset($offset)
                     ->limit($limit)
                     ->get();
+    }
+
+    public function scopeFilter($query, int $limit, array $data){
+        $search = $data['search'] ?? null;
+        $year = $data['year'] ?? null;
+        $brand = $data['brand'] ?? null; 
+        $model = $data['model'] ?? null; 
+        $mileage = $data['mileage'] ?? null;
+        $ports = $data['ports'] ?? null;
+        $manufacturer = $data['manufacturer'] ?? null;
+        $category = $data['category'] ?? null;
+        $price = isset($data['price']) ? str_ireplace(['[', ']', 'R', '$', ' '], '', $data['price']) : '';
+        $min = explode('-', $price)[0];
+        $max = explode('-', $price)[1];
+        $table = $this->table;
+
+        $query->select(["{$table}.*"]);
+
+        // YEAR FILTER
+        if(!empty($year) || strlen($year) > 0):
+            $query->where("{$table}.year", $year);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query->orWhere("{$table}.year", 'LIKE', "%{$search}%");
+        endif;
+
+        // BRAND FILTER
+        if(!empty($brand) || strlen($brand) > 0):
+            $query->where("{$table}.brand", $brand);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query->orWhere("{$table}.brand", 'LIKE', "%{$search}%");
+        endif;
+
+        // MODEL FILTER
+        if(!empty($model) || strlen($model) > 0):
+            $query->where("{$table}.model", $brand);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query->orWhere("{$table}.model", 'LIKE', "%{$search}%");
+        endif;
+
+        // MILEAGE FILTER
+        if(!empty($mileage) || strlen($mileage) > 0):
+            $query->where("{$table}.mileage", $mileage);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query->orWhere("{$table}.mileage", 'LIKE', "%{$search}%");
+        endif;
+
+        // PORTS FILTER
+        if(!empty($ports) || strlen($ports) > 0):
+            $query->where("{$table}.ports", $ports);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query->orWhere("{$table}.ports", 'LIKE', "%{$search}%");
+        endif;
+
+        // MANUFACTURER FILTER
+        if(!empty($manufacturer) || strlen($manufacturer) > 0):
+            $query
+                ->join('manufacturers', 'manufacturers.id', '=', "{$table}.id")
+                ->where('manufacturers.id', $manufacturer);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query
+                ->join('manufacturers', 'manufacturers.id', '=', "{$table}.id")
+                ->orWhere('manufacturers.name', "%{search}%", $manufacturer);
+        endif;
+
+        // CATEGORY FILTER
+        if(!empty($category) || strlen($category) > 0):
+            $query
+                ->join('categories', 'categories.id', '=', "{$table}.id")
+                ->where('categories.id', $category);
+        elseif(!empty($search) || strlen($search) > 0):
+            $query
+                ->join('categories', 'categories.id', '=', "{$table}.id")
+                ->orWhere('categories.name', "%{search}%", $category);
+        endif;
+
+        // PRICE FILTER
+        if(!empty($price) || strlen($price) > 0):
+            $query->whereBetween('price', [$min, $max]);
+        endif;
+
+        // SEARCH
+        if(!empty($search) || strlen($search) > 0):
+            $query->orWhere('description', 'LIKE', "%{$search}%");
+        endif;
+
+        return $query->paginate($limit);
     }
 
     // ATTRIBUTES
