@@ -1147,6 +1147,7 @@ ol {
 	position: absolute;
 	left: 0;
 	top: 0;
+	cursor: pointer;
 }
 
 .car__item__price .car-option.sale {
@@ -1158,7 +1159,7 @@ ol {
 	color: #db2d2e;
 	font-weight: 700;
 	border-top: 1px solid #ebebeb;
-	padding-left: 120px;
+	padding-left: 70px;
 	padding-top: 14px;
 	padding-bottom: 11px;
 }
@@ -3706,4 +3707,69 @@ ol {
 		font-size: 24px;
 		width: 100%;
 	}
+}
+
+
+.loading{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+.loading .load{
+	width: 20px;
+	height: 20px;
+	border: 2px solid #e3e3e3;
+	border-right: 2px solid #DC3545;
+	border-radius: 50%;
+	animation: loading 1s linear infinite;
+}
+@keyframes loading{
+	to{transform: rotate(360deg);}
+}
+.image-table{
+	width: 40px;
+}
+form.form-validate span.error{
+	color: #eb344c;
+	font-size: 12px;
+}
+form.form-validate input.error, 
+form.form-validate textarea.error,
+form.form-validate select.error{
+	border-color: #eb344c;
+}
+.alert{
+	cursor: pointer;
+}
+.table tr td{
+	vertical-align: middle;
+}
+.message-box{
+	width: auto;
+	padding: 12px;
+	font-size: 12px;
+	background-color: rgba(0, 0, 0, 0.9);
+	color: white;
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+	border-radius: 3px;
+	cursor: pointer;
+	text-transform: uppercase;
+	z-index: 999999;
+	animation: message 1s linear;
+}
+@keyframes message{
+	0%{
+		opacity: 0;
+		bottom: 60px;
+	}
+	100%{
+		opacity: 1;
+		bottom: 30px;
+	}
+}
+.w-100{
+	width: 100%;
 }

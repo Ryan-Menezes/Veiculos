@@ -7,14 +7,14 @@
 <div class="offcanvas-menu-overlay"></div>
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__widget">
-        <a href="#"><i class="fa fa-shopping-cart"></i></a>
+        <a href="{{ route('site.cart') }}"><i class="fa fa-shopping-cart"></i></a>
         <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
         @auth
         <a href="{{ route('panel') }}" class="primary-btn">Painel</a>
         @endauth
     </div>
     <div class="offcanvas__logo">
-        <a href="{{ route('site') }}"><img src="{{ asset(config('app.logo')) }}" alt=""></a>
+        <a href="{{ route('site') }}"><img src="{{ asset(config('app.logo')) }}" alt="{{ config('app.name') }}"></a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <ul class="offcanvas__widget__add">
@@ -81,7 +81,7 @@
                     </nav>
                     <div class="header__nav__widget">
                         <div class="header__nav__widget__btn">
-                            <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                            <a href="{{ route('site.cart') }}"><i class="fa fa-shopping-cart"></i></a>
                             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                         </div>
                         @auth

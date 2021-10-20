@@ -16,7 +16,8 @@ use App\Http\Controllers\Panel\{
 use App\Http\Controllers\Site\{
 	SiteController,
 	VehicleController as VCS,
-	ContactController
+	ContactController,
+	CartController
 };
 
 /*
@@ -47,6 +48,15 @@ Route::group(['prefix' => '/'], function(){
 		Route::get('/', [VCS::class, 'index'])->name('site.vehicles');
 		Route::any('/buscar', [VCS::class, 'search'])->name('site.vehicles.search');
 		Route::get('/{slug}', [VCS::class, 'show'])->name('site.vehicles.show');		
+	});
+
+	// CART
+	Route::group(['prefix' => '/carrinho'], function(){
+		Route::get('/', [CartController::class, 'index'])->name('site.cart');
+		Route::get('/adicionar/{vehicle}', [CartController::class, 'add'])->name('site.cart.add');
+		Route::get('/remover/{vehicle}', [CartController::class, 'remove'])->name('site.cart.remove');
+		Route::get('/clear', [CartController::class, 'clear'])->name('site.cart.clear');
+		Route::put('/edit/{vehicle}', [CartController::class, 'edit'])->name('site.cart.edit');
 	});
 });
 

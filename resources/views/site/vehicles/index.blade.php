@@ -3,8 +3,6 @@
 @section('title', 'Veículos')
 
 @section('content')
-<!-- Header Section End -->
-
 <!-- Breadcrumb End -->
 <div class="breadcrumb-option set-bg" data-setbg="{{ asset('assets/images/site/breadcrumb-bg.jpg') }}">
     <div class="container">
@@ -123,9 +121,16 @@
                                         <li><span>{{ $vehicle->mileage }}</span> km</li>
                                     </ul>
                                 </div>
-                                <div class="car__item__price">
+                                <div class="car__item__price loading">
                                     @if($vehicle->quantity > 0)
-                                    <span class="car-option sale"><i class="fa fa-shopping-cart"></i></span>
+                                    <span 
+                                        class="car-option sale load-ajax-click"
+                                        data-url="{{ route('site.cart.add', $vehicle) }}"
+                                        data-method="GET"
+                                        data-loading="true"
+                                        data-remove="false"
+                                        data-messagebox="true"
+                                    ><i class="fa fa-shopping-cart"></i></span>
                                     @else
                                     <span class="car-option sale">Indisponível</span>
                                     @endif

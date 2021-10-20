@@ -3,8 +3,6 @@
 @section('title', $vehicle->brand)
 
 @section('content')
-<!-- Header Section End -->
-
 <!-- Breadcrumb End -->
 <div class="breadcrumb-option set-bg" data-setbg="{{ asset('assets/images/site/breadcrumb-bg.jpg') }}">
     <div class="container">
@@ -69,7 +67,17 @@
                             <li>Ano <span>{{ $vehicle->year }}</span></li>
                             <li>Price <span>R${{ $vehicle->priceFormat }}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-shopping-cart"></i> Adicionar ao Carrinho</a>
+                        <div class="loading">
+                            <a href="javascript:void(0)" 
+                                class="primary-btn sidebar-btn load-ajax-click w-100"
+                                data-url="{{ route('site.cart.add', $vehicle) }}"
+                                data-method="GET"
+                                data-loading="true"
+                                data-remove="false"
+                                data-messagebox="true"
+                            ><i class="fa fa-shopping-cart"></i> Adicionar ao Carrinho</a>
+                        </div>
+                        
                         <a href="#" class="primary-btn"><i class="fa fa-money"></i> Comprar</a>
                     </div>
                 </div>

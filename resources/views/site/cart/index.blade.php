@@ -1,0 +1,88 @@
+@extends('templates.site')
+
+@section('title', 'Carrinho')
+
+@section('content')
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="{{ asset('assets/images/site/breadcrumb-bg.jpg') }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Carrinho</h2>
+                    <div class="breadcrumb__links">
+                        <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
+                        <span>Carrinho</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Begin -->
+
+<!-- Car Section Begin -->
+<section class="car spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Qtde</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Ano</th>
+                            <th>Quilometragem</th>
+                            <th>Preço(R$)</th>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($products as $product)
+                        <tr>
+                            <td><img class="image rounded border image-table" src="{{ asset('storage/' . $product['vehicle']->images()->first()->image) }}"></td>
+                            <td>
+                                <form method="POST" action="{{ route('site.cart.edit', $product['vehicle']) }}" class="row">
+                                    @csrf
+                                    @method('PUT')
+                                    <input class="form-control col-md-8" type="number" name="quantity" min="1" max="{{ $product['vehicle']->quantity }}" value="{{ $product['quantity'] }}">
+                                    <button type="submit" class="btn btn-sm btn-dark col-md-4"><i class="fa fa-repeat"></i></button>
+                                </form>
+                            </td>
+                            <td>{{ $product['vehicle']->brand }}</td>
+                            <td>{{ $product['vehicle']->model }}</td>
+                            <td>{{ $product['vehicle']->year }}</td>
+                            <td>{{ $product['vehicle']->mileage }}</td>
+                            <td>{{ $product['vehicle']->priceFormat }}</td>
+                            <td>
+                                <a href="{{ route('site.cart.remove', $product['vehicle']) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="10"><p class="p-0 m-0 text-center">CARRINHO VÁZIO!</p></td>
+                        </tr>
+                        @endforelse
+
+                        @if(count($products) > 0)
+                        <tr>
+                            <td colspan="10"><p class="p-0 text-right"><strong>TOTAL: </strong>R$ {{ $amount }}</p></td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+
+                @if(count($products) > 0)
+                <div class="text-right">
+                    <a href="{{ route('site.cart.clear') }}" class="btn primary-btn text-white bg-dark">Limpar Carrinho</a>
+                    <a href="#" class="btn primary-btn text-white">Finalizar Pedido</a>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Car Section End -->
+@endsection
