@@ -100,7 +100,9 @@ class RoleController extends Controller
         $role = $this->role->create($data);
 
         if($role):
-            $role->permissions()->sync($data['permissions']);
+            if(!empty($data['permissions'])):
+                $role->permissions()->sync($data['permissions']);
+            endif;
 
             return json_encode([
                 'success'   => true,
@@ -143,7 +145,11 @@ class RoleController extends Controller
 
         // Edita função
         if($role->update($data)):
-            $role->permissions()->sync($data['permissions']);
+            if(!empty($data['permissions'])):
+                $role->permissions()->sync($data['permissions']);
+            else:
+                $role->permissions()->detach();
+            endif;
 
             return json_encode([
                 'success'   => true,

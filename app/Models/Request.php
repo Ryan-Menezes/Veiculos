@@ -54,6 +54,7 @@ class Request extends Model
                     ->orWhere('status', 'LIKE', "%{$search}%")
                     ->orWhere('created_at', 'LIKE', "%{$search}%")
                     ->orWhere('updated_at', 'LIKE', "%{$search}%")
+                    ->orderBy('id', 'DESC')
                     ->offset($offset)
                     ->limit($limit)
                     ->get();

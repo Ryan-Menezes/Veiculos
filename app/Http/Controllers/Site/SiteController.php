@@ -9,7 +9,7 @@ use App\Models\Vehicle;
 class SiteController extends Controller
 {
     public function index(){
-    	$vehicles = Vehicle::limit(8)->with('images')->get();
+    	$vehicles = Vehicle::orderBy('price', 'ASC')->limit(8)->with('images')->get();
     	$years = array_combine(range(1901, date('Y')), range(1901, date('Y')));
     	$mileages = range(1, Vehicle::max('mileage'));
     	$brands = Vehicle::distinct('brand')->pluck('brand', 'brand')->all();

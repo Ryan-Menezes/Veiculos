@@ -13,8 +13,8 @@
                         <span>ENCONTRE O CARRO DOS SEUS SONHOS</span>
                         <h2>Os melhores veículos para você!</h2>
                     </div>
-                    <a href="#" class="primary-btn">Entre em Contato</a>
-                    <a href="#" class="primary-btn more-btn">Saiba mais sobre nós</a>
+                    <a href="{{ route('site.contact') }}" class="primary-btn">Entre em Contato</a>
+                    <a href="{{ route('site.vehicles') }}" class="primary-btn more-btn">Veja nossos veículos</a>
                 </div>
             </div>
             <div class="col-lg-5">

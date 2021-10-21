@@ -75,7 +75,6 @@
                         <ul>
                             <li><a href="{{ route('site') }}">Início</a></li>
                             <li class="active"><a href="{{ route('site.vehicles') }}">Veículos</a></li>
-                            <li><a href="./car.html">Quem Somos</a></li>
                             <li><a href="{{ route('site.contact') }}">Contato</a></li>
                         </ul>
                     </nav>

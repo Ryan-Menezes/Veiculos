@@ -101,6 +101,7 @@ class User extends Authenticatable
                     ->orWhere('email', 'LIKE', "%{$search}%")
                     ->orWhere('created_at', 'LIKE', "%{$search}%")
                     ->orWhere('updated_at', 'LIKE', "%{$search}%")
+                    ->orderBy('id', 'DESC')
                     ->offset($offset)
                     ->limit($limit)
                     ->get();

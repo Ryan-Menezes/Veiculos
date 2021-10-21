@@ -61,6 +61,7 @@ class Category extends Model
         return $query
                     ->where('id', 'LIKE', "%{$search}%")
                     ->orWhere('name', 'LIKE', "%{$search}%")
+                    ->orderBy('id', 'DESC')
                     ->offset($offset)
                     ->limit($limit)
                     ->get();

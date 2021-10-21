@@ -63,6 +63,7 @@ class Permission extends Model
                     ->where('id', 'LIKE', "%{$search}%")
                     ->orWhere('name', 'LIKE', "%{$search}%")
                     ->orWhere('description', 'LIKE', "%{$search}%")
+                    ->orderBy('id', 'DESC')
                     ->offset($offset)
                     ->limit($limit)
                     ->get();

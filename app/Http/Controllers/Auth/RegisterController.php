@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Model\Role;
 
 class RegisterController extends Controller
 {
@@ -70,7 +71,8 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        if(!is_null($user)) $user->roles()->sync(1);
+        $role = Role::all()->first();
+        if(!is_null($role)) $user->roles()->sync($role->id);
 
         return $user;
     }

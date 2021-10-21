@@ -17,8 +17,8 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-    	$roles = [
-            'usage' => [], 
+    	$roles = [ 
+            'usage' => [],
             'manager' => [
                 'users'         => ['view', 'create', 'edit', 'delete'],
                 'vehicles'      => ['view', 'create', 'edit', 'delete'],

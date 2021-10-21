@@ -96,6 +96,7 @@ class Vehicle extends Model
                     ->orWhere('description', 'LIKE', "%{$search}%")
                     ->orWhere('created_at', 'LIKE', "%{$search}%")
                     ->orWhere('updated_at', 'LIKE', "%{$search}%")
+                    ->orderBy('id', 'DESC')
                     ->offset($offset)
                     ->limit($limit)
                     ->get();
@@ -184,7 +185,7 @@ class Vehicle extends Model
             $query->orWhere('description', 'LIKE', "%{$search}%");
         endif;
 
-        return $query->paginate($limit);
+        return $query->orderBy('price', 'DESC')->paginate($limit);
     }
 
     // ATTRIBUTES

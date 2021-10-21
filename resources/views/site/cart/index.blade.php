@@ -75,10 +75,17 @@
                 </table>
 
                 @if(count($products) > 0)
-                <div class="text-right">
-                    <a href="{{ route('site.cart.clear') }}" class="btn primary-btn text-white bg-dark">Limpar Carrinho</a>
-                    <a href="#" class="btn primary-btn text-white">Finalizar Pedido</a>
-                </div>
+                <form method="POST" class="row">
+                    @csrf
+                    <div class="col-md-8">
+                        <label class="form-label"><strong>DESCONTO: </strong></label>
+                        <input type="text" name="discount" placeholder="Insira um código de desconto(Opcional)" class="form-control p-4" style="max-width: 500px;">
+                    </div>
+                    <div class="col-md-4 pos-end">
+                        <a href="{{ route('site.cart.clear') }}" class="btn primary-btn text-white bg-dark">Limpar Carrinho</a>
+                        <button type="submit" class="btn primary-btn text-white ml-1">Finalizar Pedido</button>
+                    </div>
+                </form>
                 @endif
             </div>
         </div>

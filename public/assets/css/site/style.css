@@ -3731,6 +3731,7 @@ ol {
 	width: 40px;
 }
 form.form-validate span.error{
+	display: block;
 	color: #eb344c;
 	font-size: 12px;
 }
@@ -3772,4 +3773,9 @@ form.form-validate select.error{
 }
 .w-100{
 	width: 100%;
+}
+.pos-end{
+	display: flex; 
+	align-items: flex-end; 
+	justify-content: flex-end;
 }

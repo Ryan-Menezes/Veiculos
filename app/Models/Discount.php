@@ -71,6 +71,7 @@ class Discount extends Model
                     ->where('code', 'LIKE', "%{$search}%")
                     ->orWhere('percentage', 'LIKE', "%{$search}%")
                     ->orWhere('expiration_date', 'LIKE', "%{$search}%")
+                    ->orderBy('code', 'DESC')
                     ->offset($offset)
                     ->limit($limit)
                     ->get();

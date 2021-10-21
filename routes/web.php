@@ -41,6 +41,7 @@ Route::group(['prefix' => '/'], function(){
 	// CONTACT
 	Route::group(['prefix' => 'contato'], function(){
 		Route::get('/', [ContactController::class, 'index'])->name('site.contact');
+		Route::put('/enviar', [ContactController::class, 'send'])->name('site.contact.send');
 	});
 
 	// VEHICLES

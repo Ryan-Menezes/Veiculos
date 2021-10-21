@@ -9,10 +9,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Contact Us</h2>
+                    <h2>Contato</h2>
                     <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>Contact Us</span>
+                        <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
+                        <span>Contato</span>
                     </div>
                 </div>
             </div>
@@ -28,8 +28,8 @@
             <div class="col-lg-6 col-md-6">
                 <div class="contact__text">
                     <div class="section-title">
-                        <h2>Let’s Work Together</h2>
-                        <p>To make requests for further information, contact us via our social channels.</p>
+                        <h2>Entre em contato conosco</h2>
+                        <p>Informe no formulário suas dúvidas e perguntas e em breve responderemos</p>
                     </div>
                     <ul>
                         <li><span>Weekday</span> 08:00 am to 18:00 pm</li>
@@ -39,19 +39,33 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        <p class="p-0 m-0">{{ $error }}</p>
+                    @endforeach
+                    </div>
+                @endif
+                @if(session('result'))
+                    <div class="alert alert-{{ (session('result')['success'] ? 'success' : 'danger') }}">
+                    {{ session('result')['message'] }}
+                    </div>
+                @endif
                 <div class="contact__form">
-                    <form action="#">
+                    <form action="{{ route('site.contact.send') }}" method="POST" class="form-validate">
+                        @csrf
+                        @method('PUT')
                         <div class="row">
-                            <div class="col-lg-6">
-                                <input type="text" placeholder="Name">
+                            <div class="col-lg-6 mb-4">
+                                <input type="text" placeholder="Nome" name="name" class="mb-0 required" value="{{ old('name') }}">
                             </div>
-                            <div class="col-lg-6">
-                                <input type="text" placeholder="Email">
+                            <div class="col-lg-6 mb-4">
+                                <input type="text" placeholder="E-Mail" name="email" class="mb-0 required email" value="{{ old('email') }}">
                             </div>
                         </div>
-                        <input type="text" placeholder="Subject">
-                        <textarea placeholder="Your Question"></textarea>
-                        <button type="submit" class="site-btn">Submit Now</button>
+                        <input type="text" placeholder="Assunto" name="subject" class="mb-0 required" value="{{ old('subject') }}">
+                        <textarea placeholder="Sua mensagem" name="message" class="mt-4 m-0 required">{{ old('message') }}</textarea>
+                        <button type="submit" class="site-btn mt-4">Enviar</button>
                     </form>
                 </div>
             </div>
@@ -59,36 +73,4 @@
     </div>
 </section>
 <!-- Contact Section End -->
-
-<!-- Contact Address Begin -->
-<div class="contact-address">
-    <div class="container">
-        <div class="contact__address__text">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="contact__address__item">
-                        <h4>California Showroom</h4>
-                        <p>625 Gloria Union, California, United Stated Colorlib.california@gmail.com</p>
-                        <span>(+12) 456 678 9100</span>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="contact__address__item">
-                        <h4>New York Showroom</h4>
-                        <p>8235 South Ave. Jamestown, NewYork Colorlib.Newyork@gmail.com</p>
-                        <span>(+12) 456 678 9100</span>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="contact__address__item">
-                        <h4>Florida Showroom</h4>
-                        <p>497 Beaver Ridge St. Daytona Beach, Florida Colorlib.california@gmail.com</p>
-                        <span>(+12) 456 678 9100</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Contact Address End -->
 @endsection

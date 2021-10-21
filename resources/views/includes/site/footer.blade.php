@@ -5,13 +5,13 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="footer__contact__title">
-                        <h2>Contact Us Now!</h2>
+                        <h2>Entre em contato conosco</h2>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="footer__contact__option">
-                        <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                        <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                        <div class="option__item"><i class="fa fa-phone"></i> (11)99999-9999</div>
+                        <div class="option__item email"><i class="fa fa-envelope-o"></i> hvac@gmail.com</div>
                     </div>
                 </div>
             </div>
@@ -22,8 +22,7 @@
                     <div class="footer__logo">
                         <a href="#"><img src="{{ asset(config('app.logo')) }}"></a>
                     </div>
-                    <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-                        on (+1) 96 123 8888</p>
+                    <p>99999-999 | Rua Teste, 15, Jardim Teste, São Paulo - SP</p>
                     <div class="footer__social">
                         <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                         <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -34,12 +33,17 @@
             </div>
             <div class="col-lg-2 offset-lg-1 col-md-3">
                 <div class="footer__widget">
-                    <h5>Infomation</h5>
+                    <h5>Menu</h5>
                     <ul>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
+                        <li><a href="{{ route('site') }}"><i class="fa fa-angle-right"></i> Início</a></li>
+                        <li><a href="{{ route('site.vehicles') }}"><i class="fa fa-angle-right"></i> Veículo</a></li>
+                        <li><a href="{{ route('site.contact') }}"><i class="fa fa-angle-right"></i> Contato</a></li>
+                        @auth
+                        <li><a href="{{ route('panel') }}"><i class="fa fa-angle-right"></i> Painel</a></li>
+                        @else
+                        <li><a href="{{ route('login') }}"><i class="fa fa-angle-right"></i> Login</a></li>
+                        <li><a href="{{ route('register') }}"><i class="fa fa-angle-right"></i> Cadastre-se</a></li>
+                        @endauth
                     </ul>
                 </div>
             </div>
@@ -74,7 +78,7 @@
         </div>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         <div class="footer__copyright__text">
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+            <p>{{ config('app.name') }} &copy;<script>document.write(new Date().getFullYear());</script> Todos os direitos reservados | Site desenvolvido por <a target="_blank" href="https://github.com/Ryan-Menezes">Ryan Menezes</a></a></p>
         </div>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
     </div>
