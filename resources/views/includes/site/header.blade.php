@@ -73,9 +73,9 @@
                 <div class="header__nav">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="{{ route('site') }}">Início</a></li>
-                            <li class="active"><a href="{{ route('site.vehicles') }}">Veículos</a></li>
-                            <li><a href="{{ route('site.contact') }}">Contato</a></li>
+                            <li class="{{ (Route::current()->getName() === 'site' ? 'active' : '') }}"><a href="{{ route('site') }}">Início</a></li>
+                            <li class="{{ (Route::current()->getName() === 'site.vehicles' ? 'active' : '') }}"><a href="{{ route('site.vehicles') }}">Veículos</a></li>
+                            <li class="{{ (Route::current()->getName() === 'site.contact' ? 'active' : '') }}"><a href="{{ route('site.contact') }}">Contato</a></li>
                         </ul>
                     </nav>
                     <div class="header__nav__widget">
