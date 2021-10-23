@@ -102,7 +102,13 @@ class Vehicle extends Model
                     ->get();
     }
 
-    public function scopeFilter($query, int $limit, array $data){
+    public function scopeVerify($query){
+        return $query
+                    ->where('status', 'D')
+                    ->whereNull('release_date');
+    }
+
+    public function scopeFilter($query, int $limit, array $data = []){
         $search = $data['search'] ?? null;
         $year = $data['year'] ?? null;
         $brand = $data['brand'] ?? null; 
@@ -111,7 +117,7 @@ class Vehicle extends Model
         $ports = $data['ports'] ?? null;
         $manufacturer = $data['manufacturer'] ?? null;
         $category = $data['category'] ?? null;
-        $price = isset($data['price']) ? str_ireplace(['[', ']', 'R', '$', ' '], '', $data['price']) : '';
+        $price = isset($data['price']) ? str_ireplace(['[', ']', 'R', '$', ' '], '', $data['price']) : '-';
         $min = explode('-', $price)[0];
         $max = explode('-', $price)[1];
         $table = $this->table;
@@ -156,23 +162,24 @@ class Vehicle extends Model
         // MANUFACTURER FILTER
         if(!empty($manufacturer) || strlen($manufacturer) > 0):
             $query
-                ->join('manufacturers', 'manufacturers.id', '=', "{$table}.id")
+                ->join('manufacturers', 'manufacturers.id', '=', "{$table}.manufacturer_id")
                 ->where('manufacturers.id', $manufacturer);
         elseif(!empty($search) || strlen($search) > 0):
             $query
-                ->join('manufacturers', 'manufacturers.id', '=', "{$table}.id")
-                ->orWhere('manufacturers.name', "%{search}%", $manufacturer);
+                ->join('manufacturers', 'manufacturers.id', '=', "{$table}.manufacturer_id")
+                ->orWhere('manufacturers.name', 'LIKE', "%{$search}%");
         endif;
 
         // CATEGORY FILTER
         if(!empty($category) || strlen($category) > 0):
             $query
-                ->join('categories', 'categories.id', '=', "{$table}.id")
-                ->where('categories.id', $category);
-        elseif(!empty($search) || strlen($search) > 0):
-            $query
-                ->join('categories', 'categories.id', '=', "{$table}.id")
-                ->orWhere('categories.name', "%{search}%", $category);
+                ->join('vehicle_categories', 'vehicle_categories.vehicle_id', '=', "{$table}.id")
+                ->where('vehicle_categories.category_id', $category);
+        // elseif(!empty($search) || strlen($search) > 0):
+        //     $query
+        //         ->join('vehicle_categories', 'vehicle_categories.vehicle_id', '=', "{$table}.id")
+        //         ->join('categories', 'categories.id', '=', "vehicle_categories.category_id")
+        //         ->orWhere('categories.name', 'LIKE', "%{$search}%");
         endif;
 
         // PRICE FILTER
@@ -185,7 +192,10 @@ class Vehicle extends Model
             $query->orWhere('description', 'LIKE', "%{$search}%");
         endif;
 
-        return $query->orderBy('price', 'DESC')->paginate($limit);
+        return $query
+                    ->verify()
+                    ->orderBy('id', 'DESC')
+                    ->paginate($limit);
     }
 
     // ATTRIBUTES

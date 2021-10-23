@@ -57,16 +57,17 @@
 
 	<x-form.inputtextarea title="Descrição" name="description" placeholder="Descrição" id="description" class="required"/>
 
-	@for($i = 1; $i <= 10; $i += 2)
-	<div class="row">
-		<div class="col-md-6">
-			<x-form.inputfile title="Imagem {{ $i }}" name="images[]" accept="image/*" id="image{{ $i }}"/>
-		</div>
-		<div class="col-md-6">
-			<x-form.inputfile title="Imagem {{ $i + 1 }}" name="images[]" accept="image/*" id="image{{ $i + 1 }}"/>
+	<div class="row container-images">
+		<div class="col-md-6 file-image">
+			<x-form.inputfile title="Imagem 1" name="images[]" accept="image/*" id="image1" class="input-image required"/>
 		</div>
 	</div>
-	@endfor
+
+	<div class="mb-5">
+		<button style="min-width: 100%;" type="button" class="btn btn-sm btn-danger btn-add"><i class="fas fa-plus"></i> Adicionar Imagem</button>
+	</div>
 
 	<x-form.inputsubmit value="Salvar" class="btn-danger"/>
 {!! Form::close() !!}
+
+<script type="text/javascript" src="{{ asset('assets/js/panel/vehicle-form.js') }}"></script>

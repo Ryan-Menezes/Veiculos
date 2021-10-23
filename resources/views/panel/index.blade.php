@@ -175,4 +175,5 @@
     <script type="text/javascript" src="{{ asset('assets/js/config-jquery-mask.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/config-jquery-ui.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/config-ajax.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/panel/main.js') }}"></script>
 @stop

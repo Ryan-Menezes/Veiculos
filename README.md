@@ -25,3 +25,11 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=null
 ```
+Por fim acesse o diretório raiz do projeto através de seu terminal e rode o comando "php artisan migrate --seed":
+```sh
+cd "diretório do projeto"
+php artisan migrate --seed
+```
+## Informações Adicionais
+Template do Site: [HVAC](https://themewagon.com/themes/free-bootstrap-4-html5-automotive-business-website-template-hvac/)<br>
+Template do Painel: [Laravel-AdminLTE](https://github.com/jeroennoten/Laravel-AdminLTE)

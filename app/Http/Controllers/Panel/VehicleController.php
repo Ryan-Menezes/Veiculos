@@ -195,6 +195,21 @@ class VehicleController extends Controller
 
         // Editando veículo
         if($vehicle->update($data)):
+            // Cadastra novas imagens do veículo
+            if($request->hasFile('images')):
+                foreach($request->images as $image):
+                    if($image->isValid()):
+                        do{
+                            $imageName = md5(uniqid() . rand(0, 999999) . $vehicle->id) . '.' . $image->extension();
+                        }while(Storage::exists($vehicle->uploadDir . '/' . $imageName));
+
+                        // UPLOAD
+                        $image->storeAs($vehicle->uploadDir, $imageName);
+                        $vehicle->images()->create(['image' => $vehicle->uploadDir . '/' . $imageName]);
+                    endif;
+                endforeach;
+            endif;
+
             // Edita categorias do veículo
             $vehicle->categories()->sync($data['categories']);
 

@@ -140,36 +140,36 @@
         range: true,
         min: 1,
         max: 99999999,
-        values: [21412038, 77152777],
+        values: [1, 99999999],
         slide: function (event, ui) {
-            $("#amount").val("R$" + ui.values[0] + " - R$" + ui.values[1] + ".100");
+            $("#amount").val("[ R$" + ui.values[0] + " - R$" + ui.values[1] + " ]");
         }
     });
-    $("#amount").val("$" + $(".price-range").slider("values", 0) + " - $" + $(".price-range").slider("values", 1) + ".100");
+    $("#amount").val("[ R$" + $(".price-range").slider("values", 0) + " - R$" + $(".price-range").slider("values", 1) + " ]");
 
     var carSlider = $(".car-price-range");
     carSlider.slider({
         range: true,
         min: 1,
         max: 99999999,
-        values: [21412038, 77152777],
+        values: [1, 99999999],
         slide: function (event, ui) {
             $("#caramount").val("R$" + ui.values[0] + " - R$" + ui.values[1] + ".100");
         }
     });
-    $("#caramount").val("R$" + $(".car-price-range").slider("values", 0) + " - R$" + $(".car-price-range").slider("values", 1) + ".100");
+    $("#caramount").val("[ R$" + $(".car-price-range").slider("values", 0) + " - R$" + $(".car-price-range").slider("values", 1) + " ]");
 
     var filterSlider = $(".filter-price-range");
     filterSlider.slider({
         range: true,
         min: 1,
         max: 99999999,
-        values: [21412038, 77152777],
+        values: [1, 99999999],
         slide: function (event, ui) {
-            $("#filterAmount").val("[ " + "R$" + ui.values[0] + " - R$" + ui.values[1] + " ]");
+            $("#filterAmount").val("[ R$" + ui.values[0] + " - R$" + ui.values[1] + " ]");
         }
     });
-    $("#filterAmount").val("[ " + "R$" + $(".filter-price-range").slider("values", 0) + " - R$" + $(".filter-price-range").slider("values", 1) + " ]");
+    $("#filterAmount").val("[ R$" + $(".filter-price-range").slider("values", 0) + " - R$" + $(".filter-price-range").slider("values", 1) + " ]");
 
     /*--------------------------
         Select

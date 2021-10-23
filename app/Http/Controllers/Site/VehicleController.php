@@ -20,7 +20,7 @@ class VehicleController extends Controller
 	}
 
 	public function index(){
-		$vehicles = $this->vehicle->paginate($this->amountPage);
+		$vehicles = $this->vehicle->verify()->orderBy('id', 'DESC')->paginate($this->amountPage);
 		$ports = range(1, 10);
     	$years = array_combine(range(1901, date('Y')), range(1901, date('Y')));
     	$mileages = range(1, $this->vehicle->max('mileage'));
@@ -49,7 +49,7 @@ class VehicleController extends Controller
 	}
 
     public function show(string $slug){
-    	$vehicle = $this->vehicle->where('slug', $slug)->firstOrFail();
+    	$vehicle = $this->vehicle->verify()->where('slug', $slug)->firstOrFail();
 
     	return view('site.vehicles.show', compact('vehicle'));
     }
