@@ -9,10 +9,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>{{ $vehicle->brand }}</h2>
+                    <h1>{{ $vehicle->brand }}</h1>
                     <div class="breadcrumb__links">
-                        <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
-                        <a href="{{ route('site.vehicles') }}">Veículos</a>
+                        <a href="{{ route('site') }}" title="Página Inicial"><i class="fa fa-home"></i> Início</a>
+                        <a href="{{ route('site.vehicles') }}" title="Página de Veículos">Veículos</a>
                         <span>{{ $vehicle->brand }}</span>
                     </div>
                 </div>
@@ -29,12 +29,12 @@
             <div class="col-lg-9">
                 <div class="car__details__pic">
                     <div class="car__details__pic__large">
-                        <img class="car-big-img" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}" alt="{{ $vehicle->brand }}">
+                        <img class="car-big-img" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}">
                     </div>
                     <div class="car-thumbs">
                         <div class="car-thumbs-track car__thumb__slider owl-carousel">
                             @foreach($vehicle->images as $image)
-                            <div class="ct" data-imgbigurl="{{ asset('storage/' . $image->image) }}"><img src="{{ asset('storage/' . $image->image) }}" alt="{{ $vehicle->brand }}"></div>
+                            <div class="ct" data-imgbigurl="{{ asset('storage/' . $image->image) }}"><img src="{{ asset('storage/' . $image->image) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}"></div>
                             @endforeach
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                 <div class="car__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Descrição</a>
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab" title="Descrição do Veículo">Descrição</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -75,10 +75,11 @@
                                 data-loading="true"
                                 data-remove="false"
                                 data-messagebox="true"
+                                title="Adicionar ao carrinho"
                             ><i class="fa fa-shopping-cart"></i> Adicionar ao Carrinho</a>
                         </div>
                         
-                        <a href="#" class="primary-btn"><i class="fa fa-money"></i> Comprar</a>
+                        <a href="#" class="primary-btn" title="Comprar Veículo"><i class="fa fa-money"></i> Comprar</a>
                     </div>
                 </div>
             </div>

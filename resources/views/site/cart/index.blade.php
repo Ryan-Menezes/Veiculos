@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Carrinho</h2>
+                    <h1>Carrinho</h1>
                     <div class="breadcrumb__links">
-                        <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
+                        <a href="{{ route('site') }}" title="Página Inicial"><i class="fa fa-home"></i> Início</a>
                         <span>Carrinho</span>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     <tbody>
                         @forelse($products as $product)
                         <tr>
-                            <td><img class="image rounded border image-table" src="{{ asset('storage/' . $product['vehicle']->images()->first()->image) }}"></td>
+                            <td><img class="image rounded border image-table" src="{{ asset('storage/' . $product['vehicle']->images()->first()->image) }}" title="{{ $product['vehicle']->brand | $product['vehicle']->model }}" alt="{{ $product['vehicle']->brand | $product['vehicle']->model }}"></td>
                             <td>
                                 <form method="POST" action="{{ route('site.cart.edit', $product['vehicle']) }}" class="row">
                                     @csrf
@@ -57,7 +57,7 @@
                             <td>{{ $product['vehicle']->mileage }}</td>
                             <td>{{ $product['vehicle']->priceFormat }}</td>
                             <td>
-                                <a href="{{ route('site.cart.remove', $product['vehicle']) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="{{ route('site.cart.remove', $product['vehicle']) }}" class="btn btn-sm btn-danger" title="Remover veículo do carrinho"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                         @empty
@@ -82,7 +82,7 @@
                         <input type="text" name="discount" placeholder="Insira um código de desconto(Opcional)" class="form-control p-4" style="max-width: 500px;">
                     </div>
                     <div class="col-md-4 pos-end">
-                        <a href="{{ route('site.cart.clear') }}" class="btn primary-btn text-white bg-dark">Limpar Carrinho</a>
+                        <a href="{{ route('site.cart.clear') }}" class="btn primary-btn text-white bg-dark" title="Limpar Carrinho">Limpar Carrinho</a>
                         <button type="submit" class="btn primary-btn text-white ml-1">Finalizar Pedido</button>
                     </div>
                 </form>

@@ -11,10 +11,10 @@
                 <div class="hero__text">
                     <div class="hero__text__title">
                         <span>ENCONTRE O CARRO DOS SEUS SONHOS</span>
-                        <h2>Os melhores veículos para você!</h2>
+                        <h1>Os melhores veículos para você!</h1>
                     </div>
-                    <a href="{{ route('site.contact') }}" class="primary-btn">Entre em Contato</a>
-                    <a href="{{ route('site.vehicles') }}" class="primary-btn more-btn">Veja nossos veículos</a>
+                    <a href="{{ route('site.contact') }}" class="primary-btn" title="Entre em Contato">Entre em Contato</a>
+                    <a href="{{ route('site.vehicles') }}" class="primary-btn more-btn" title="Veja nossos veículos">Veja nossos veículos</a>
                 </div>
             </div>
             <div class="col-lg-5">
@@ -101,24 +101,24 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="services__item">
-                    <img src="{{ asset('assets/images/site/services/services-2.png') }}" alt="">
-                    <h5>Compra de Veículos</h5>
+                    <img src="{{ asset('assets/images/site/services/services-2.png') }}" alt="Compra de Veículos" title="Compra de Veículos">
+                    <h3>Compra de Veículos</h3>
                     <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
                         viverra maecenas.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="services__item">
-                    <img src="{{ asset('assets/images/site/services/services-3.png') }}" alt="">
-                    <h5>Manutenção dos Veículos</h5>
+                    <img src="{{ asset('assets/images/site/services/services-3.png') }}" alt="Manutenção dos Veículos" title="Manutenção dos Veículos">
+                    <h3>Manutenção dos Veículos</h3>
                     <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
                         viverra maecenas.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="services__item">
-                    <img src="{{ asset('assets/images/site/services/services-4.png') }}" alt="">
-                    <h5>Suporte 24 Horas</h5>
+                    <img src="{{ asset('assets/images/site/services/services-4.png') }}" alt="Suporte 24 Horas" title="Suporte 24 Horas">
+                    <h3>Suporte 24 Horas</h3>
                     <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
                         viverra maecenas.</p>
                 </div>
@@ -145,7 +145,7 @@
                 <div class="car__item">
                     <div class="car__item__pic__slider owl-carousel">
                         @foreach($vehicle->images as $image)
-                            <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $vehicle->brand }}">
+                            <img src="{{ asset('storage/' . $image->image) }}" title="{{ $vehicle->brand }} | {{ $vehicle->model }}" alt="{{ $vehicle->brand }} | {{ $vehicle->model }}">
                             @if($loop->index > 2)
                                 @break
                             @endif
@@ -154,7 +154,7 @@
                     <div class="car__item__text">
                         <div class="car__item__text__inner">
                             <div class="label-date">{{ $vehicle->year }}</div>
-                            <h5><a href="{{ route('site.vehicles.show', $vehicle->slug) }}">{{ $vehicle->brand }}</a></h5>
+                            <h3><a href="{{ route('site.vehicles.show', $vehicle->slug) }}" title="{{ $vehicle->brand }} | {{ $vehicle->model }}">{{ $vehicle->brand }}</a></h5>
                             <ul>
                                 <li><span>{{ $vehicle->ports }}</span> porta(s)</li>
                                 <li>{{ $vehicle->model }}</li>
@@ -174,7 +174,7 @@
                             @else
                             <span class="car-option sale">Indisponível</span>
                             @endif
-                            <h6>R$ {{ $vehicle->priceFormat }}</h6>
+                            <h4>R$ {{ $vehicle->priceFormat }}</h6>
                         </div>
                     </div>
                 </div>

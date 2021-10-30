@@ -2,8 +2,8 @@
 <html lang="{{ config('app.lang') }}">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="HVAC Template">
-    <meta name="keywords" content="HVAC, unica, creative, html">
+    <meta name="description" content="Loja de veículos online, compre o veículo de sues sonho aqui!">
+    <meta name="keywords" content="HVAC, veículos, venda, comprar, loja, loja de veículos, venda de veículos, comprar veículos">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ config('app.name') }} | @yield('title')</title>

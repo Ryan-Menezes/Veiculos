@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Contato</h2>
+                    <h1>Contato</h1>
                     <div class="breadcrumb__links">
-                        <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
+                        <a href="{{ route('site') }}" title="Página Inicial"><i class="fa fa-home"></i> Início</a>
                         <span>Contato</span>
                     </div>
                 </div>

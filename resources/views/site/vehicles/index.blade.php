@@ -9,9 +9,9 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Veículos</h2>
+                    <h1>Veículos</h1>
                     <div class="breadcrumb__links">
-                        <a href="{{ route('site') }}"><i class="fa fa-home"></i> Início</a>
+                        <a href="{{ route('site') }}" title="Página Inicial"><i class="fa fa-home"></i> Início</a>
                         <span>Veículos</span>
                     </div>
                 </div>
@@ -28,14 +28,14 @@
             <div class="col-lg-3">
                 <div class="car__sidebar">
                     <div class="car__search">
-                        <h5>Pesquisa</h5>
+                        <h2>Pesquisa</h2>
                         <form action="javascript:void(0)">
                             <input type="text" placeholder="Perquisar..." name="search" form="form-filter">
                             <button type="submit" form="form-filter"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                     <div class="car__filter">
-                        <h5>Filtro</h5>
+                        <h2>Filtro</h2>
                         <form action="{{ route('site.vehicles.search') }}" method="POST" id="form-filter">
                             @csrf
                             <select name="year">
@@ -105,7 +105,7 @@
                         <div class="car__item">
                             <div class="car__item__pic__slider owl-carousel">
                                 @foreach($vehicle->images as $image)
-                                    <img src="{{ asset('storage/' . $image->image) }}" alt="{{ $vehicle->brand }}">
+                                    <img src="{{ asset('storage/' . $image->image) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}">
                                     @if($loop->index > 2)
                                         @break
                                     @endif
@@ -114,7 +114,7 @@
                             <div class="car__item__text">
                                 <div class="car__item__text__inner">
                                     <div class="label-date">{{ $vehicle->year }}</div>
-                                    <h5><a href="{{ route('site.vehicles.show', $vehicle->slug) }}">{{ $vehicle->brand }}</a></h5>
+                                    <h3><a href="{{ route('site.vehicles.show', $vehicle->slug) }}" title="{{ $vehicle->brand | $vehicle->model }}">{{ $vehicle->brand }}</a></h3>
                                     <ul>
                                         <li><span>{{ $vehicle->ports }}</span> porta(s)</li>
                                         <li>{{ $vehicle->model }}</li>
@@ -134,7 +134,7 @@
                                     @else
                                     <span class="car-option sale">Indisponível</span>
                                     @endif
-                                    <h6 class="pl-5 ml-4">R$ {{ $vehicle->priceFormat }}</h6>
+                                    <h4 class="pl-5 ml-4">R$ {{ $vehicle->priceFormat }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -144,15 +144,15 @@
                 @if($vehicles->hasPages())
                 <nav aria-label="Page navigation example">
                     <div class="pagination__option">
-                        <a href="{{ $vehicles->nextPageUrl() }}"><span class="arrow_carrot-2left"></span></a>
+                        <a href="{{ $vehicles->nextPageUrl() }}" title="Página Anterior"><span class="arrow_carrot-2left"></span></a>
                         @for($i = 1; $i <= $vehicles->lastPage(); $i++)
                             @if($vehicles->currentPage() == $i)
-                            <a href="javascript:void(0)" class="active">{{ $i }}</a>
+                            <a href="javascript:void(0)" class="active" title="Página {{ $i }}">{{ $i }}</a>
                             @else
-                            <a href="{{ $vehicles->url($i) }}">{{ $i }}</a>
+                            <a href="{{ $vehicles->url($i) }}" title="Página {{ $i }}">{{ $i }}</a>
                             @endif
                         @endfor
-                        <a href="{{ $vehicles->previousPageUrl() }}"><span class="arrow_carrot-2right"></span></a>
+                        <a href="{{ $vehicles->previousPageUrl() }}" title="Próxima Página"><span class="arrow_carrot-2right"></span></a>
                     </div>
                 </nav>
                 @endif

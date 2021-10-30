@@ -20,36 +20,36 @@
             <div class="col-lg-4 col-md-4">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="#"><img src="{{ asset(config('app.logo')) }}"></a>
+                        <a href="#" title="{{ config('app.name') }}"><img src="{{ asset(config('app.logo')) }}" alt="{{ config('app.name') }}" title="{{ config('app.name') }}"></a>
                     </div>
                     <p>99999-999 | Rua Teste, 15, Jardim Teste, São Paulo - SP</p>
                     <div class="footer__social">
-                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="google"><i class="fa fa-google"></i></a>
-                        <a href="#" class="skype"><i class="fa fa-skype"></i></a>
+                        <a href="#" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" title="Google"><i class="fa fa-google"></i></a>
+                        <a href="#" title="Instagram"><i class="fa fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2 offset-lg-1 col-md-3">
                 <div class="footer__widget">
-                    <h5>Menu</h5>
+                    <h3>Menu</h3>
                     <ul>
-                        <li><a href="{{ route('site') }}"><i class="fa fa-angle-right"></i> Início</a></li>
-                        <li><a href="{{ route('site.vehicles') }}"><i class="fa fa-angle-right"></i> Veículo</a></li>
-                        <li><a href="{{ route('site.contact') }}"><i class="fa fa-angle-right"></i> Contato</a></li>
+                        <li><a href="{{ route('site') }}" title="Página Inicial"><i class="fa fa-angle-right"></i> Início</a></li>
+                        <li><a href="{{ route('site.vehicles') }}" title="Página de Veículos"><i class="fa fa-angle-right"></i> Veículo</a></li>
+                        <li><a href="{{ route('site.contact') }}" title="Página de Contato"><i class="fa fa-angle-right"></i> Contato</a></li>
                         @auth
-                        <li><a href="{{ route('panel') }}"><i class="fa fa-angle-right"></i> Painel</a></li>
+                        <li><a href="{{ route('panel') }}" title="Painel de Controle"><i class="fa fa-angle-right"></i> Painel</a></li>
                         @else
-                        <li><a href="{{ route('login') }}"><i class="fa fa-angle-right"></i> Login</a></li>
-                        <li><a href="{{ route('register') }}"><i class="fa fa-angle-right"></i> Cadastre-se</a></li>
+                        <li><a href="{{ route('login') }}" title="Login"><i class="fa fa-angle-right"></i> Login</a></li>
+                        <li><a href="{{ route('register') }}" title="Cadastre-se"><i class="fa fa-angle-right"></i> Cadastre-se</a></li>
                         @endauth
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3">
                 <div class="footer__widget">
-                    <h5>Infomation</h5>
+                    <h3>Infomation</h3>
                     <ul>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="footer__brand">
-                    <h5>Top Brand</h5>
+                    <h3>Top Brand</h3>
                     <ul>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>

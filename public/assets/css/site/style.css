@@ -539,7 +539,7 @@ ol {
 	text-transform: uppercase;
 }
 
-.hero__text__title h2 {
+.hero__text__title h1 {
 	font-size: 60px;
 	color: #ffffff;
 	font-weight: 700;
@@ -1090,12 +1090,13 @@ ol {
 	border-radius: 2px;
 }
 
-.car__item__text__inner h5 {
+.car__item__text__inner h3 {
 	margin-top: 10px;
 	margin-bottom: 14px;
+	font-size: 18px;
 }
 
-.car__item__text__inner h5 a {
+.car__item__text__inner h3 a {
 	color: #353535;
 	font-weight: 700;
 }
@@ -1154,7 +1155,7 @@ ol {
 	background: #db2d2e;
 }
 
-.car__item__price h6 {
+.car__item__price h4 {
 	font-size: 15px;
 	color: #db2d2e;
 	font-weight: 700;
@@ -1164,7 +1165,7 @@ ol {
 	padding-bottom: 11px;
 }
 
-.car__item__price h6 span {
+.car__item__price h4 span {
 	color: #727171;
 	font-size: 13px;
 	font-weight: 400;
@@ -1217,7 +1218,7 @@ ol {
 	margin-bottom: 40px;
 }
 
-.car__search h5 {
+.car__search h2 {
 	font-size: 20px;
 	color: #353535;
 	font-weight: 700;
@@ -1270,7 +1271,7 @@ ol {
 	padding: 0 15px;
 }
 
-.car__filter h5 {
+.car__filter h2 {
 	font-size: 20px;
 	color: #353535;
 	font-weight: 700;
@@ -1498,10 +1499,11 @@ ol {
 	margin-bottom: 30px;
 }
 
-.footer__widget h5 {
+.footer__widget h3 {
 	color: #ffffff;
 	font-weight: 700;
 	margin-bottom: 8px;
+	font-size: 18px;
 }
 
 .footer__widget ul li {
@@ -1523,10 +1525,11 @@ ol {
 	margin-bottom: 30px;
 }
 
-.footer__brand h5 {
+.footer__brand h3 {
 	color: #ffffff;
 	font-weight: 700;
 	margin-bottom: 8px;
+	font-size: 18px;
 }
 
 .footer__brand ul {
@@ -1564,7 +1567,7 @@ ol {
 	margin-bottom: 0;
 }
 
-.breadcrumb__text h2 {
+.breadcrumb__text h1 {
 	color: #ffffff;
 	font-weight: 700;
 	font-size: 46px;
@@ -2014,7 +2017,7 @@ ol {
 	color: #ffffff;
 }
 
-.services__item h5 {
+.services__item h3 {
 	font-size: 20px;
 	color: #323232;
 	font-weight: 700;
