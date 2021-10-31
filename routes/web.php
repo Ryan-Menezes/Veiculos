@@ -38,7 +38,8 @@ Route::group(['prefix' => '/'], function(){
 	Route::group(['prefix' => 'veiculos'], function(){
 		Route::get('/', [VCS::class, 'index'])->name('site.vehicles');
 		Route::any('/buscar', [VCS::class, 'search'])->name('site.vehicles.search');
-		Route::get('/{slug}', [VCS::class, 'show'])->name('site.vehicles.show');		
+		Route::get('/{slug}', [VCS::class, 'show'])->name('site.vehicles.show');
+		Route::get('/{slug}/comprar', [VCS::class, 'buy'])->name('site.vehicles.buy');		
 	});
 
 	// CART
@@ -46,7 +47,7 @@ Route::group(['prefix' => '/'], function(){
 		Route::get('/', [CartController::class, 'index'])->name('site.cart');
 		Route::get('/adicionar/{vehicle}', [CartController::class, 'add'])->name('site.cart.add');
 		Route::get('/remover/{vehicle}', [CartController::class, 'remove'])->name('site.cart.remove');
-		Route::get('/clear', [CartController::class, 'clear'])->name('site.cart.clear');
+		Route::get('/limpar', [CartController::class, 'clear'])->name('site.cart.clear');
 		Route::put('/edit/{vehicle}', [CartController::class, 'edit'])->name('site.cart.edit');
 	});
 

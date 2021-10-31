@@ -198,6 +198,22 @@ class Vehicle extends Model
                     ->paginate($limit);
     }
 
+    public function scopeFirstImage($query){
+        return $this
+                    ->images()
+                    ->first()
+                    ->image;
+    }
+
+    public function scopeQtdeRequest($query, $id){
+        return $this
+                    ->requests
+                    ->find($id)
+                    ->vehicles()
+                    ->where('vehicle_id', $this->id)
+                    ->count('*');
+    }
+
     // ATTRIBUTES
 
     public function getDescriptionFormatAttribute(){

@@ -63,8 +63,8 @@
                     <tbody>
                         @foreach($request->vehicles()->distinct('vehicles.id')->get() as $vehicle)
                         <tr>
-                            <td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}"></td>
-                            <td>{{ $vehicle->requests->find($request->id)->vehicles()->where('vehicle_id', $vehicle->id)->count('*') }}</td>
+                            <td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->firstImage()) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}"></td>
+                            <td>{{ $vehicle->qtdeRequest($request->id) }}</td>
                             <td>{{ $vehicle->brand }}</td>
                             <td>{{ $vehicle->model }}</td>
                             <td>{{ $vehicle->year }}</td>

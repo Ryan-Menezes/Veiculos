@@ -12,4 +12,18 @@ $(window.document).ready(function(){
 
 		$('.container-images').append(fileInput)
 	})
+
+	$('.btn-remove-image').click(function(){
+		let id = this.dataset.id
+		let input = $('#vehicles_remove')
+
+		if(id !== undefined){
+			$(`#vehicles-image-${id}`).remove()
+
+			if(input.val().length == 0)
+				input.val(id)
+			else
+				input.val(`${input.val()},${id}`)
+		}
+	})
 })

@@ -64,7 +64,7 @@
 	</div>
 
 	<div class="mb-5">
-		<button style="min-width: 100%;" type="button" class="btn btn-sm btn-danger btn-add"><i class="fas fa-plus"></i> Adicionar Imagem</button>
+		<button style="min-width: 100%;" type="button" class="btn btn-sm btn-dark btn-add"><i class="fas fa-plus"></i> Adicionar Imagem</button>
 	</div>
 
 	<x-form.inputsubmit value="Salvar" class="btn-danger"/>

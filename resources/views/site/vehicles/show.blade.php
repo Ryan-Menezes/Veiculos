@@ -29,7 +29,7 @@
             <div class="col-lg-9">
                 <div class="car__details__pic">
                     <div class="car__details__pic__large">
-                        <img class="car-big-img" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}">
+                        <img class="car-big-img" src="{{ asset('storage/' . $vehicle->firstImage()) }}" title="{{ $vehicle->brand | $vehicle->model }}" alt="{{ $vehicle->brand | $vehicle->model }}">
                     </div>
                     <div class="car-thumbs">
                         <div class="car-thumbs-track car__thumb__slider owl-carousel">
@@ -79,7 +79,7 @@
                             ><i class="fa fa-shopping-cart"></i> Adicionar ao Carrinho</a>
                         </div>
                         
-                        <a href="#" class="primary-btn" title="Comprar Veículo"><i class="fa fa-money"></i> Comprar</a>
+                        <a href="{{ route('site.vehicles.buy', $vehicle->slug) }}" class="primary-btn" title="Comprar Veículo"><i class="fa fa-money"></i> Comprar</a>
                     </div>
                 </div>
             </div>

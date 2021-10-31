@@ -57,6 +57,18 @@
 
 	<x-form.inputtextarea title="Descrição" name="description" placeholder="Descrição" id="description" value="{{ $vehicle->description }}" class="required"/>
 
+	<div class="row">
+		@foreach($vehicle->images as $image)
+		<div class="col-md-4 mb-1" id="vehicles-image-{{ $image->id }}">
+			<img style="width: 100%;" src="{{ asset('storage/' . $image->image) }}" alt="{{ $vehicle->brand }} | {{ $vehicle->model }}" title="{{ $vehicle->brand }} | {{ $vehicle->model }}">
+
+			<button type="button" class="btn btn-sm btn-danger mt-1 btn-remove-image" data-id="{{ $image->id }}"><i class="fas fa-trash-alt"></i></button>
+		</div>
+		@endforeach
+	</div>
+
+	<input type="hidden" name="vehicles_remove" id="vehicles_remove">
+
 	<div class="row container-images">
 		<div class="col-md-6 file-image">
 			<x-form.inputfile title="Imagem 1" name="images[]" accept="image/*" id="image1" class="input-image"/>
@@ -64,7 +76,7 @@
 	</div>
 
 	<div class="mb-5">
-		<button style="min-width: 100%;" type="button" class="btn btn-sm btn-danger btn-add"><i class="fas fa-plus"></i> Adicionar Imagem</button>
+		<button style="min-width: 100%;" type="button" class="btn btn-sm btn-dark btn-add"><i class="fas fa-plus"></i> Adicionar Imagem</button>
 	</div>
 
 	<x-form.inputsubmit value="Salvar" class="btn-danger"/>

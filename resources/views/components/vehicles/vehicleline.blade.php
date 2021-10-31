@@ -1,6 +1,6 @@
 <tr>
     <td>{{ $vehicle->id }}</td>
-    <td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}"></td>
+    <td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->firstImage()) }}"></td>
     <td>{{ $vehicle->brand }}</td>
     <td>{{ $vehicle->model }}</td>
     <td>{{ $vehicle->year }}</td>

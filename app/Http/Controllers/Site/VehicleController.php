@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Classes\Cart;
 use App\Models\{
 	Vehicle,
 	Category,
@@ -13,10 +14,12 @@ use App\Models\{
 class VehicleController extends Controller
 {
 	private $vehicle;
+	private $cart;
 	private $amountPage = 20;
 
-	public function __construct(Vehicle $vehicle){
+	public function __construct(Vehicle $vehicle, Cart $cart){
 		$this->vehicle = $vehicle;
+		$this->cart = $cart;
 	}
 
 	public function index(){
@@ -52,5 +55,14 @@ class VehicleController extends Controller
     	$vehicle = $this->vehicle->verify()->where('slug', $slug)->firstOrFail();
 
     	return view('site.vehicles.show', compact('vehicle'));
+    }
+
+    public function buy(string $slug){
+    	$vehicle = $this->vehicle->verify()->where('slug', $slug)->firstOrFail();
+
+    	$this->cart->clear();
+    	$this->cart->add($vehicle);
+
+    	return redirect()->route('site.cart');
     }
 }

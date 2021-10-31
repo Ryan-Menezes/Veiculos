@@ -177,6 +177,7 @@ class VehicleController extends Controller
         // Dados do formulário
         $data = $request->all();
         $data['slug'] = Str::of($data['brand'] . ' ' . $data['model'])->slug('-');
+        $request->vehicles_remove = explode(',', $request->vehicles_remove);
 
         // Formatando as datas
         if(!empty($data['release_date'])):
@@ -195,6 +196,17 @@ class VehicleController extends Controller
 
         // Editando veículo
         if($vehicle->update($data)):
+            // Deleta imagens selecionadas
+            $images = $vehicle->images->whereIn('id', $request->vehicles_remove);
+
+            foreach($images as $image):
+                if(!empty($image->image) && Storage::exists($image->image)):
+                    Storage::delete($image->image);
+                endif;
+
+                $image->delete();
+            endforeach;
+
             // Cadastra novas imagens do veículo
             if($request->hasFile('images')):
                 foreach($request->images as $image):

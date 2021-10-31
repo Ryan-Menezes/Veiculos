@@ -78,7 +78,7 @@
         </div>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         <div class="footer__copyright__text">
-            <p>{{ config('app.name') }} &copy;<script>document.write(new Date().getFullYear());</script> Todos os direitos reservados | Site desenvolvido por <a target="_blank" href="https://github.com/Ryan-Menezes">Ryan Menezes</a></a></p>
+            <p>{{ config('app.name') }} &copy;<script>document.write(new Date().getFullYear());</script> Todos os direitos reservados | Site desenvolvido por <a target="_blank" href="https://github.com/Ryan-Menezes" title="Portfólio do Desenvolvedor">Ryan Menezes</a></a></p>
         </div>
         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
     </div>

@@ -47,19 +47,23 @@
 			<tr>
 				<th><small>ID</small></th>
 				<th><small>Imagem</small></th>
+				<th><small>Qtde</small></th>
 				<th><small>Marca</small></th>
 				<th><small>Modelo</small></th>
 				<th><small>Quilometragem</small></th>
+				<th><small>Preço(R$)</small></th>
 			</tr>
 		</thead>
 		<tbody>
-			@foreach($requestmodel->vehicles as $vehicle)
+			@foreach($requestmodel->vehicles()->distinct('vehicles.id')->get() as $vehicle)
 			<tr>
 				<td><small>{{ $vehicle->id }}</small></td>
-				<td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->images()->first()->image) }}"></td>
+				<td><img class="image rounded border image-table" src="{{ asset('storage/' . $vehicle->firstImage()) }}"></td>
+				<td><small>{{ $vehicle->qtdeRequest($requestmodel->id) }}</small></td>
 				<td><small>{{ $vehicle->brand }}</small></td>
 				<td><small>{{ $vehicle->model }}</small></td>
 				<td><small>{{ $vehicle->mileage }}</small></td>
+				<td><small>{{ $vehicle->priceFormat }}</small></td>
 			</tr>
 			@endforeach
 		</tbody>
