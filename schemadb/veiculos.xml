@@ -502,12 +502,12 @@
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="2396" ColName="price" PrevColName="" Pos="5" idDatatype="9" DatatypeParams="(10, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="Pre\231o">
+<COLUMN ID="2396" ColName="price" PrevColName="" Pos="5" idDatatype="9" DatatypeParams="(15, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="Pre\231o">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="2572" ColName="promotion" PrevColName="" Pos="15" idDatatype="12" DatatypeParams="(10, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="Promo\231\227o">
+<COLUMN ID="2572" ColName="promotion" PrevColName="" Pos="15" idDatatype="12" DatatypeParams="(15, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="Promo\231\227o">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
@@ -654,12 +654,12 @@
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="2457" ColName="price" PrevColName="" Pos="7" idDatatype="9" DatatypeParams="(10, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<COLUMN ID="2457" ColName="price" PrevColName="" Pos="7" idDatatype="9" DatatypeParams="(15, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="1" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>
 </COLUMN>
-<COLUMN ID="2497" ColName="discount" PrevColName="" Pos="11" idDatatype="9" DatatypeParams="(10, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
+<COLUMN ID="2497" ColName="discount" PrevColName="" Pos="11" idDatatype="9" DatatypeParams="(15, 2)" Width="-1" Prec="-1" PrimaryKey="0" NotNull="0" AutoInc="0" IsForeignKey="0" DefaultValue="" Comments="">
 <OPTIONSELECTED>
 <OPTIONSELECT Value="0" />
 </OPTIONSELECTED>

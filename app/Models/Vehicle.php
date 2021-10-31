@@ -244,6 +244,10 @@ class Vehicle extends Model
     	return $this->belongsTo(Manufacturer::class);
     }
 
+    public function requests(){
+        return $this->belongsToMany(Request::class, 'request_vehicles');
+    }
+
     public function categories(){
     	return $this->belongsToMany(Category::class, 'vehicle_categories');
     }

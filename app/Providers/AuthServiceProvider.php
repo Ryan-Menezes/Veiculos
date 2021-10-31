@@ -7,8 +7,10 @@ use Illuminate\Contracts\Auth\Access\Gate;
 use App\Models\{
     User,
     Role,
-    Permission
+    Permission,
+    Request
 };
+use App\Policies\RequestPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Request::class => RequestPolicy::class,
     ];
 
     /**

@@ -17,19 +17,9 @@ use App\Http\Controllers\Site\{
 	SiteController,
 	VehicleController as VCS,
 	ContactController,
-	CartController
+	CartController,
+	RequestController as RCS
 };
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // AUTHENTICATE
 Auth::routes();
@@ -45,19 +35,25 @@ Route::group(['prefix' => '/'], function(){
 	});
 
 	// VEHICLES
-	Route::group(['prefix' => '/veiculos'], function(){
+	Route::group(['prefix' => 'veiculos'], function(){
 		Route::get('/', [VCS::class, 'index'])->name('site.vehicles');
 		Route::any('/buscar', [VCS::class, 'search'])->name('site.vehicles.search');
 		Route::get('/{slug}', [VCS::class, 'show'])->name('site.vehicles.show');		
 	});
 
 	// CART
-	Route::group(['prefix' => '/carrinho'], function(){
+	Route::group(['prefix' => 'carrinho'], function(){
 		Route::get('/', [CartController::class, 'index'])->name('site.cart');
 		Route::get('/adicionar/{vehicle}', [CartController::class, 'add'])->name('site.cart.add');
 		Route::get('/remover/{vehicle}', [CartController::class, 'remove'])->name('site.cart.remove');
 		Route::get('/clear', [CartController::class, 'clear'])->name('site.cart.clear');
 		Route::put('/edit/{vehicle}', [CartController::class, 'edit'])->name('site.cart.edit');
+	});
+
+	// REQUEST
+	Route::group(['prefix' => 'pedidos', 'middleware' => 'auth'], function(){
+		Route::get('/{requestmodel}', [RCS::class, 'show'])->name('site.requests.show');
+		Route::put('/novo', [RCS::class, 'store'])->name('site.requests.store');
 	});
 });
 

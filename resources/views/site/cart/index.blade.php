@@ -26,6 +26,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        <p class="p-0 m-0">{{ $error }}</p>
+                    @endforeach
+                    </div>
+                @endif
                 <table class="table">
                     <thead>
                         <tr>
@@ -75,8 +82,9 @@
                 </table>
 
                 @if(count($products) > 0)
-                <form method="POST" class="row">
+                <form action="{{ route('site.requests.store') }}" method="POST" class="row">
                     @csrf
+                    @method('PUT')
                     <div class="col-md-8">
                         <label class="form-label"><strong>DESCONTO: </strong></label>
                         <input type="text" name="discount" placeholder="Insira um código de desconto(Opcional)" class="form-control p-4" style="max-width: 500px;">

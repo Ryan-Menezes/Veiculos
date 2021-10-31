@@ -16,8 +16,8 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->decimal('price', 10, 2);
-            $table->decimal('discount', 10, 2);
+            $table->decimal('price', 15, 2);
+            $table->decimal('discount', 15, 2)->default(0);
             $table->enum('status', ['PA', 'PE', 'AC', 'RE', 'CO', 'CA']);  // PAGAMENTO, PENDENTE, ACEITO, CONCLUIDO, CANCELADO
             $table->timestamps();
 

@@ -21,8 +21,8 @@ class CreateVehiclesTable extends Migration
             $table->string('model', 100);
             $table->year('year');
             $table->tinyInteger('ports')->unsigned();
-            $table->decimal('price', 10, 2);
-            $table->decimal('promotion', 10, 2)->nullable();
+            $table->decimal('price', 15, 2);
+            $table->decimal('promotion', 15, 2)->nullable();
             $table->smallInteger('mileage')->unsigned();
             $table->smallInteger('quantity')->unsigned();
             $table->timestamp('release_date')->nullable();

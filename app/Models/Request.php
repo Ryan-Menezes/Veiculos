@@ -12,7 +12,7 @@ class Request extends Model
     use HasFactory;
 
     public $timestamps = true;
-    protected $fillable = ['vehicle_id', 'user_id', 'price', 'discount', 'status'];
+    protected $fillable = ['user_id', 'price', 'discount', 'status'];
     public $columns = ['ID', 'Preço(R$)', 'Desconto(R$)', 'Status', 'Criado em', 'Atualizado em', 'Ações'];
     public $statusCol = [
         'PA' => 'AGUARDANDO PAGAMENTO',
