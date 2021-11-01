@@ -46,7 +46,11 @@ class Request extends Model
 
     // SCOPES
 
-    public function scopeSearch($query, $search, $offset, $limit){
+    public function scopeSearch($query, $search, $offset, $limit, $id = null){
+        if(!is_null($query)):
+            $query->where('user_id', $id);
+        endif;
+
         return $query
                     ->where('id', 'LIKE', "%{$search}%")
                     ->orWhere('price', 'LIKE', "%{$search}%")

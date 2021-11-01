@@ -4,7 +4,8 @@
     <td>
         @can('delete.categories')
     	<button 
-            class="btn btn-sm btn-danger load-ajax-confirm",
+            class="btn btn-sm btn-danger load-ajax-confirm"
+            title="Deletar Categoria"
             data-container="#delete" 
             data-url="{{ route('panel.categories.destroy', $category) }}"
             data-token="{{ csrf_token() }}"
@@ -16,6 +17,7 @@
         @can('edit.categories')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Categoria"
             data-container=".form-edit" 
             data-url="{{ route('panel.categories.edit', $category) }}"
             data-token="{{ csrf_token() }}"

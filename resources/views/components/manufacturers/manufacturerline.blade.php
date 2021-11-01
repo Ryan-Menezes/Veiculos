@@ -5,7 +5,8 @@
     <td>
         @can('delete.manufacturers')
     	<button 
-            class="btn btn-sm btn-danger load-ajax-confirm",
+            class="btn btn-sm btn-danger load-ajax-confirm"
+            title="Deletar Fabricante"
             data-container="#delete" 
             data-url="{{ route('panel.manufacturers.destroy', $manufacturer) }}"
             data-token="{{ csrf_token() }}"
@@ -17,6 +18,7 @@
         @can('edit.manufacturers')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Fabricante"
             data-container=".form-edit" 
             data-url="{{ route('panel.manufacturers.edit', $manufacturer) }}"
             data-token="{{ csrf_token() }}"

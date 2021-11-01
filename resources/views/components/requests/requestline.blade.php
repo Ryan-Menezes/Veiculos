@@ -9,6 +9,7 @@
     	@can('view.requests')
     	<button
             class="btn btn-sm btn-warning load-ajax-click" 
+            title="Visualizar Pedido"
             data-container=".cont-show" 
             data-url="{{ route('panel.requests.show', $request) }}"
             data-token="{{ csrf_token() }}"
@@ -21,7 +22,8 @@
 
         @can('delete.requests')
     	<button 
-            class="btn btn-sm btn-danger load-ajax-confirm",
+            class="btn btn-sm btn-danger load-ajax-confirm"
+            title="Deletar Pedido"
             data-container="#delete" 
             data-url="{{ route('panel.requests.destroy', $request) }}"
             data-token="{{ csrf_token() }}"
@@ -33,6 +35,7 @@
         @can('edit.requests')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Pedido"
             data-container=".form-edit" 
             data-url="{{ route('panel.requests.edit', $request) }}"
             data-token="{{ csrf_token() }}"

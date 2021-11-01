@@ -18,7 +18,7 @@ class CreateRequestsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->decimal('price', 15, 2);
             $table->decimal('discount', 15, 2)->default(0);
-            $table->enum('status', ['PA', 'PE', 'AC', 'RE', 'CO', 'CA']);  // PAGAMENTO, PENDENTE, ACEITO, CONCLUIDO, CANCELADO
+            $table->enum('status', ['PA', 'PE', 'AC', 'RE', 'CO', 'CA']);  // PAGAMENTO, PENDENTE, ACEITO, RECUSADO, CONCLUIDO, CANCELADO
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');

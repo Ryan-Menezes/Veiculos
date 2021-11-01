@@ -5,6 +5,7 @@
         @can('delete.roles')
     	<button 
             class="btn btn-sm btn-danger load-ajax-confirm"
+            title="Deletar Função"
             data-container="#delete" 
             data-url="{{ route('panel.roles.destroy', $role) }}"
             data-token="{{ csrf_token() }}"
@@ -16,6 +17,7 @@
         @can('edit.roles')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Função"
             data-container=".form-edit" 
             data-url="{{ route('panel.roles.edit', $role) }}"
             data-token="{{ csrf_token() }}"

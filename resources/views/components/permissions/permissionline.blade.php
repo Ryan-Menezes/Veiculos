@@ -5,6 +5,7 @@
         @can('edit.permissions')
         <button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Permissão"
             data-container=".form-edit" 
             data-url="{{ route('panel.permissions.edit', $permission) }}"
             data-token="{{ csrf_token() }}"

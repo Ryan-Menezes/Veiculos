@@ -9,7 +9,8 @@
     <td>
         @can('delete.vehicles')
     	<button 
-            class="btn btn-sm btn-danger load-ajax-confirm",
+            class="btn btn-sm btn-danger load-ajax-confirm"
+            title="Deletar Veículo"
             data-container="#delete" 
             data-url="{{ route('panel.vehicles.destroy', $vehicle) }}"
             data-token="{{ csrf_token() }}"
@@ -21,6 +22,7 @@
         @can('edit.vehicles')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Veículo"
             data-container=".form-edit" 
             data-url="{{ route('panel.vehicles.edit', $vehicle) }}"
             data-token="{{ csrf_token() }}"

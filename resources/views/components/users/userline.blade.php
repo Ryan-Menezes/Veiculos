@@ -9,7 +9,8 @@
     	@if($user->id != auth()->user()->id)
             @can('delete.users')
 	    	<button 
-                class="btn btn-sm btn-danger load-ajax-confirm",
+                class="btn btn-sm btn-danger load-ajax-confirm"
+                title="Deletar Usuário"
                 data-container="#delete" 
                 data-url="{{ route('panel.users.destroy', $user) }}"
                 data-token="{{ csrf_token() }}"
@@ -21,6 +22,7 @@
             @can('edit.users')
 	    	<button
                 class="btn btn-sm btn-primary load-ajax-click" 
+                title="Editar Usuário"
                 data-container=".form-edit" 
                 data-url="{{ route('panel.users.edit', $user) }}"
                 data-token="{{ csrf_token() }}"

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Panel;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{
@@ -21,6 +22,7 @@ class PanelController extends Controller
     	$data = [
             'title'                 => 'Início',
     		'amountUsers' 			=> User::count(),
+            'amountMyRequests'      => RequestModel::where('user_id', Auth::user()->id)->count(),
     		'amountVehicles' 		=> Vehicle::count(),
     		'amountManufacturers' 	=> Manufacturer::count(),
             'amountCategories'      => Category::count(),

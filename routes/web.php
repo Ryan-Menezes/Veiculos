@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel\{
 	PanelController,
 	PerfilController,
+	MyRequestController,
 	UserController,
 	VehicleController,
 	ManufacturerController,
@@ -67,6 +68,13 @@ Route::group(['prefix' => 'painel', 'middleware' => 'auth'], function(){
 		Route::get('/', [PerfilController::class, 'index'])->name('panel.perfil');
 		Route::put('/dados/eitar', [PerfilController::class, 'updateUser'])->name('panel.perfil.user.update');
 		Route::put('/password/editar', [PerfilController::class, 'updateUserPassword'])->name('panel.perfil.user.update.password');
+	});
+
+	// MY REQUESTS
+	Route::group(['prefix' => 'meus-pedidos'], function(){
+		Route::get('/', [MyRequestController::class, 'index'])->name('panel.myrequests');
+		Route::any('/carrega/{offset?}/{limit?}/{search?}', [MyRequestController::class, 'load'])->name('panel.myrequests.load');
+		Route::put('/{requestmodel}/cancelar', [MyRequestController::class, 'cancel'])->name('panel.myrequests.cancel');
 	});
 
 	// USERS

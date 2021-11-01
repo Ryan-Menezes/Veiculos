@@ -22,7 +22,7 @@ class RequestPolicy
         //
     }
 
-    public function viewRequestUser(User $user, Request $request){
+    public function requestUser(User $user, Request $request){
         return $user->id == $request->user_id;
     }
 }

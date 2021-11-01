@@ -63,7 +63,7 @@ class RequestController extends Controller
     }
 
     public function show(RequestModel $requestmodel){
-    	if(Gate::denies('view-request-user', $requestmodel)) abort(404);
+    	if(Gate::denies('request-user', $requestmodel)) abort(404);
 
     	return view('site.requests.show', ['request' => $requestmodel]);
     }

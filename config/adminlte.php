@@ -237,6 +237,11 @@ return [
             'icon'        => 'fas fa-user',
         ],
         [
+            'text'        => 'Meus Pedidos',
+            'url'         => 'painel/meus-pedidos',
+            'icon'        => 'fas fa-list-alt',
+        ],
+        [
             'text'        => 'Usuários',
             'url'         => 'painel/usuarios',
             'icon'        => 'fas fa-users',

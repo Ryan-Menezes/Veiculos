@@ -5,7 +5,8 @@
     <td>
         @can('delete.discounts')
     	<button 
-            class="btn btn-sm btn-danger load-ajax-confirm",
+            class="btn btn-sm btn-danger load-ajax-confirm"
+            title="Deletar Desconto"
             data-container="#delete" 
             data-url="{{ route('panel.discounts.destroy', $discount) }}"
             data-token="{{ csrf_token() }}"
@@ -17,6 +18,7 @@
         @can('edit.discounts')
     	<button
             class="btn btn-sm btn-primary load-ajax-click" 
+            title="Editar Desconto"
             data-container=".form-edit" 
             data-url="{{ route('panel.discounts.edit', $discount) }}"
             data-token="{{ csrf_token() }}"
