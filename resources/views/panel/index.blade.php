@@ -27,7 +27,7 @@
         <x-panel.card title="Fabricantes" content="{{ $amountManufacturers }}" route="panel.manufacturers" can="view.manufacturers" icon="fas fa-industry" class="bg-pink"/>
 
         {{-- CATEGORIES --}}
-        <x-panel.card title="Categorias" content="{{ $amountCategories }}" route="panel.manufacturers" can="view.categories" icon="fas fa-tags" class="bg-purple"/>
+        <x-panel.card title="Categorias" content="{{ $amountCategories }}" route="panel.categories" can="view.categories" icon="fas fa-tags" class="bg-purple"/>
 
         {{-- DISCOUNTS --}}
         <x-panel.card title="Descontos" content="{{ $amountDiscounts }}" route="panel.discounts" can="view.discounts" icon="fas fa-percent" class="bg-warning"/>
