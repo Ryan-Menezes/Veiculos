@@ -226,6 +226,12 @@ class Vehicle extends Model
         return number_format($this->price, 2, ',', '.');
     }
 
+    public function getPromotionFormatAttribute(){
+        if(empty($this->promotion)) return number_format(0, 2, ',', '.');
+
+        return number_format($this->promotion, 2, ',', '.');
+    }
+
     public function getReleaseDateFormatAttribute(){
         if(empty($this->release_date)) return null;
 

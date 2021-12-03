@@ -7,11 +7,13 @@ $(window.document).ready(function(){
 	$('*').delegate('.load-ajax-form-submit', 'submit', loadForm)
 	$('*').delegate('.load-ajax-form-submit .alert', 'click', function(){
 		$(this).remove()
+		return
 	})
 	$('*').delegate('.load-ajax-enter', 'change', load)
 	$('*').delegate('.load-ajax-confirm', 'click', loadConfirm)
 	$('*').delegate('.message-box', 'click', function(){
 		$(this).remove()
+		return
 	})
 	$('.autoclick').trigger('click')
 })
@@ -111,6 +113,8 @@ function load(){
 			})
 		}
 	}
+
+	return
 }
 
 function loadForm(){
@@ -155,6 +159,8 @@ function loadForm(){
 			$(element).prepend($('<div/>').addClass('alert alert-danger').text('FALHA AO EXECUTAR O FORMULÁRIO!'))
 		})
 	}
+
+	return
 }
 
 function loadConfirm(){
@@ -216,4 +222,6 @@ function loadConfirm(){
 			}
 		}
 	})
+
+	return
 }

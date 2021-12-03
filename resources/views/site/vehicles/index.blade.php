@@ -134,7 +134,12 @@
                                     @else
                                     <span class="car-option sale">Indisponível</span>
                                     @endif
+                                    
+                                    @if($vehicle->promotion)
+                                    <h4 class="pl-5 ml-4">R$ {{ $vehicle->promotionFormat }}</h4>
+                                    @else
                                     <h4 class="pl-5 ml-4">R$ {{ $vehicle->priceFormat }}</h4>
+                                    @endif
                                 </div>
                             </div>
                         </div>

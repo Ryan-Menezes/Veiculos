@@ -37,6 +37,8 @@ $(window.document).ready(function(){
             showMonthAfterYear: false,
             yearSuffix: ''
 		})
+
+        return
 	})
 
 	// Configurações do accordion
@@ -76,5 +78,7 @@ $(window.document).ready(function(){
                 email: 'Por favor entre com um email válido'
             }
         })
+
+        return
     })
 })

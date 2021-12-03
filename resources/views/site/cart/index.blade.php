@@ -62,7 +62,11 @@
                             <td>{{ $product['vehicle']->model }}</td>
                             <td>{{ $product['vehicle']->year }}</td>
                             <td>{{ $product['vehicle']->mileage }}</td>
+                            @if($product['vehicle']->promotion)
+                            <td>{{ $product['vehicle']->promotionFormat }}</td>
+                            @else
                             <td>{{ $product['vehicle']->priceFormat }}</td>
+                            @endif
                             <td>
                                 <a href="{{ route('site.cart.remove', $product['vehicle']) }}" class="btn btn-sm btn-danger" title="Remover veículo do carrinho"><i class="fa fa-trash"></i></a>
                             </td>

@@ -23,7 +23,12 @@ class Cart
         $v = $this->vehicles->get($vehicle->id);
 
         if(is_null($v)):
-            $this->vehicles->put($vehicle->id, ['vehicle' => $vehicle, 'quantity' => 1, 'price' => $vehicle->price]);
+            $price = $vehicle->price;
+
+            if($vehicle->promotion)
+                $price = $vehicle->promotion;
+
+            $this->vehicles->put($vehicle->id, ['vehicle' => $vehicle, 'quantity' => 1, 'price' => $price]);
         else:
             $this->set($v['vehicle'], ++$v['quantity'], $v['price']);
         endif;
@@ -67,21 +72,16 @@ class Cart
         return $this->vehicles->all();
     }
 
-    // RETURN AMOUNT QUANTITY
-    public function amountQuantity(){
-        $this->load();
-        return $this->vehicles->sum('quantity');
-    }
-
-    // RETURN AMOUNT PRICE
-    public function amountPrice(){
-        $this->load();
-        return $this->vehicles->sum('price');
-    }
-
     // RETURN AMOUNT
     public function amount(){
         $this->load();
-        return $this->amountQuantity() * $this->amountPrice();
+
+        $amount = 0;
+
+        foreach($this->vehicles as $vehicle){
+            $amount += $vehicle['quantity'] * $vehicle['price'];
+        }
+
+        return $amount;
     }
 }

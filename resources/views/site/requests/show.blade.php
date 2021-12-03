@@ -69,18 +69,50 @@
                             <td>{{ $vehicle->model }}</td>
                             <td>{{ $vehicle->year }}</td>
                             <td>{{ $vehicle->mileage }}</td>
+                            @if($vehicle->promotion)
+                            <td>{{ $vehicle->promotionFormat }}</td>
+                            @else
                             <td>{{ $vehicle->priceFormat }}</td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
             @if($request->status === 'PA')
-            <div class="col-md-12">
-                <form action="#" method="POST" class="row">
+            <div class="col-md-12 mt-5">
+                <form action="#" method="POST" class="row p-4 border form-validate">
                     @csrf
                     @method('PUT')
-                    <div class="col-md-12 pos-end">
+                    <div class="col-md-4">
+                        <x-form.inputselect title="Tipo de Pagamento" name="type" :options="['Cartão de Crédito', 'Débito Online', 'Boleto']" class="w-100"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputtext title="Número do Cartão" name="cardNumber" placeholder="Número do Cartão" class="required cardnumber-mask"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputtext title="CVV" name="cvv" placeholder="CVV" class="required" maxlength="3"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputnumber title="Mês de Validade" name="month" placeholder="Mês de Validade" min="1" max="12" class="required"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputnumber title="Ano de Validade" name="year" placeholder="Ano de Validade" min="{{ date('Y') }}" max="{{ 9999 }}" class="required"/>
+                    </div>
+
+                    <div class="col-md-12">
+                        <x-form.inputselect title="Parcelas" name="instaltment" :options="['Selecione uma Parcela']" class="w-100"/>
+                    </div>
+
+                    <div class="col-md-12 mt-4 pos-end">
                         <button type="submit" class="btn primary-btn text-white ml-1"><i class="fa fa-money"></i> Pagar</button>
                     </div>
                 </form>

@@ -47,7 +47,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active px-2" id="tabs-1" role="tabpanel">
-                            <p>{{ $vehicle->descriptionFormat }}</p>
+                            <p>{!! $vehicle->descriptionFormat !!}</p>
                         </div>
                     </div>
                 </div>
@@ -65,7 +65,13 @@
                             <li>Modelo <span>{{ $vehicle->model }}</span></li>
                             <li>Portas <span>{{ $vehicle->ports }}</span></li>
                             <li>Ano <span>{{ $vehicle->year }}</span></li>
-                            <li>Price <span>R${{ $vehicle->priceFormat }}</span></li>
+                            
+                            @if($vehicle->promotion)
+                            <li>De <span style="text-decoration: line-through;">R${{ $vehicle->priceFormat }}</span></li>
+                            <li>Para <span>R${{ $vehicle->promotionFormat }}</span></li>
+                            @else
+                            <li>Preço <span>R${{ $vehicle->priceFormat }}</span></li>
+                            @endif
                         </ul>
                         <div class="loading">
                             <a href="javascript:void(0)" 
