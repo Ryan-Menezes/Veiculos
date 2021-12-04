@@ -21,6 +21,7 @@ use App\Http\Controllers\Site\{
 	CartController,
 	RequestController as RCS
 };
+use App\Http\Controllers\Payment\PaymentController;
 
 // AUTHENTICATE
 Auth::routes();
@@ -57,6 +58,9 @@ Route::group(['prefix' => '/'], function(){
 		Route::get('/{requestmodel}', [RCS::class, 'show'])->name('site.requests.show');
 		Route::put('/novo', [RCS::class, 'store'])->name('site.requests.store');
 	});
+
+	// NOTIFICATION PAYMENT
+	Route::post('/notificacao', [PaymentController::class, 'notification'])->name('payment.notification');
 });
 
 // PANEL

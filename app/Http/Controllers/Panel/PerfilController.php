@@ -26,6 +26,9 @@ class PerfilController extends Controller
         // Dados do formulário
         $data = $request->all();
 
+        $data['cpf'] = str_ireplace(['.', '-', ' '], '', $data['cpf']);
+        $data['phone'] = str_ireplace(['(', ')', ' ', '-'], '', $data['phone']);
+
         // Validando os dados
         $validator = $user->validateUpdate($data);
         if(!is_null($validator)) return $validator;

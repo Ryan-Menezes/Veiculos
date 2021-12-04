@@ -27,6 +27,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'cpf',
+        'phone',
         'password',
         'image'
     ];
@@ -55,6 +57,8 @@ class User extends Authenticatable
     public function validateUpdate(array $data){
         $roles = [
             'name'          => ['required', 'string', 'max:191'],
+            'cpf'           => ['required', 'min:11', 'max:11', Rule::unique('users')->ignore($this->id)],
+            'phone'         => ['required', 'min:11', 'max:11', Rule::unique('users')->ignore($this->id)],
             'email'         => ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($this->id)],
             'image'         => ['mimes:jpeg,jpg,gif,bmp,png']
         ];

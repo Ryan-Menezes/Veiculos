@@ -11,6 +11,7 @@ use App\Models\{
     Request
 };
 use App\Policies\RequestPolicy;
+use Illuminate\Support\Facades\Schema;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,13 +31,15 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(Gate $gate)
     {
-        $this->registerPolicies($gate);
+        if(Schema::hasTable('permissions')){
+            $this->registerPolicies($gate);
 
-        $permissions = Permission::with('roles')->get();
-        foreach($permissions as $permission):
-            $gate->define($permission->name, function(User $user) use($permission){
-                return $user->hasPermission($permission);
-            });
-        endforeach;
+            $permissions = Permission::with('roles')->get();
+            foreach($permissions as $permission):
+                $gate->define($permission->name, function(User $user) use($permission){
+                    return $user->hasPermission($permission);
+                });
+            endforeach;
+        }
     }
 }
