@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Classes\Cart;
+use App\Classes\{
+    Cart,
+    Payment
+};
 use App\Models\{
 	Request as RequestModel,
 	Vehicle,
@@ -65,6 +68,9 @@ class RequestController extends Controller
     public function show(RequestModel $requestmodel){
     	if(Gate::denies('request-user', $requestmodel)) abort(404);
 
-    	return view('site.requests.show', ['request' => $requestmodel]);
+        $payment = new Payment(config('payment.token.live'), config('payment.email'));
+        $sessionId = $payment->startSession();
+
+    	return view('site.requests.show', ['request' => $requestmodel, 'sessionId' => $sessionId]);
     }
 }

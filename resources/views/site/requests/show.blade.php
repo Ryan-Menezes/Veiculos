@@ -79,37 +79,44 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="col-md-12 mt-5 p-4 border" id="paymentMethods"></div>
+
             @if($request->status === 'PA')
             <div class="col-md-12 mt-5">
                 <form action="#" method="POST" class="row p-4 border form-validate">
                     @csrf
                     @method('PUT')
+
+                    <input type="hidden" name="sessionId" id="sessionId" value="{{ $sessionId }}">
+                    <input type="hidden" name="amountPrice" id="amountPrice" value="{{ $request->price }}">
+
                     <div class="col-md-4">
-                        <x-form.inputselect title="Tipo de Pagamento" name="type" :options="['Cartão de Crédito', 'Débito Online', 'Boleto']" class="w-100"/>
+                        <x-form.inputselect id="typePayment" title="Tipo de Pagamento" name="type" :options="['Cartão de Crédito', 'Débito Online', 'Boleto']" class="w-100"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask"/>
+                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask card"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="Número do Cartão" name="cardNumber" placeholder="Número do Cartão" class="required cardnumber-mask"/>
+                        <x-form.inputtext title="Número do Cartão" name="cardNumber" placeholder="Número do Cartão" class="required cardnumber-mask card"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="CVV" name="cvv" placeholder="CVV" class="required" maxlength="3"/>
+                        <x-form.inputtext title="CVV" name="cvv" placeholder="CVV" class="required card" maxlength="3"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputnumber title="Mês de Validade" name="month" placeholder="Mês de Validade" min="1" max="12" class="required"/>
+                        <x-form.inputnumber title="Mês de Validade" name="month" placeholder="Mês de Validade" min="1" max="12" class="required card"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputnumber title="Ano de Validade" name="year" placeholder="Ano de Validade" min="{{ date('Y') }}" max="{{ 9999 }}" class="required"/>
+                        <x-form.inputnumber title="Ano de Validade" name="year" placeholder="Ano de Validade" min="{{ date('Y') }}" max="{{ 9999 }}" class="required card"/>
                     </div>
 
                     <div class="col-md-12">
-                        <x-form.inputselect title="Parcelas" name="instaltment" :options="['Selecione uma Parcela']" class="w-100"/>
+                        <x-form.inputselect title="Parcelas" name="instaltment" :options="['Selecione uma Parcela']" class="w-100 card"/>
                     </div>
 
                     <div class="col-md-12 mt-4 pos-end">
@@ -122,4 +129,9 @@
     </div>
 </section>
 <!-- Car Section End -->
+@endsection
+
+@section('scripts')
+<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/site/payment.js') }}"></script>
 @endsection
