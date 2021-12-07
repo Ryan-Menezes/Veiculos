@@ -80,27 +80,29 @@
                 </table>
             </div>
 
+            @if($request->status === 'PA')
             <div class="col-md-12 mt-5 p-4 border" id="paymentMethods"></div>
 
-            @if($request->status === 'PA')
             <div class="col-md-12 mt-5">
-                <form action="#" method="POST" class="row p-4 border form-validate">
+                <form action="#" method="POST" class="row p-4 border form-validate" id="formPayment">
                     @csrf
                     @method('PUT')
 
                     <input type="hidden" name="sessionId" id="sessionId" value="{{ $sessionId }}">
                     <input type="hidden" name="amountPrice" id="amountPrice" value="{{ $request->price }}">
+                    <input type="hidden" name="cardToken" id="cardToken">
+                    <input type="hidden" name="senderHash" id="senderHash">
 
                     <div class="col-md-4">
-                        <x-form.inputselect id="typePayment" title="Tipo de Pagamento" name="type" :options="['Cartão de Crédito', 'Débito Online', 'Boleto']" class="w-100"/>
+                        <x-form.inputselect id="typePayment" title="Tipo de Pagamento" name="type" :options="['Cartão de Crédito', 'Débito Online', 'Boleto']" class="w-100 notniceselect"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask card"/>
+                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="Número do Cartão" name="cardNumber" placeholder="Número do Cartão" class="required cardnumber-mask card"/>
+                        <x-form.inputtext title="Número do Cartão" name="cardNumber" id="cardNumber" placeholder="Número do Cartão" class="required cardnumber-mask card"/>
                     </div>
 
                     <div class="col-md-4">
@@ -116,7 +118,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <x-form.inputselect title="Parcelas" name="instaltment" :options="['Selecione uma Parcela']" class="w-100 card"/>
+                        <x-form.inputselect title="Parcelas" name="installments" id="installments" :options="[]" class="w-100 card notniceselect"/>
                     </div>
 
                     <div class="col-md-12 mt-4 pos-end">

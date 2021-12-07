@@ -174,7 +174,7 @@
     /*--------------------------
         Select
     ----------------------------*/
-    $("select").niceSelect();
+    $("select[class=notniceselect]").niceSelect();
 
     /*------------------
 		Magnific
