@@ -59,8 +59,11 @@ Route::group(['prefix' => '/'], function(){
 		Route::put('/novo', [RCS::class, 'store'])->name('site.requests.store');
 	});
 
-	// NOTIFICATION PAYMENT
-	Route::post('/notificacao', [PaymentController::class, 'notification'])->name('payment.notification');
+	// PAYMENT
+	Route::group(['prefix' => 'pagamento'], function(){
+		Route::post('/notificacao', [PaymentController::class, 'notification'])->name('payment.notification');
+		Route::post('/processar', [PaymentController::class, 'store'])->name('payment.store');
+	});
 });
 
 // PANEL

@@ -100,7 +100,7 @@ class Payment{
 
 		try{
 			$response = $this->curl();
-			dd($response);
+			
 			if($response != 'Unauthorized')
 				return simplexml_load_string($response)->id;
 
@@ -123,8 +123,8 @@ class Payment{
 			'reference' 				=> $request->id,
 			'senderName' 				=> $user->name,
 			'senderCPF' 				=> $user->cpf,
-			'senderAreaCode'			=> '11',
-			'senderPhone' 				=> '56273440',
+			'senderAreaCode'			=> mb_substr($user->phone, 0, 2),
+			'senderPhone' 				=> mb_substr($user->phone, 2),
 			'senderEmail' 				=> $user->email,
 			'senderHash' 				=> $senderHash,
 			'shippingAddressRequired' 	=> false
@@ -145,8 +145,8 @@ class Payment{
 			'reference' 				=> $request->id,
 			'senderName' 				=> $user->name,
 			'senderCPF' 				=> $user->cpf,
-			'senderAreaCode'			=> '11',
-			'senderPhone' 				=> '56273440',
+			'senderAreaCode'			=> mb_substr($user->phone, 0, 2),
+			'senderPhone' 				=> mb_substr($user->phone, 2),
 			'senderEmail' 				=> $user->email,
 			'senderHash' 				=> $senderHash,
 			'shippingAddressRequired' 	=> false
@@ -166,8 +166,8 @@ class Payment{
 			'reference' 						=> $request->id,
 			'senderName' 						=> $user->name,
 			'senderCPF' 						=> $user->cpf,
-			'senderAreaCode'					=> '11',
-			'senderPhone' 						=> '56273440',
+			'senderAreaCode'					=> mb_substr($user->phone, 0, 2),
+			'senderPhone' 						=> mb_substr($user->phone, 2),
 			'senderEmail' 						=> $user->email,
 			'senderHash' 						=> $senderHash,
 			'shippingAddressRequired' 			=> false,
@@ -183,5 +183,88 @@ class Payment{
 		];
 
 		return $this->checkout($request);
+	}
+
+	public function cancel($transactionCode) : bool{
+		$this->post = true;
+		$this->data = [
+			'transactionCode' => $transactionCode
+		];
+
+		$this->url = "https://ws.pagseguro.uol.com.br/v2/transactions/cancels?email={$this->email}&token={$this->token}";
+
+		if($this->sandbox)
+			$this->url = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/cancels?email={$this->email}&token={$this->token}";
+
+		$this->header = ['Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1'];
+
+		try{
+			$response = $this->curl();
+			$xml = simplexml_load_string($response);
+
+			if($xml->error)
+				throw new Exception($xml->error->message, $xml->error->code);
+
+			return true;
+		}catch(Exception $error){
+			$this->errors[] = $error;
+		}
+
+		return false;
+	}
+
+	public function refund($transactionCode, float $transactionValue) : bool{
+		$this->post = true;
+		$this->data = [
+			'transactionCode' => $transactionCode,
+			'transactionValue' => $transactionValue
+		];
+
+		$this->url = "https://ws.pagseguro.uol.com.br/v2/transactions/refunds?email={$this->email}&token={$this->token}";
+
+		if($this->sandbox)
+			$this->url = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/refunds?email={$this->email}&token={$this->token}";
+
+		$this->header = ['Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1'];
+
+		try{
+			$response = $this->curl();
+			$xml = simplexml_load_string($response);
+
+			if($xml->error)
+				throw new Exception($xml->error->message, $xml->error->code);
+
+			return true;
+		}catch(Exception $error){
+			$this->errors[] = $error;
+		}
+
+		return false;
+	}
+
+	public function notification($notificationCode) : ?StdClass{
+		$this->post = false;
+		$this->data = [];
+
+		$this->url = "https://ws.pagseguro.uol.com.br/v3/transactions/notifications/{$notificationCode}?email={$this->email}&token={$this->token}";
+
+		if($this->sandbox)
+			$this->url = "https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/{$notificationCode}?email={$this->email}&token={$this->token}";
+
+		$this->header = ['Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1'];
+
+		try{
+			$response = $this->curl();
+			$xml = simplexml_load_string($response);
+
+			if(!$xml->code)
+				throw new Exception('Consulta Inválida!');
+
+			return $xml;
+		}catch(Exception $error){
+			$this->errors[] = $error;
+		}
+
+		return null;
 	}
 }

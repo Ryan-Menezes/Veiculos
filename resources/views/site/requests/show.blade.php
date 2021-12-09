@@ -84,10 +84,8 @@
             <div class="col-md-12 mt-5 p-4 border" id="paymentMethods"></div>
 
             <div class="col-md-12 mt-5">
-                <form action="#" method="POST" class="row p-4 border form-validate" id="formPayment">
+                <form action="{{ route('payment.store') }}" method="POST" class="row p-4 border form-validate" id="formPayment">
                     @csrf
-                    @method('PUT')
-
                     <input type="hidden" name="sessionId" id="sessionId" value="{{ $sessionId }}">
                     <input type="hidden" name="amountPrice" id="amountPrice" value="{{ $request->price }}">
                     <input type="hidden" name="cardToken" id="cardToken">

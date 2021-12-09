@@ -26,16 +26,14 @@ $(document).ready(function(){
 	})
 
 	// Validando o cartão
-	FORM.submit(async function(){
+	FORM.submit(async function(){ 
 		event.preventDefault()
-		$('.alert').remove()
+		await $('.alert').remove()
 
 		// Get card token
 		await getCardToken(new FormData(this))
 
-		// if(!Boolean($('div.alert').length)){
-		// 	$(this).trigger('submit')
-		// }
+		return !Boolean($('div.alert').length)
 	})
 })
 
