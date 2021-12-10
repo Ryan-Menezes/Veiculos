@@ -15,7 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Veiculos'),
     'logo' => env('APP_LOGO', 'assets/images/logo.png"'),
-    'email' => 'hvac@gmail.com',
+    'email' => 'suporte@lojamodelo.com.br',
 
     /*
     |--------------------------------------------------------------------------

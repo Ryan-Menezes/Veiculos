@@ -80,7 +80,7 @@ class Payment{
 		return null;
 	}
 
-	private function checkout(RequestModel $request) : ?string{
+	private function checkout(RequestModel $request){
 		$index = 1;
 		foreach($request->vehicles()->distinct('vehicles.id')->get() as $vehicle){
 			$this->data["itemId{$index}"] = $vehicle->id;
@@ -100,10 +100,16 @@ class Payment{
 
 		try{
 			$response = $this->curl();
-			
-			if($response != 'Unauthorized')
-				return simplexml_load_string($response)->id;
 
+			if($response != 'Unauthorized'){
+				$xml = simplexml_load_string($response);
+
+				if($xml->error)
+					throw new Exception($xml->error->message);
+
+				return $xml;
+			}
+			
 			throw new Exception($response);
 		}catch(Exception $error){
 			$this->errors[] = $error;
@@ -112,7 +118,7 @@ class Payment{
 		return null;
 	}
 
-	public function bolet(User $user, RequestModel $request, string $senderHash) : ?string{
+	public function bolet(User $user, RequestModel $request, string $senderHash){
 		$this->data = [
 			'paymentMode' 				=> 'default',
 			'paymentMethod' 			=> 'boleto',
@@ -133,7 +139,7 @@ class Payment{
 		return $this->checkout($request);
 	}
 
-	public function debit(User $user, RequestModel $request, string $senderHash) : ?string{
+	public function debit(User $user, RequestModel $request, string $senderHash){
 		$this->data = [
 			'paymentMode' 				=> 'default',
 			'paymentMethod' 			=> 'boleto',
@@ -155,7 +161,7 @@ class Payment{
 		return $this->checkout($request);
 	}
 
-	public function credit(User $user, RequestModel $request, string $senderHash, string $cardToken, int $installmentQuantity, float $installmentValue, int $noInterestInstallmentQuantity, string $creditCardHolderName, string $creditCardHolderCPF, string $creditCardHolderBirthDate, string $creditCardHolderAreaCode, string $creditCardHolderPhone) : ?string{
+	public function credit(User $user, RequestModel $request, string $senderHash, string $cardToken, int $installmentQuantity, float $installmentValue, int $noInterestInstallmentQuantity, string $creditCardHolderName, string $creditCardHolderCPF, string $creditCardHolderBirthDate, string $creditCardHolderAreaCode, string $creditCardHolderPhone){
 		$this->data = [
 			'paymentMode' 						=> 'default',
 			'paymentMethod' 					=> 'boleto',
@@ -200,12 +206,17 @@ class Payment{
 
 		try{
 			$response = $this->curl();
-			$xml = simplexml_load_string($response);
 
-			if($xml->error)
-				throw new Exception($xml->error->message, $xml->error->code);
+			if($response != 'Unauthorized'){
+				$xml = simplexml_load_string($response);
 
-			return true;
+				if($xml->error)
+					throw new Exception($xml->error->message);
+
+				return true;
+			}
+			
+			throw new Exception($response);
 		}catch(Exception $error){
 			$this->errors[] = $error;
 		}
@@ -229,12 +240,17 @@ class Payment{
 
 		try{
 			$response = $this->curl();
-			$xml = simplexml_load_string($response);
 
-			if($xml->error)
-				throw new Exception($xml->error->message, $xml->error->code);
+			if($response != 'Unauthorized'){
+				$xml = simplexml_load_string($response);
 
-			return true;
+				if($xml->error)
+					throw new Exception($xml->error->message);
+
+				return true;
+			}
+			
+			throw new Exception($response);
 		}catch(Exception $error){
 			$this->errors[] = $error;
 		}
@@ -255,12 +271,17 @@ class Payment{
 
 		try{
 			$response = $this->curl();
-			$xml = simplexml_load_string($response);
 
-			if(!$xml->code)
-				throw new Exception('Consulta Inválida!');
+			if($response != 'Unauthorized'){
+				$xml = simplexml_load_string($response);
 
-			return $xml;
+				if(!$xml->code)
+					throw new Exception('Consulta Inválida!');
+
+				return $xml;
+			}
+			
+			throw new Exception($response);
 		}catch(Exception $error){
 			$this->errors[] = $error;
 		}

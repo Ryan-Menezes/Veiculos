@@ -62,7 +62,7 @@ Route::group(['prefix' => '/'], function(){
 	// PAYMENT
 	Route::group(['prefix' => 'pagamento'], function(){
 		Route::post('/notificacao', [PaymentController::class, 'notification'])->name('payment.notification');
-		Route::post('/processar', [PaymentController::class, 'store'])->name('payment.store');
+		Route::post('/processar/{requestmodel}', [PaymentController::class, 'store'])->name('payment.store')->middleware('auth');
 	});
 });
 

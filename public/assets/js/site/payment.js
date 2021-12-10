@@ -27,13 +27,13 @@ $(document).ready(function(){
 
 	// Validando o cartão
 	FORM.submit(async function(){ 
+		let form = this
 		event.preventDefault()
-		await $('.alert').remove()
 
-		// Get card token
-		await getCardToken(new FormData(this))
+		$('.alert').remove()
 
-		return !Boolean($('div.alert').length)
+		// Get card token and submit form
+		getCardToken(this)
 	})
 })
 
@@ -110,8 +110,10 @@ function getInstallments(amount, brand, maxInst = 2){
 	})
 }
 
-async function getCardToken(data){
-	await PagSeguroDirectPayment.createCardToken({
+function getCardToken(form){
+	let data = new FormData(form)
+
+	PagSeguroDirectPayment.createCardToken({
 	   	cardNumber: data.get('cardNumber').replace(/[^0-9]/ig, ''), 				// Número do cartão de crédito
 	   	brand: brand.name, 															// Bandeira do cartão
 	   	cvv: data.get('cvv'), 														// CVV do cartão
@@ -119,7 +121,7 @@ async function getCardToken(data){
 	   	expirationYear: data.get('year'), 											// Ano da expiração do cartão, é necessário os 4 dígitos.
 	   	success: function(response) {
 	   		$('#cardToken').val(response.card.token)
-	        getSenderHash()
+	        getSenderHash(form)
 	   	},
 	   	error: function(response) {
 	        createAlert('Os dados do cartão informado são inválidos!')
@@ -128,13 +130,34 @@ async function getCardToken(data){
 	})
 }
 
-async function getSenderHash(form){
-	await PagSeguroDirectPayment.onSenderHashReady(function(response){
+function getSenderHash(form){
+	PagSeguroDirectPayment.onSenderHashReady(function(response){
 	    if(response.status == 'error') {
-	    	createAlert('Ocorreu um erro ao processar os dados do cartão!')
+	    	createAlert('Ocorreu um erro ao processar os dados do pagamento!')
 	        return
 	    }
 
 	    $('#senderHash').val(response.senderHash)
+
+	    // Submit form
+		let data = new FormData(form)
+
+		$.ajax({
+			url: form.action,
+			method: form.method,
+			data: data,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			beforeSend: function(){
+
+			}
+		})
+		.done(function(response){
+			console.log(response)
+		})
+		.fail(function(response){
+			createAlert('Ocorreu um erro ao processar os dados do pagamento!')
+		})
 	})
 }

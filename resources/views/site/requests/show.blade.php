@@ -84,7 +84,7 @@
             <div class="col-md-12 mt-5 p-4 border" id="paymentMethods"></div>
 
             <div class="col-md-12 mt-5">
-                <form action="{{ route('payment.store') }}" method="POST" class="row p-4 border form-validate" id="formPayment">
+                <form action="{{ route('payment.store', $request->id) }}" method="POST" class="row p-4 border form-validate" id="formPayment">
                     @csrf
                     <input type="hidden" name="sessionId" id="sessionId" value="{{ $sessionId }}">
                     <input type="hidden" name="amountPrice" id="amountPrice" value="{{ $request->price }}">
@@ -96,7 +96,15 @@
                     </div>
 
                     <div class="col-md-4">
+                        <x-form.inputtext title="Nome do Dono do Cartão" name="name" placeholder="Nome do Dono do Cartão" class="required"/>
+                    </div>
+
+                    <div class="col-md-4">
                         <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputtext title="Telefone" name="phone" placeholder="Telefone" class="required phone-mask"/>
                     </div>
 
                     <div class="col-md-4">
@@ -115,7 +123,7 @@
                         <x-form.inputnumber title="Ano de Validade" name="year" placeholder="Ano de Validade" min="{{ date('Y') }}" max="{{ 9999 }}" class="required card"/>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <x-form.inputselect title="Parcelas" name="installments" id="installments" :options="[]" class="w-100 card notniceselect"/>
                     </div>
 
