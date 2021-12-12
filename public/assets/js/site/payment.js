@@ -9,7 +9,7 @@ $(document).ready(function(){
 		let element = $(this)
 
 		$('.card').addClass('required').parent().show()
-		if(element.val() == 2){
+		if(element.val() != 0){
 			$('.card').removeClass('required').parent().hide()
 		}
 	})
@@ -32,8 +32,12 @@ $(document).ready(function(){
 
 		$('.alert').remove()
 
-		// Get card token and submit form
-		getCardToken(this)
+		if(false){
+			// Get card token and submit form
+			getCardToken(this)
+		}else{
+			getSenderHash(this)
+		}
 	})
 })
 

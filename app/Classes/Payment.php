@@ -85,7 +85,13 @@ class Payment{
 		foreach($request->vehicles()->distinct('vehicles.id')->get() as $vehicle){
 			$this->data["itemId{$index}"] = $vehicle->id;
 			$this->data["itemDescription{$index}"] = "{$vehicle->brand} | {$vehicle->model} | {$vehicle->year}";
-			$this->data["itemAmount{$index}"] = $vehicle->price;
+
+			if($vehicle->promotion){
+				$this->data["itemAmount{$index}"] = number_format($vehicle->promotion, 2, '.', '');
+			}else{
+				$this->data["itemAmount{$index}"] = number_format($vehicle->price, 2, '.', '');
+			}
+			
 			$this->data["itemQuantity{$index}"] = $vehicle->qtdeRequest($request->id);
 			$index++;
 		}
@@ -120,9 +126,11 @@ class Payment{
 
 	public function bolet(User $user, RequestModel $request, string $senderHash){
 		$this->data = [
+			'email' 					=> $this->email,
+        	'token' 					=> $this->token,
 			'paymentMode' 				=> 'default',
 			'paymentMethod' 			=> 'boleto',
-			'receiverEmail' 			=> config('app.email'),
+			'receiverEmail' 			=> $this->email,
 			'currency' 					=> 'BRL',
 			'extraAmount' 				=> '0.00',
 			'notificationURL' 			=> route('payment.notification'),
@@ -133,18 +141,21 @@ class Payment{
 			'senderPhone' 				=> mb_substr($user->phone, 2),
 			'senderEmail' 				=> $user->email,
 			'senderHash' 				=> $senderHash,
-			'shippingAddressRequired' 	=> false
+			'shippingAddressRequired' 	=> true,
+			'shippingCost' 				=> '0.00'
 		];
 
 		return $this->checkout($request);
 	}
 
-	public function debit(User $user, RequestModel $request, string $senderHash){
+	public function debit(User $user, RequestModel $request, string $senderHash, string $bankName){
 		$this->data = [
+			'email' 					=> $this->email,
+        	'token' 					=> $this->token,
 			'paymentMode' 				=> 'default',
-			'paymentMethod' 			=> 'boleto',
-			'bankName'					=> 'itau',
-			'receiverEmail' 			=> config('app.email'),
+			'paymentMethod' 			=> 'eft',
+			'bankName'					=> $bankName,
+			'receiverEmail' 			=> $this->email,
 			'currency' 					=> 'BRL',
 			'extraAmount' 				=> '0.00',
 			'notificationURL' 			=> route('payment.notification'),
@@ -155,7 +166,8 @@ class Payment{
 			'senderPhone' 				=> mb_substr($user->phone, 2),
 			'senderEmail' 				=> $user->email,
 			'senderHash' 				=> $senderHash,
-			'shippingAddressRequired' 	=> false
+			'shippingAddressRequired' 	=> true,
+			'shippingCost' 				=> '0.00'
 		];
 
 		return $this->checkout($request);
@@ -163,9 +175,11 @@ class Payment{
 
 	public function credit(User $user, RequestModel $request, string $senderHash, string $cardToken, int $installmentQuantity, float $installmentValue, int $noInterestInstallmentQuantity, string $creditCardHolderName, string $creditCardHolderCPF, string $creditCardHolderBirthDate, string $creditCardHolderAreaCode, string $creditCardHolderPhone){
 		$this->data = [
+			'email' 							=> $this->email,
+        	'token' 							=> $this->token,
 			'paymentMode' 						=> 'default',
-			'paymentMethod' 					=> 'boleto',
-			'receiverEmail' 					=> config('app.email'),
+			'paymentMethod' 					=> 'creditCard',
+			'receiverEmail' 					=> $this->email,
 			'currency' 							=> 'BRL',
 			'extraAmount' 						=> '0.00',
 			'notificationURL' 					=> route('payment.notification'),
@@ -176,16 +190,25 @@ class Payment{
 			'senderPhone' 						=> mb_substr($user->phone, 2),
 			'senderEmail' 						=> $user->email,
 			'senderHash' 						=> $senderHash,
-			'shippingAddressRequired' 			=> false,
+			'shippingAddressRequired' 			=> true,
+			'shippingCost' 						=> '0.00',
 			'creditCardToken' 					=> $cardToken,
 			'installmentQuantity'				=> $installmentQuantity,
-			'installmentValue' 					=> $installmentValue,
+			'installmentValue' 					=> number_format($installmentValue, 2, '.', ''),
 			'noInterestInstallmentQuantity' 	=> $noInterestInstallmentQuantity,
 			'creditCardHolderName' 				=> $creditCardHolderName,
 			'creditCardHolderCPF' 				=> $creditCardHolderCPF,
-			'creditCardHolderBirthDate' 		=> $creditCardHolderBirthDate,
+			'creditCardHolderBirthDate' 		=> '01/' . $creditCardHolderBirthDate,
 			'creditCardHolderAreaCode' 			=> $creditCardHolderAreaCode,
-			'creditCardHolderPhone'				=> $creditCardHolderPhone
+			'creditCardHolderPhone'				=> $creditCardHolderPhone,
+			'billingAddressStreet' 				=> 'Av. Brig. Faria Lima',
+	        'billingAddressNumber' 				=> '1384',
+	        'billingAddressComplement' 			=> '5o andar',
+	        'billingAddressDistrict' 			=> 'Jardim Paulistano',
+	        'billingAddressPostalCode' 			=> '01452002',
+	        'billingAddressCity' 				=> 'Sao Paulo',
+	        'billingAddressState' 				=> 'SP',
+	        'billingAddressCountry' 			=> 'BRA'
 		];
 
 		return $this->checkout($request);

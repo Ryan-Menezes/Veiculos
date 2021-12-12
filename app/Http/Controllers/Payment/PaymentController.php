@@ -13,7 +13,7 @@ class PaymentController extends Controller{
 	private $requestmodel;
 
 	public function __construct(RequestModel $requestmodel){
-		$this->payment = new Payment(config('payment.token.sandbox'), config('payment.email'), true);
+		$this->payment = new Payment(config('payment.token.live'), config('payment.email'));
 		$this->requestmodel = $requestmodel;
 	}
 
@@ -54,11 +54,56 @@ class PaymentController extends Controller{
 
 					$response = $this->payment->credit($user, $requestmodel, $data['senderHash'], $data['cardToken'], $installments[0], $installments[1], 2, $data['name'], $cpf, $birth, $phoneAreaCode, $phoneNumber);
 
-					return json_encode($this->payment->errors()[0]->getMessage());
+					if(!empty($this->payment->errors())){
+						return json_encode([
+							'result' => false,
+							'message' => 'Não fopi possível efetuar o pagamento, Ocorreu um erro no processo!'
+						]);
+					}
+
+					$requestmodel->status = 'PE';
+					$requestmodel->save();
+
+					return json_encode([
+						'result' => true,
+						'message' => 'Pagamento efetuado com sucesso!',
+						'response' => $response
+					]);
 					break;
 				case 1:		// DEBIT
+					$response = $this->payment->debit($user, $requestmodel, $data['senderHash'], $data['bank']);
+
+					if(!empty($this->payment->errors())){
+						return json_encode([
+							'result' => false,
+							'message' => 'Não foi possível efetuar o pagamento, Ocorreu um erro no processo!'
+						]);
+					}
+
+					$requestmodel->status = 'PE';
+					$requestmodel->save();
+
+					return json_encode([
+						'result' => true,
+						'message' => 'Pagamento efetuado com sucesso!',
+						'response' => $response
+					]);
 					break;
 				case 2:		// BOLET
+					$response = $this->payment->bolet($user, $requestmodel, $data['senderHash']);
+
+					if(!empty($this->payment->errors())){
+						return json_encode([
+							'result' => false,
+							'message' => 'Não foi possível efetuar o pagamento, Ocorreu um erro no processo!'
+						]);
+					}
+
+					return json_encode([
+						'result' => true,
+						'message' => 'Boleto gerado com sucesso!',
+						'response' => $response
+					]);
 					break;
 				default:
 					return json_encode([

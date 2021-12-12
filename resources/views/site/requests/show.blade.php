@@ -96,31 +96,35 @@
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="Nome do Dono do Cartão" name="name" placeholder="Nome do Dono do Cartão" class="required"/>
+                        <x-form.inputtext title="Nome do Banco" name="bank" placeholder="Nome do Banco" class="debit required"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask"/>
+                        <x-form.inputtext title="Nome do Dono do Cartão" name="name" placeholder="Nome do Dono do Cartão" class="card required"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="Telefone" name="phone" placeholder="Telefone" class="required phone-mask"/>
+                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask card"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="Número do Cartão" name="cardNumber" id="cardNumber" placeholder="Número do Cartão" class="required cardnumber-mask card"/>
+                        <x-form.inputtext title="Telefone" name="phone" placeholder="Telefone" class="card required phone-mask"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="CVV" name="cvv" placeholder="CVV" class="required card" maxlength="3"/>
+                        <x-form.inputtext title="Número do Cartão" name="cardNumber" id="cardNumber" placeholder="Número do Cartão" class="card required cardnumber-mask"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputnumber title="Mês de Validade" name="month" placeholder="Mês de Validade" min="1" max="12" class="required card"/>
+                        <x-form.inputtext title="CVV" name="cvv" placeholder="CVV" class="card required" maxlength="3"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputnumber title="Ano de Validade" name="year" placeholder="Ano de Validade" min="{{ date('Y') }}" max="{{ 9999 }}" class="required card"/>
+                        <x-form.inputnumber title="Mês de Validade" name="month" placeholder="Mês de Validade" min="1" max="12" class="card required"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-form.inputnumber title="Ano de Validade" name="year" placeholder="Ano de Validade" min="{{ date('Y') }}" max="{{ 9999 }}" class="card required"/>
                     </div>
 
                     <div class="col-md-4">

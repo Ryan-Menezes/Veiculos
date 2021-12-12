@@ -10,7 +10,7 @@ $(window.document).ready(function(){
     })
 
     $('*').delegate('.phone-mask', 'focus', function(){
-        $(this).mask('(99)99999-9999')
+        $(this).mask('(99)9999-9999')
         return
     })
 

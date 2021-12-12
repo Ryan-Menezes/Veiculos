@@ -58,7 +58,7 @@ class User extends Authenticatable
         $roles = [
             'name'          => ['required', 'string', 'max:191'],
             'cpf'           => ['required', 'min:11', 'max:11', Rule::unique('users')->ignore($this->id)],
-            'phone'         => ['required', 'min:11', 'max:11', Rule::unique('users')->ignore($this->id)],
+            'phone'         => ['required', 'min:10', 'max:10', Rule::unique('users')->ignore($this->id)],
             'email'         => ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($this->id)],
             'image'         => ['mimes:jpeg,jpg,gif,bmp,png']
         ];
