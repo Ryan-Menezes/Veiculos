@@ -7,14 +7,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestModel;
 use App\Models\Vehicle;
+use App\Classes\Payment;
 use Gate;
 
 class MyRequestController extends Controller
 {
+    private $payment;
     private $requestmodel;
     private $prefix = 'panel.';
 
     public function __construct(RequestModel $requestmodel){
+        $this->payment = new Payment(config('payment.token.live'), config('payment.email'));
         $this->requestmodel = $requestmodel;
     }
 
@@ -73,15 +76,16 @@ class MyRequestController extends Controller
             ]);
         endif;
 
-        $requestmodel->status = 'CA';
+        if($this->payment->cancel($requestmodel->id)){
+            $requestmodel->status = 'CA';
 
-        // Deletando um pedido
-        if($requestmodel->save()):
-            return json_encode([
-                'success'   => true,
-                'message'   => 'Pedido cancelado com sucesso!'
-            ]);
-        endif;
+            if($requestmodel->save()):
+                return json_encode([
+                    'success'   => true,
+                    'message'   => 'Pedido cancelado com sucesso!'
+                ]);
+            endif;
+        }
 
         return json_encode([
             'success'   => false,

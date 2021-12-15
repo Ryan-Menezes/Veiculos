@@ -3,6 +3,10 @@
 @section('title', 'Pedido - ' . $request->id)
 
 @section('content')
+<section class="modalLoading" style="display: none;">
+    <div class="loader"></div>
+</section>
+
 <!-- Breadcrumb End -->
 <div class="breadcrumb-option set-bg" data-setbg="{{ asset('assets/images/site/breadcrumb-bg.jpg') }}">
     <div class="container">
@@ -81,7 +85,19 @@
             </div>
 
             @if($request->status === 'PA')
-            <div class="col-md-12 mt-5 p-4 border" id="paymentMethods"></div>
+            <div class="col-md-12 mt-5 p-4 border" id="paymentMethods">
+                <div class="row">
+                    <div class="col-md-4" id="credit-card-method">
+                        <p class="mb-3"><strong>Cartão de Crédito</strong></p>
+                    </div>
+                    <div class="col-md-4" id="online-debit-method">
+                         <p class="mb-3"><strong>Débito Online</strong></p>
+                    </div>
+                    <div class="col-md-4" id="bolet-method">
+                         <p class="mb-3"><strong>Boleto</strong></p>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-12 mt-5">
                 <form action="{{ route('payment.store', $request->id) }}" method="POST" class="row p-4 border form-validate" id="formPayment">
@@ -95,8 +111,8 @@
                         <x-form.inputselect id="typePayment" title="Tipo de Pagamento" name="type" :options="['Cartão de Crédito', 'Débito Online', 'Boleto']" class="w-100 notniceselect"/>
                     </div>
 
-                    <div class="col-md-4">
-                        <x-form.inputtext title="Nome do Banco" name="bank" placeholder="Nome do Banco" class="debit required"/>
+                    <div class="col-md-4" style="display: none;">
+                        <x-form.inputselect id="bank" title="Banco" name="bank" :options="[]" class="w-100 notniceselect debit"/>
                     </div>
 
                     <div class="col-md-4">
@@ -104,7 +120,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class="required cpf-mask card"/>
+                        <x-form.inputtext title="CPF do Dono do Cartão" name="cpf" placeholder="CPF do Dono do Cartão" class=" cpf-mask card"/>
                     </div>
 
                     <div class="col-md-4">

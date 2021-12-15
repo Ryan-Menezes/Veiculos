@@ -8,9 +8,13 @@ $(document).ready(function(){
 	$('#typePayment').change(function(){
 		let element = $(this)
 
-		$('.card').addClass('required').parent().show()
-		if(element.val() != 0){
-			$('.card').removeClass('required').parent().hide()
+		$('.card').removeClass('required').parent().parent().hide()
+		$('.debit').parent().parent().hide()
+
+		if(element.val() == 0){
+			$('.card').addClass('required').parent().parent().show()
+		}else if(element.val() == 1){
+			$('.debit').parent().parent().show()
 		}
 	})
 
@@ -42,33 +46,31 @@ $(document).ready(function(){
 })
 
 function createAlert(message, type = 'alert-danger'){
-	return $('<div />').addClass(`alert ${type}`).text(message)
+	return $('<div />').addClass(`alert ${type}`).html(message)
 }
 
 function getPaymentMethods(amount){
 	PagSeguroDirectPayment.getPaymentMethods({
 	    amount: amount,
 	    success: function(response) {
-	    	let html = ''
-	    	let images = []
-	    	let url = 'https://stc.pagseguro.uol.com.br'
+	    	const url = 'https://stc.pagseguro.uol.com.br'
 
 	    	// BOLETO
 	    	$.each(response.paymentMethods.BOLETO.options, function(index, option){
-	    		html += `<img src="${url + option.images.SMALL.path}" class="m-1" title="${option.name}" />`
+	    		$('#bolet-method').append(`<img src="${url + option.images.SMALL.path}" class="m-1" title="${option.name}" />`)
 	    	})
 
 	    	// ONLINE DEBIT
 	    	$.each(response.paymentMethods.ONLINE_DEBIT.options, function(index, option){
-	    		html += `<img src="${url + option.images.SMALL.path}" class="m-1" title="${option.name}" />`
+	    		$('#bank').append(`<option value="${option.name}">${option.name}</option>`)
+
+	    		$('#online-debit-method').append(`<img src="${url + option.images.SMALL.path}" class="m-1" title="${option.name}" />`)
 	    	})
 
 	    	// CREDIT CARD
 	    	$.each(response.paymentMethods.CREDIT_CARD.options, function(index, option){
-	    		html += `<img src="${url + option.images.SMALL.path}" class="m-1" title="${option.name}" />`
+	    		$('#credit-card-method').append(`<img src="${url + option.images.SMALL.path}" class="m-1" title="${option.name}" />`)
 	    	})
-
-	        $('#paymentMethods').html(html)
 	    },
 	    error: function(response) {},
 	    complete: function(response) {}
@@ -154,11 +156,19 @@ function getSenderHash(form){
 			contentType: false,
 			dataType: 'json',
 			beforeSend: function(){
-
+				$('.modalLoading').show(100)
+			},
+			complete: function(){
+				$('.modalLoading').hide(100)
 			}
 		})
 		.done(function(response){
-			console.log(response)
+			if(!response.result){
+				$(form).before(createAlert(response.message))
+			}else{
+				$(form).before(createAlert(response.message, 'alert-success'))
+				$(form).remove()
+			}
 		})
 		.fail(function(response){
 			createAlert('Ocorreu um erro ao processar os dados do pagamento!')

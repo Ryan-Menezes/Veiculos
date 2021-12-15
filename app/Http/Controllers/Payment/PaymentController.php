@@ -80,12 +80,9 @@ class PaymentController extends Controller{
 						]);
 					}
 
-					$requestmodel->status = 'PE';
-					$requestmodel->save();
-
 					return json_encode([
 						'result' => true,
-						'message' => 'Pagamento efetuado com sucesso!',
+						'message' => '<a href="' . $response->paymentLink . '" title="Pagar Online" target="_blank">Clique aqui finalizar o pagamento</a> por débito online',
 						'response' => $response
 					]);
 					break;
@@ -101,7 +98,7 @@ class PaymentController extends Controller{
 
 					return json_encode([
 						'result' => true,
-						'message' => 'Boleto gerado com sucesso!',
+						'message' => 'Boleto gerado com sucesso, <a href="' . $response->paymentLink . '" title="Imprimir Boleto" target="_blank">Clique aqui para imprimir o seu boleto!</a>',
 						'response' => $response
 					]);
 					break;

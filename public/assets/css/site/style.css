@@ -3782,3 +3782,17 @@ form.form-validate select.error{
 	align-items: flex-end; 
 	justify-content: flex-end;
 }
+.modalLoading{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.9);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	color: white;
+	z-index: 999999;
+}

@@ -251,7 +251,7 @@ class Payment{
 		$this->post = true;
 		$this->data = [
 			'transactionCode' => $transactionCode,
-			'transactionValue' => $transactionValue
+			'transactionValue' => number_format($transactionValue, 2, '.', ''),
 		];
 
 		$this->url = "https://ws.pagseguro.uol.com.br/v2/transactions/refunds?email={$this->email}&token={$this->token}";
