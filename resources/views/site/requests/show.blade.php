@@ -160,6 +160,11 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
-<script type="text/javascript" src="{{ asset('assets/js/site/payment.js') }}"></script>
+    @if(config('payment.mode') == 'sandbox')
+    <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    @else
+    <script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    @endif
+
+    <script type="text/javascript" src="{{ asset('assets/js/site/payment.js') }}"></script>
 @endsection

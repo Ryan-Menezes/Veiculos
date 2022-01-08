@@ -36,7 +36,7 @@ $(document).ready(function(){
 
 		$('.alert').remove()
 
-		if(false){
+		if($('#typePayment').val() == 0){
 			// Get card token and submit form
 			getCardToken(this)
 		}else{

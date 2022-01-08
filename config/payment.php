@@ -1,6 +1,7 @@
 <?php
 
 return [
+	'mode' => 'sandbox',
 	'token' => [
 		'live' => env('PAYMENT_TOKEN_LIVE', ''),
 		'sandbox' => env('PAYMENT_TOKEN_SANDBOX', '')

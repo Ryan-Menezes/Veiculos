@@ -68,7 +68,8 @@ class RequestController extends Controller
     public function show(RequestModel $requestmodel){
     	if(Gate::denies('request-user', $requestmodel)) abort(404);
 
-        $payment = new Payment(config('payment.token.live'), config('payment.email'));
+        $sandbox = config('payment.mode') == 'sandbox' ? true : false;
+        $payment = new Payment(config('payment.token.' . config('payment.mode')), config('payment.email'), $sandbox);
         $sessionId = $payment->startSession();
 
     	return view('site.requests.show', ['request' => $requestmodel, 'sessionId' => $sessionId]);

@@ -11,20 +11,37 @@ use App\Models\Request as RequestModel;
 class PaymentController extends Controller{
 	private $payment;
 	private $requestmodel;
+	private $status = [
+		1 => 'PA',
+		2 => 'PA',
+		3 => 'AC',
+		4 => 'AC',
+		5 => 'PA',
+		6 => 'CA',
+		7 => 'CA'
+	];
 
 	public function __construct(RequestModel $requestmodel){
-		$this->payment = new Payment(config('payment.token.live'), config('payment.email'));
+		$sandbox = config('payment.mode') == 'sandbox' ? true : false;
+
+		$this->payment = new Payment(config('payment.token.' . config('payment.mode')), config('payment.email'), $sandbox);
 		$this->requestmodel = $requestmodel;
 	}
 
 	public function notification(Request $request){
 		$data = $request->all();
 
-		$transaction = $this->payment->notification($data->notificationCode);
+		$transaction = (object)$this->payment->notification($data['notificationCode']);
 
 		if($transaction){
-			// $this->requestmodel->status = '';
-			// $this->requestmodel->save();
+			$requestmodel  = $this->requestmodel->find($transaction->reference);
+
+			$status = $transaction->status;
+					
+			if(isset($this->status[$status])){
+				$requestmodel->status = $this->status[$status];
+				$requestmodel->save();
+			}
 		}
 	}
 
@@ -57,13 +74,17 @@ class PaymentController extends Controller{
 					if(!empty($this->payment->errors())){
 						return json_encode([
 							'result' => false,
-							'message' => 'Não fopi possível efetuar o pagamento, Ocorreu um erro no processo!'
+							'message' => 'Não foi possível efetuar o pagamento, Ocorreu um erro no processo!'
 						]);
+					};
+
+					$status = ((array)$response->status)[0];
+					
+					if(isset($this->status[$status])){
+						$requestmodel->status = $this->status[$status];
+						$requestmodel->save();
 					}
-
-					$requestmodel->status = 'PE';
-					$requestmodel->save();
-
+					
 					return json_encode([
 						'result' => true,
 						'message' => 'Pagamento efetuado com sucesso!',
@@ -92,7 +113,7 @@ class PaymentController extends Controller{
 					if(!empty($this->payment->errors())){
 						return json_encode([
 							'result' => false,
-							'message' => 'Não foi possível efetuar o pagamento, Ocorreu um erro no processo!'
+							'message' => 'Não foi possível gerar o seu boleto, Ocorreu um erro no processo!'
 						]);
 					}
 
